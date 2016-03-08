@@ -39,11 +39,11 @@ class ContentListViewModel
     var contentListViewModel : ContentListViewModel?
     
    // for Unit Test
-   var mIsUnitTest : Bool = true
+   var mIsUnitTest : Bool = false
     
  
     
-    //This return list of content
+    //This return list of content to View
     func getContentViewModel(position : Int)->ContentViewModel
     {
 
@@ -62,15 +62,18 @@ class ContentListViewModel
             {
                 
                 // ContentListViewModel call this method for populatingData in ViewModel
-                // self.populateDummyContentData()
+                 self.populateDummyContentData()
                 
-                // call controller constructor an populate data
-                 mContentListController = ContentListController()
-                 populateDummyData()
+
+            }
                 
+            else
+            {
                 
-                // And set value of ContentViewModel
-                // setContentViewModel()
+                // Populate Data from controller
+                mContentListController = ContentListController()
+                populateUserViewModel()
+
             }
             
         }
@@ -78,21 +81,33 @@ class ContentListViewModel
     }
     
     
-    // Populate Dummy content data for ViewModel
-    func populateDummyData()
+    // Populate Data from Controller
+    func populateUserViewModel()
     {
         // retrive ContentInfo structire variable
-        let contentInfo = mContentListController?.getContentData(0).info
+        let contentInfo = mContentListController?.getContentData().info
        
         
         // retrive ContentView structire variable
-        let contentView = mContentListController?.getContentData(0).views
+        let contentView = mContentListController?.getContentData().views
         
         
-        let setContentViewModel = ContentViewModel(mContentImage: contentInfo?.mContentImage, mContentTitle: contentInfo?.mContentTitle, mNumberOfViews: contentView?.mNumberOfViews, mNumberOfParticipant: contentView?.mNumberOfParticipant, mLastViewedDate: contentView?.mLastViewedDate, mActionPerformed: contentView?.mActionPerformed)
+        // retrive number of values in ContentInfo Array
+        let fCount = mContentListController!.contentViewModelCount()
         
-        mListOfContentViewModel.append(setContentViewModel)
+        
+        // Add data to ContentViewModel
+        for index in 0...fCount-1
+        {
+            
+            let setContentViewModel = ContentViewModel(mContentImage: contentInfo![index].mContentImage, mContentTitle: contentInfo![index].mContentTitle, mNumberOfViews: contentView![index].mNumberOfViews, mNumberOfParticipant: contentView![index].mNumberOfParticipant, mLastViewedDate: contentView![index].mLastViewedDate, mActionPerformed: contentView![index].mActionPerformed)
+        
+            mListOfContentViewModel.append(setContentViewModel)
+            
+        }
     }
+
+    
     
     
     
@@ -116,12 +131,10 @@ class ContentListViewModel
         }
     
     
-    // This function will call Controller and fetch dummy data from it and set that data to ConetentViewModel
-    func setContentViewModel()
-    {
-        let dummyData1 = mContentListController!.populateDummyContentData()
-        mListOfContentViewModel.append(dummyData1)
-    }
+    
+
+    
+    
     
     
 	

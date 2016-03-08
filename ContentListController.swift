@@ -40,6 +40,9 @@ struct ContentView
 class ContentListController
 {
  
+    // for Unit Test
+    var mIsUnitTest : Bool = true
+    
     
     //create object REST service handler
     var mContentListRestServiceHandler : ContentListRestServiceHandler?
@@ -58,62 +61,66 @@ class ContentListController
     
     init()
     {
-        print("Controller init")
+        // Populate Dummy data if it is in Test
+        if(mIsUnitTest)
+        {
+            populateDummyContentData()
+        }
         
-        //Populate Dummy data for ContentInfo and ContentView
-        setContentInfo()
-        
-        setContentView()
-        
-        //populateDummyContentData()
 
     }
     
-   
+    // Populate Dummy content data calling from Controller
+    func populateDummyContentData()
+    {
+        setContentInfo()
+        setContentView()
+    }
     
+    
+    //Populate Dummy data for ContentInfo
     func setContentInfo()
     {
      
         let dummyData1 = ContentInfo(mContentImage:  "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa")
         
-        let dummyData2 = ContentInfo(mContentImage:  "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa")
+        let dummyData2 = ContentInfo(mContentImage:  "/Users/BridgeLabz/Documents/komal/ShoppingPad/A.jpg", mContentTitle: "Bed")
         
         mContentInfo.append(dummyData1)
         mContentInfo.append(dummyData2)
+        
     }
     
     
+    //Populate Dummy data for ContentView
     func setContentView()
     {
         let dummyData1 = ContentView(mNumberOfViews: 2, mNumberOfParticipant: 4, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Opened")
         
-        let dummyData2 = ContentView(mNumberOfViews: 2, mNumberOfParticipant: 4, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Opened")
+        let dummyData2 = ContentView(mNumberOfViews: 5, mNumberOfParticipant: 1, mLastViewedDate: "03 March 2016", mActionPerformed: "Clicked")
         
         mContentView.append(dummyData1)
         mContentView.append(dummyData2)
     }
-    
+
     
     
     // This method will be called from ViewModel
-    func getContentData(position : Int) ->(info : ContentInfo, views : ContentView)
+    func getContentData() ->(info : [ContentInfo], views : [ContentView])
     {
-       return(mContentInfo[position], mContentView[position])
+        return(mContentInfo, mContentView)
     }
-    
-    
-    
-    
-    // Populate Dummy content data calling from ViewModel
-    func populateDummyContentData()->ContentViewModel
-    {
-        print("Inside Dummy content Data in controller")
-        
-        let dummyData1 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa", mNumberOfViews: 1, mNumberOfParticipant: 2, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Viewed")
-        
-        
-        return dummyData1
 
+    
+    // return number of content in ContentInfo
+    // This method will be called from ViewModel
+    func contentViewModelCount() -> Int
+    {
+       return mContentInfo.count
     }
+    
+    
+    
+
 
 }
