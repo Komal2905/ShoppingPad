@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A4743551C8D34470071B0F6 /* shareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4743541C8D34470071B0F6 /* shareIcon.png */; };
+		0A4743561C8D34470071B0F6 /* shareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4743541C8D34470071B0F6 /* shareIcon.png */; };
+		0A4743571C8D34470071B0F6 /* shareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4743541C8D34470071B0F6 /* shareIcon.png */; };
 		0A56F3631C8BF26F00A3CC27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F3621C8BF26F00A3CC27 /* AppDelegate.swift */; };
 		0A56F3681C8BF26F00A3CC27 /* ContentList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A56F3661C8BF26F00A3CC27 /* ContentList.storyboard */; };
 		0A56F36B1C8BF27000A3CC27 /* ShoppingPad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F3691C8BF27000A3CC27 /* ShoppingPad.xcdatamodeld */; };
@@ -67,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A4743541C8D34470071B0F6 /* shareIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareIcon.png; sourceTree = "<group>"; };
 		0A56F35F1C8BF26F00A3CC27 /* ShoppingPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A56F3621C8BF26F00A3CC27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ShoppingPad/AppDelegate.swift; sourceTree = "<group>"; };
 		0A56F3671C8BF26F00A3CC27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/ContentList.storyboard; sourceTree = "<group>"; };
@@ -239,6 +243,7 @@
 		0A56F3CF1C8C61E700A3CC27 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				0A4743541C8D34470071B0F6 /* shareIcon.png */,
 				0A56F3C71C8C61D100A3CC27 /* b.jpg */,
 				0A56F3C81C8C61D100A3CC27 /* A.jpg */,
 			);
@@ -364,6 +369,7 @@
 				0A56F36D1C8BF27000A3CC27 /* Assets.xcassets in Resources */,
 				0A56F3CC1C8C61D100A3CC27 /* A.jpg in Resources */,
 				0A56F3C91C8C61D100A3CC27 /* b.jpg in Resources */,
+				0A4743551C8D34470071B0F6 /* shareIcon.png in Resources */,
 				0A56F3681C8BF26F00A3CC27 /* ContentList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,6 +379,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A56F3CA1C8C61D100A3CC27 /* b.jpg in Resources */,
+				0A4743561C8D34470071B0F6 /* shareIcon.png in Resources */,
 				0A56F3CD1C8C61D100A3CC27 /* A.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A56F3CB1C8C61D100A3CC27 /* b.jpg in Resources */,
+				0A4743571C8D34470071B0F6 /* shareIcon.png in Resources */,
 				0A56F3CE1C8C61D100A3CC27 /* A.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -647,6 +655,7 @@
 				0A56F38C1C8BF27000A3CC27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A56F38D1C8BF27000A3CC27 /* Build configuration list for PBXNativeTarget "ShoppingPadTests" */ = {
 			isa = XCConfigurationList;
@@ -655,6 +664,7 @@
 				0A56F38F1C8BF27000A3CC27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0A56F3901C8BF27000A3CC27 /* Build configuration list for PBXNativeTarget "ShoppingPadUITests" */ = {
 			isa = XCConfigurationList;
@@ -663,6 +673,7 @@
 				0A56F3921C8BF27000A3CC27 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

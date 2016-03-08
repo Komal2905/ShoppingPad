@@ -14,12 +14,12 @@ class CustomCell: UITableViewCell {
     
     
     // Create outlet
-    @IBOutlet weak var contentTitleLabel: UILabel!
-    @IBOutlet weak var contentActioLabel: UILabel!
-    @IBOutlet weak var contentParticipantLabel: UILabel!
-    @IBOutlet weak var contentViewLabel: UILabel!
-    @IBOutlet weak var contentLastViewedDate: UILabel!
-    @IBOutlet weak var contentImageView: UIImageView!
+    @IBOutlet weak var mContentTitleLabel: UILabel!
+    @IBOutlet weak var mContentActioLabel: UILabel!
+    @IBOutlet weak var mContentParticipantLabel: UILabel!
+    @IBOutlet weak var mContentViewLabel: UILabel!
+    @IBOutlet weak var mContentLastViewedDate: UILabel!
+    @IBOutlet weak var mContentImageView: UIImageView!
     
     
     

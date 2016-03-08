@@ -10,11 +10,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ContentListViewModel.swift"
-            timestampString = "478961571.844778"
+            timestampString = "479046071.223835"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
+            landmarkName = "setContentViewModel()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ContentListController.swift"
+            timestampString = "479045450.795474"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "populateDummyContentData()"
             landmarkType = "5">
          </BreakpointContent>
@@ -25,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ContentListViewModel.swift"
-            timestampString = "478961571.844778"
+            filePath = "ContentListController.swift"
+            timestampString = "479045450.795474"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
-            landmarkName = "init()"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "setContentView()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

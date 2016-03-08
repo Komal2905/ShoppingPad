@@ -12,7 +12,7 @@
 //  Copyright © 2016 BridgeLabz. All rights reserved.
 //
 
-import UIKit
+
 
 // holding required attribute for ContentListViewModel
 struct ContentViewModel
@@ -33,6 +33,11 @@ class ContentListViewModel
     // mListOfContentViewModel holds list of all content
     var mListOfContentViewModel = [ContentViewModel]()
     
+    
+    
+    // contentListViewModel is type of ContentListViewModel
+    var contentListViewModel : ContentListViewModel?
+    
    // for Unit Test
    var mIsUnitTest : Bool = true
     
@@ -41,6 +46,7 @@ class ContentListViewModel
     //This return list of content
     func getContentViewModel(position : Int)->ContentViewModel
     {
+
         return mListOfContentViewModel[position]
     }
     
@@ -54,32 +60,68 @@ class ContentListViewModel
             
             if(mIsUnitTest)
             {
-                self.populateDummyContentData()
                 
+                // ContentListViewModel call this method for populatingData in ViewModel
+                // self.populateDummyContentData()
+                
+                // call controller constructor an populate data
+                 mContentListController = ContentListController()
+                 populateDummyData()
+                
+                
+                // And set value of ContentViewModel
+                // setContentViewModel()
             }
             
         }
         
     }
     
-    // Populate Dummy content data
-    func populateDummyContentData() ->[ContentViewModel]
+    
+    // Populate Dummy content data for ViewModel
+    func populateDummyData()
     {
-        print("Inside Dummy content Data")
-        // Take Dummy Data from Structure
-        let dummyData1 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa", mNumberOfViews: 1, mNumberOfParticipant: 2, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Viewed")
+        // retrive ContentInfo structire variable
+        let contentInfo = mContentListController?.getContentData(0).info
+       
+        
+        // retrive ContentView structire variable
+        let contentView = mContentListController?.getContentData(0).views
         
         
-        let dummyData2 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Bed", mNumberOfViews: 3, mNumberOfParticipant: 4, mLastViewedDate: "3rd March 2016", mActionPerformed: "Opened")
+        let setContentViewModel = ContentViewModel(mContentImage: contentInfo?.mContentImage, mContentTitle: contentInfo?.mContentTitle, mNumberOfViews: contentView?.mNumberOfViews, mNumberOfParticipant: contentView?.mNumberOfParticipant, mLastViewedDate: contentView?.mLastViewedDate, mActionPerformed: contentView?.mActionPerformed)
         
-        
-        mListOfContentViewModel.append(dummyData1)
-        mListOfContentViewModel.append(dummyData2)
-        print("mListOfContentViewModel",mListOfContentViewModel)
-        
-        return mListOfContentViewModel
+        mListOfContentViewModel.append(setContentViewModel)
     }
     
+    
+    
+    // Populate Dummy content data for ViewModel
+        func populateDummyContentData() ->[ContentViewModel]
+        {
+            print("Inside Dummy content Data")
+            // Take Dummy Data from Structure
+            let dummyData1 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa", mNumberOfViews: 1, mNumberOfParticipant: 2, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Viewed")
+    
+    
+            let dummyData2 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Bed", mNumberOfViews: 3, mNumberOfParticipant: 4, mLastViewedDate: "3rd March 2016", mActionPerformed: "Opened")
+    
+    
+            mListOfContentViewModel.append(dummyData1)
+            mListOfContentViewModel.append(dummyData2)
+    
+            print("mListOfContentViewModel",mListOfContentViewModel)
+    
+            return mListOfContentViewModel
+        }
+    
+    
+    // This function will call Controller and fetch dummy data from it and set that data to ConetentViewModel
+    func setContentViewModel()
+    {
+        let dummyData1 = mContentListController!.populateDummyContentData()
+        mListOfContentViewModel.append(dummyData1)
+    }
     
     
 	
