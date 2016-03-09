@@ -23,6 +23,7 @@ struct ContentInfo
 {
     var mContentImage : String?     // Thumbview Image link of the Content
     var mContentTitle : String?     // Title of Content
+    var mContentID : Int?           // Content ID
     
 }
 
@@ -33,6 +34,8 @@ struct ContentView
     var mNumberOfParticipant : Int? // Total participant of Content
     var mLastViewedDate : String?   // last viewed time of Content
     var mActionPerformed : String?  // shows which action has been last performed on Content
+    var mContentID : Int?           // Content ID
+
 }
 
 
@@ -52,6 +55,11 @@ class ContentListController
     
     // object for ContentInfo Structure
     var mContentInfo = [ContentInfo]()
+   
+    
+    var test = ContentView()
+    
+    
     
     
     // object for ContentView Structure
@@ -82,9 +90,9 @@ class ContentListController
     func setContentInfo()
     {
      
-        let dummyData1 = ContentInfo(mContentImage:  "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa")
+        let dummyData1 = ContentInfo(mContentImage:  "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa", mContentID: 1)
         
-        let dummyData2 = ContentInfo(mContentImage:  "/Users/BridgeLabz/Documents/komal/ShoppingPad/A.jpg", mContentTitle: "Bed")
+        let dummyData2 = ContentInfo(mContentImage:  "/Users/BridgeLabz/Documents/komal/ShoppingPad/A.jpg", mContentTitle: "Bed", mContentID: 4)
         
         mContentInfo.append(dummyData1)
         mContentInfo.append(dummyData2)
@@ -95,22 +103,28 @@ class ContentListController
     //Populate Dummy data for ContentView
     func setContentView()
     {
-        let dummyData1 = ContentView(mNumberOfViews: 2, mNumberOfParticipant: 4, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Opened")
+        let dummyData1 = ContentView(mNumberOfViews: 2, mNumberOfParticipant: 4, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Opened",mContentID: 1)
         
-        let dummyData2 = ContentView(mNumberOfViews: 5, mNumberOfParticipant: 1, mLastViewedDate: "03 March 2016", mActionPerformed: "Clicked")
+        let dummyData2 = ContentView(mNumberOfViews: 5, mNumberOfParticipant: 1, mLastViewedDate: "03 March 2016", mActionPerformed: "Clicked",mContentID: 4)
+        
+         let dummyData3 = ContentView(mNumberOfViews: 5, mNumberOfParticipant: 1, mLastViewedDate: "03 March 2016", mActionPerformed: "Clicked",mContentID: 5)
         
         mContentView.append(dummyData1)
         mContentView.append(dummyData2)
+        mContentView.append(dummyData3)
     }
 
     
     
     // This method will be called from ViewModel
-    func getContentData() ->(info : [ContentInfo], views : [ContentView])
+    func getContentData(userId : Int) ->(info : [ContentInfo], views : [ContentView])
     {
+        
+        // return Content info and Content View to View Model
+        // which will set it to ContentViewModel
         return(mContentInfo, mContentView)
     }
-
+    
     
     // return number of content in ContentInfo
     // This method will be called from ViewModel
@@ -118,9 +132,4 @@ class ContentListController
     {
        return mContentInfo.count
     }
-    
-    
-    
-
-
 }

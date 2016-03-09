@@ -23,6 +23,8 @@ struct ContentViewModel
     var mNumberOfParticipant : Int? // Total participant of Content
     var mLastViewedDate : String?   // last viewed time of Content
     var mActionPerformed : String?  // shows which action has been last performed on Content
+    var mContentID : Int?
+    
 }
 
 class ContentListViewModel
@@ -84,31 +86,47 @@ class ContentListViewModel
     // Populate Data from Controller
     func populateUserViewModel()
     {
-        // retrive ContentInfo structire variable
-        let contentInfo = mContentListController?.getContentData().info
-       
-        
-        // retrive ContentView structire variable
-        let contentView = mContentListController?.getContentData().views
+        // Calculate total content in contentInfo from controller
+        let fContentCount = mContentListController!.contentViewModelCount()
         
         
-        // retrive number of values in ContentInfo Array
-        let fCount = mContentListController!.contentViewModelCount()
+        //get Content from Controller
+        let mContentData = mContentListController?.getContentData(1)
+                
+        //get Content Info
+        let mContentInfo = mContentData!.info
+        
+                
+        // retrive ContentView
+        let mContentView = mContentData!.views
         
         
-        // Add data to ContentViewModel
-        for index in 0...fCount-1
+        // Iterate through ContentInfo and ContentView
+        for index1 in 0...fContentCount-1
         {
             
-            let setContentViewModel = ContentViewModel(mContentImage: contentInfo![index].mContentImage, mContentTitle: contentInfo![index].mContentTitle, mNumberOfViews: contentView![index].mNumberOfViews, mNumberOfParticipant: contentView![index].mNumberOfParticipant, mLastViewedDate: contentView![index].mLastViewedDate, mActionPerformed: contentView![index].mActionPerformed)
-        
-            mListOfContentViewModel.append(setContentViewModel)
-            
+            for index2 in 0...fContentCount-1
+            {
+                
+                // if ContentId from ContentInfo and ContentView matches
+                // add it to
+                if(mContentInfo[index1].mContentID == mContentView[index2].mContentID)
+                {
+                    
+                    //  set value from controller to ContentViewModel
+                    // add to ContentViewModel
+                    let setContentViewModel = ContentViewModel(mContentImage: mContentInfo[index1].mContentImage, mContentTitle: mContentInfo[index1].mContentTitle, mNumberOfViews: mContentView[index2].mNumberOfViews, mNumberOfParticipant:  mContentView[index2].mNumberOfParticipant, mLastViewedDate:  mContentView[index2].mLastViewedDate, mActionPerformed:  mContentView[index2].mActionPerformed, mContentID:  mContentView[index2].mContentID)
+                
+                    
+                    mListOfContentViewModel.append(setContentViewModel)
+
+                }
+            }
         }
+
+        
     }
 
-    
-    
     
     
     // Populate Dummy content data for ViewModel
@@ -116,10 +134,10 @@ class ContentListViewModel
         {
             print("Inside Dummy content Data")
             // Take Dummy Data from Structure
-            let dummyData1 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa", mNumberOfViews: 1, mNumberOfParticipant: 2, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Viewed")
+            let dummyData1 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa", mNumberOfViews: 1, mNumberOfParticipant: 2, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Viewed", mContentID: 1)
     
     
-            let dummyData2 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Bed", mNumberOfViews: 3, mNumberOfParticipant: 4, mLastViewedDate: "3rd March 2016", mActionPerformed: "Opened")
+            let dummyData2 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Bed", mNumberOfViews: 3, mNumberOfParticipant: 4, mLastViewedDate: "3rd March 2016", mActionPerformed: "Opened",mContentID: 2)
     
     
             mListOfContentViewModel.append(dummyData1)
