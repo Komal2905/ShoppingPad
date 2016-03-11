@@ -44,7 +44,7 @@ class ContentListController
 {
  
     // for Unit Test
-    var mIsUnitTest : Bool = true
+    var mIsUnitTest : Bool = false
     
     
     //create object REST service handler
@@ -53,13 +53,24 @@ class ContentListController
     // create object of Database handler
     var mContentListDBHandler : ContentListDBHandler?
     
+    
+    // create object of Model
+    var contentListModel : ContentListModel?
+    
+    
+    // create object of  ContentInfoRest of Model
+    
+    var contentInfoRestModel : ContentInfoRestModel?
+    
+    // create object of  ContentViewRest of Model
+    var contentViewRestModel : ContentViewRestModel?
+    
     // object for ContentInfo Structure
+    
     var mContentInfo = [ContentInfo]()
    
     
     var test = ContentView()
-    
-    
     
     
     // object for ContentView Structure
@@ -75,8 +86,132 @@ class ContentListController
             populateDummyContentData()
         }
         
+        else
+        {
+            mContentListRestServiceHandler = ContentListRestServiceHandler()
+            populateUserContentData()
+            InsertIntoLocalDB()
+        }
+        
 
     }
+    
+    // This function will fetch data from Rest Handler
+    func populateUserContentData()
+    {
+        print("Inside Controller's populateUserContentData")
+        
+        //get Data from Rest
+        let contentDataRest = mContentListRestServiceHandler!.getContentData()
+        
+        let contentInfo = contentDataRest.info
+        let contentView = contentDataRest.view
+        
+        
+        // retrive Dictionary from Array
+        for  contentCount in 0...contentInfo.count-1
+        {
+            // define Dictiory for ContentInfo
+            let contentInfoDictionary = contentInfo[contentCount] as! NSDictionary
+            
+            // define Dictiory for ContentView
+            let contentViewDictionary = contentView[contentCount] as! NSDictionary
+            
+            // call ContentListModel and pass Dictionary as arguments
+            contentListModel = ContentListModel(info: contentInfoDictionary,view: contentViewDictionary)
+            
+            //get ContentInfo from model
+            let contentInfoC = contentListModel!.getContentInfoModel()
+            
+            //get ContentVIew from Model
+            let contentViewC = contentListModel!.getContentViewModel()
+
+            setContentInfoRest(contentInfoC)
+            setContentViewRest(contentViewC)
+            
+        } // for loop closed
+        
+//          call ContentInfoRest of ContentListModel
+//        let cInfo = contentInfoRestModel?.getContentInfo()
+//        
+//        print("cInfo",cInfo)
+        
+//        let getContent =  contentInfoRestModel!.getContentInfo()
+//        
+//        print("getContent", getContent)
+        // call ContentViewRest of ContentListModel
+//        contentViewRestModel = ContentViewRestModel(view : contentView)
+//        
+//        let getView = contentViewRestModel!.getContentView()
+//        
+//        print("getView",getView)
+//        print("getContentInfo11",getContentInfo)
+//        
+//        var getContentView = getContent.view
+//        self.setContentInfoRest(getContentInfo)
+//        self.setContentViewRest(getContentView)
+        
+        // set Content Info in Model
+//        contentListModel!.setContentInfo(contentInfo)
+        
+        // set Content View in Model
+//        contentListModel!.setContentView(contentView)
+        
+//        setContentInfoRest(contentDataRest!.info)
+//
+//        
+//        setContentViewRest(contentDataRest!.view)
+    
+       
+    }
+    
+   
+    func InsertIntoLocalDB()
+    {
+        mContentListDBHandler = ContentListDBHandler()
+        
+        print("mContentInfo",mContentInfo)
+       
+        for a in mContentInfo
+
+        {
+           
+            mContentListDBHandler?.InsertContentInfo(a)
+        }
+    }
+    
+    // Fetch ContentInfo From Rest
+    func setContentInfoRest(array :[ContentInfoRestModel])
+    {
+        
+        print("4")
+        for cInfo in array
+        {
+        
+            let set1 = ContentInfo(mContentImage: cInfo.mContentImage, mContentTitle: cInfo.mContentTitle, mContentID: cInfo.mContentID)
+        
+            mContentInfo.append(set1)
+            
+        }
+        
+    }
+    
+    // Fetch ContentView From Rest
+    func setContentViewRest(array :[ContentViewRestModel])
+    {
+        
+        print("5")
+        for cView in array
+        {
+        
+            let set1 = ContentView(mNumberOfViews: cView.mNumberOfViews, mNumberOfParticipant: cView.mNumberOfParticipant, mLastViewedDate: cView.mLastViewedDate, mActionPerformed: cView.mActionPerformed, mContentID: cView.mContentID)
+        
+        
+            mContentView.append(set1)
+        }
+    }
+    
+    
     
     // Populate Dummy content data calling from Controller
     func populateDummyContentData()
@@ -124,6 +259,7 @@ class ContentListController
         // which will set it to ContentViewModel
         return(mContentInfo, mContentView)
     }
+    
     
     
     // return number of content in ContentInfo

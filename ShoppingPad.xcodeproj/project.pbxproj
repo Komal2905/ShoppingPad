@@ -50,6 +50,22 @@
 		0A56F3D51C8C678D00A3CC27 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F3D41C8C678D00A3CC27 /* Util.swift */; };
 		0A56F3D61C8C678D00A3CC27 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F3D41C8C678D00A3CC27 /* Util.swift */; };
 		0A56F3D71C8C678D00A3CC27 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F3D41C8C678D00A3CC27 /* Util.swift */; };
+		0AF57CCF1C92E48E009A31BE /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF57CCE1C92E48E009A31BE /* libsqlite3.0.tbd */; };
+		0AF57CF31C92EEAE009A31BE /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CE91C92EEAE009A31BE /* FMDatabase.m */; };
+		0AF57CF41C92EEAE009A31BE /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CE91C92EEAE009A31BE /* FMDatabase.m */; };
+		0AF57CF51C92EEAE009A31BE /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CE91C92EEAE009A31BE /* FMDatabase.m */; };
+		0AF57CF61C92EEAE009A31BE /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CEB1C92EEAE009A31BE /* FMDatabaseAdditions.m */; };
+		0AF57CF71C92EEAE009A31BE /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CEB1C92EEAE009A31BE /* FMDatabaseAdditions.m */; };
+		0AF57CF81C92EEAE009A31BE /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CEB1C92EEAE009A31BE /* FMDatabaseAdditions.m */; };
+		0AF57CF91C92EEAE009A31BE /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CED1C92EEAE009A31BE /* FMDatabasePool.m */; };
+		0AF57CFA1C92EEAE009A31BE /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CED1C92EEAE009A31BE /* FMDatabasePool.m */; };
+		0AF57CFB1C92EEAE009A31BE /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CED1C92EEAE009A31BE /* FMDatabasePool.m */; };
+		0AF57CFC1C92EEAE009A31BE /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CEF1C92EEAE009A31BE /* FMDatabaseQueue.m */; };
+		0AF57CFD1C92EEAE009A31BE /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CEF1C92EEAE009A31BE /* FMDatabaseQueue.m */; };
+		0AF57CFE1C92EEAE009A31BE /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CEF1C92EEAE009A31BE /* FMDatabaseQueue.m */; };
+		0AF57CFF1C92EEAE009A31BE /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CF21C92EEAE009A31BE /* FMResultSet.m */; };
+		0AF57D001C92EEAE009A31BE /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CF21C92EEAE009A31BE /* FMResultSet.m */; };
+		0AF57D011C92EEAE009A31BE /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AF57CF21C92EEAE009A31BE /* FMResultSet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +111,21 @@
 		0A56F3C71C8C61D100A3CC27 /* b.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = b.jpg; sourceTree = "<group>"; };
 		0A56F3C81C8C61D100A3CC27 /* A.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = A.jpg; sourceTree = "<group>"; };
 		0A56F3D41C8C678D00A3CC27 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		0AF57CCE1C92E48E009A31BE /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		0AF57CE51C92EEAC009A31BE /* ShoppingPad-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShoppingPad-Bridging-Header.h"; sourceTree = "<group>"; };
+		0AF57CE61C92EEAD009A31BE /* ShoppingPadTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShoppingPadTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		0AF57CE71C92EEAD009A31BE /* ShoppingPadUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShoppingPadUITests-Bridging-Header.h"; sourceTree = "<group>"; };
+		0AF57CE81C92EEAE009A31BE /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = ../../../Downloads/new_sp/new_sp/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		0AF57CE91C92EEAE009A31BE /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = ../../../Downloads/new_sp/new_sp/fmdb/FMDatabase.m; sourceTree = "<group>"; };
+		0AF57CEA1C92EEAE009A31BE /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = ../../../Downloads/new_sp/new_sp/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		0AF57CEB1C92EEAE009A31BE /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = ../../../Downloads/new_sp/new_sp/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		0AF57CEC1C92EEAE009A31BE /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = ../../../Downloads/new_sp/new_sp/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
+		0AF57CED1C92EEAE009A31BE /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = ../../../Downloads/new_sp/new_sp/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
+		0AF57CEE1C92EEAE009A31BE /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = ../../../Downloads/new_sp/new_sp/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
+		0AF57CEF1C92EEAE009A31BE /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = ../../../Downloads/new_sp/new_sp/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		0AF57CF01C92EEAE009A31BE /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = ../../../Downloads/new_sp/new_sp/fmdb/FMDB.h; sourceTree = "<group>"; };
+		0AF57CF11C92EEAE009A31BE /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = ../../../Downloads/new_sp/new_sp/fmdb/FMResultSet.h; sourceTree = "<group>"; };
+		0AF57CF21C92EEAE009A31BE /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = ../../../Downloads/new_sp/new_sp/fmdb/FMResultSet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AF57CCF1C92E48E009A31BE /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +157,7 @@
 		0A56F3561C8BF26F00A3CC27 = {
 			isa = PBXGroup;
 			children = (
+				0AF57CCE1C92E48E009A31BE /* libsqlite3.0.tbd */,
 				0A56F39E1C8BF56100A3CC27 /* ShoppingPad */,
 				0A56F3CF1C8C61E700A3CC27 /* Image */,
 				0A56F3791C8BF27000A3CC27 /* ShoppingPadTests */,
@@ -223,6 +256,7 @@
 		0A56F39E1C8BF56100A3CC27 /* ShoppingPad */ = {
 			isa = PBXGroup;
 			children = (
+				0AF57CE41C92E5D6009A31BE /* fmdb */,
 				0A56F3621C8BF26F00A3CC27 /* AppDelegate.swift */,
 				0A56F36C1C8BF27000A3CC27 /* Assets.xcassets */,
 				0A56F36E1C8BF27000A3CC27 /* LaunchScreen.storyboard */,
@@ -256,6 +290,27 @@
 				0A56F3D41C8C678D00A3CC27 /* Util.swift */,
 			);
 			name = ShoppingPadUtil;
+			sourceTree = "<group>";
+		};
+		0AF57CE41C92E5D6009A31BE /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				0AF57CE81C92EEAE009A31BE /* FMDatabase.h */,
+				0AF57CE91C92EEAE009A31BE /* FMDatabase.m */,
+				0AF57CEA1C92EEAE009A31BE /* FMDatabaseAdditions.h */,
+				0AF57CEB1C92EEAE009A31BE /* FMDatabaseAdditions.m */,
+				0AF57CEC1C92EEAE009A31BE /* FMDatabasePool.h */,
+				0AF57CED1C92EEAE009A31BE /* FMDatabasePool.m */,
+				0AF57CEE1C92EEAE009A31BE /* FMDatabaseQueue.h */,
+				0AF57CEF1C92EEAE009A31BE /* FMDatabaseQueue.m */,
+				0AF57CF01C92EEAE009A31BE /* FMDB.h */,
+				0AF57CF11C92EEAE009A31BE /* FMResultSet.h */,
+				0AF57CF21C92EEAE009A31BE /* FMResultSet.m */,
+				0AF57CE51C92EEAC009A31BE /* ShoppingPad-Bridging-Header.h */,
+				0AF57CE61C92EEAD009A31BE /* ShoppingPadTests-Bridging-Header.h */,
+				0AF57CE71C92EEAD009A31BE /* ShoppingPadUITests-Bridging-Header.h */,
+			);
+			name = fmdb;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -404,12 +459,17 @@
 				0A56F3D51C8C678D00A3CC27 /* Util.swift in Sources */,
 				0A56F39B1C8BF4AB00A3CC27 /* ContentListViewController.swift in Sources */,
 				0A56F36B1C8BF27000A3CC27 /* ShoppingPad.xcdatamodeld in Sources */,
+				0AF57CF31C92EEAE009A31BE /* FMDatabase.m in Sources */,
 				0A56F3B41C8BF86100A3CC27 /* ContentListViewObserver.swift in Sources */,
+				0AF57CFC1C92EEAE009A31BE /* FMDatabaseQueue.m in Sources */,
+				0AF57CFF1C92EEAE009A31BE /* FMResultSet.m in Sources */,
 				0A56F3AC1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
 				0A56F3A41C8BF7B800A3CC27 /* ContentListController.swift in Sources */,
 				0A56F3A81C8BF7DE00A3CC27 /* ContentListModel.swift in Sources */,
+				0AF57CF61C92EEAE009A31BE /* FMDatabaseAdditions.m in Sources */,
 				0A56F3C41C8C56E600A3CC27 /* CustomCell.swift in Sources */,
 				0A56F3A01C8BF69800A3CC27 /* ContentListViewModel.swift in Sources */,
+				0AF57CF91C92EEAE009A31BE /* FMDatabasePool.m in Sources */,
 				0A56F3B01C8BF84300A3CC27 /* ContentListDBHandler.swift in Sources */,
 				0A56F3631C8BF26F00A3CC27 /* AppDelegate.swift in Sources */,
 			);
@@ -421,14 +481,19 @@
 			files = (
 				0A56F3AD1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
 				0A56F39C1C8BF4AB00A3CC27 /* ContentListViewController.swift in Sources */,
+				0AF57CFA1C92EEAE009A31BE /* FMDatabasePool.m in Sources */,
+				0AF57CFD1C92EEAE009A31BE /* FMDatabaseQueue.m in Sources */,
 				0A56F3B51C8BF86100A3CC27 /* ContentListViewObserver.swift in Sources */,
 				0A56F3A91C8BF7DE00A3CC27 /* ContentListModel.swift in Sources */,
 				0A56F3A51C8BF7B800A3CC27 /* ContentListController.swift in Sources */,
 				0A56F37B1C8BF27000A3CC27 /* ShoppingPadTests.swift in Sources */,
 				0A56F3C51C8C56E600A3CC27 /* CustomCell.swift in Sources */,
+				0AF57D001C92EEAE009A31BE /* FMResultSet.m in Sources */,
 				0A56F3D61C8C678D00A3CC27 /* Util.swift in Sources */,
 				0A56F3B11C8BF84300A3CC27 /* ContentListDBHandler.swift in Sources */,
+				0AF57CF41C92EEAE009A31BE /* FMDatabase.m in Sources */,
 				0A56F3A11C8BF69800A3CC27 /* ContentListViewModel.swift in Sources */,
+				0AF57CF71C92EEAE009A31BE /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,14 +503,19 @@
 			files = (
 				0A56F3AE1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
 				0A56F39D1C8BF4AB00A3CC27 /* ContentListViewController.swift in Sources */,
+				0AF57CFB1C92EEAE009A31BE /* FMDatabasePool.m in Sources */,
+				0AF57CFE1C92EEAE009A31BE /* FMDatabaseQueue.m in Sources */,
 				0A56F3B61C8BF86100A3CC27 /* ContentListViewObserver.swift in Sources */,
 				0A56F3AA1C8BF7DE00A3CC27 /* ContentListModel.swift in Sources */,
 				0A56F3A61C8BF7B800A3CC27 /* ContentListController.swift in Sources */,
 				0A56F3861C8BF27000A3CC27 /* ShoppingPadUITests.swift in Sources */,
 				0A56F3C61C8C56E600A3CC27 /* CustomCell.swift in Sources */,
+				0AF57D011C92EEAE009A31BE /* FMResultSet.m in Sources */,
 				0A56F3D71C8C678D00A3CC27 /* Util.swift in Sources */,
 				0A56F3B21C8BF84300A3CC27 /* ContentListDBHandler.swift in Sources */,
+				0AF57CF51C92EEAE009A31BE /* FMDatabase.m in Sources */,
 				0A56F3A21C8BF69800A3CC27 /* ContentListViewModel.swift in Sources */,
+				0AF57CF81C92EEAE009A31BE /* FMDatabaseAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,10 +640,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ShoppingPad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.ShoppingPad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ShoppingPad-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -581,10 +654,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ShoppingPad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.ShoppingPad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ShoppingPad-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -592,10 +667,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ShoppingPadTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.ShoppingPadTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ShoppingPadTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShoppingPad.app/ShoppingPad";
 			};
 			name = Debug;
@@ -604,10 +682,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ShoppingPadTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.ShoppingPadTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ShoppingPadTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShoppingPad.app/ShoppingPad";
 			};
 			name = Release;
@@ -615,10 +695,13 @@
 		0A56F3911C8BF27000A3CC27 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ShoppingPadUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.ShoppingPadUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ShoppingPadUITests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_TARGET_NAME = ShoppingPad;
 				USES_XCTRUNNER = YES;
 			};
@@ -627,10 +710,12 @@
 		0A56F3921C8BF27000A3CC27 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = ShoppingPadUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.self.ShoppingPadUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ShoppingPadUITests-Bridging-Header.h";
 				TEST_TARGET_NAME = ShoppingPad;
 				USES_XCTRUNNER = YES;
 			};

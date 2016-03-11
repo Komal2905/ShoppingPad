@@ -74,7 +74,7 @@ class ContentListViewModel
                 
                 // Populate Data from controller
                 mContentListController = ContentListController()
-                populateUserViewModel()
+                populateUserContentData()
 
             }
             
@@ -84,18 +84,20 @@ class ContentListViewModel
     
     
     // Populate Data from Controller
-    func populateUserViewModel()
+    func populateUserContentData()
     {
+        
+         print("6")
         // Calculate total content in contentInfo from controller
         let fContentCount = mContentListController!.contentViewModelCount()
         
-        
         //get Content from Controller
         let mContentData = mContentListController?.getContentData(1)
-                
+        
+        
         //get Content Info
         let mContentInfo = mContentData!.info
-        
+
                 
         // retrive ContentView
         let mContentView = mContentData!.views
@@ -117,12 +119,14 @@ class ContentListViewModel
                     // add to ContentViewModel
                     let setContentViewModel = ContentViewModel(mContentImage: mContentInfo[index1].mContentImage, mContentTitle: mContentInfo[index1].mContentTitle, mNumberOfViews: mContentView[index2].mNumberOfViews, mNumberOfParticipant:  mContentView[index2].mNumberOfParticipant, mLastViewedDate:  mContentView[index2].mLastViewedDate, mActionPerformed:  mContentView[index2].mActionPerformed, mContentID:  mContentView[index2].mContentID)
                 
-                    
                     mListOfContentViewModel.append(setContentViewModel)
 
                 }
+                
             }
         }
+
+
 
         
     }
