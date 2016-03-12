@@ -21,20 +21,20 @@ import UIKit
 // Structure holding ContentInfo
 struct ContentInfo
 {
-    var mContentImage : String?     // Thumbview Image link of the Content
-    var mContentTitle : String?     // Title of Content
-    var mContentID : Int?           // Content ID
+    var mContentImage : String!     // Thumbview Image link of the Content
+    var mContentTitle : String!     // Title of Content
+    var mContentID : Int!           // Content ID
     
 }
 
 // Structure for Content View
 struct ContentView
 {
-    var mNumberOfViews : Int?       // Total views of content
-    var mNumberOfParticipant : Int? // Total participant of Content
-    var mLastViewedDate : String?   // last viewed time of Content
-    var mActionPerformed : String?  // shows which action has been last performed on Content
-    var mContentID : Int?           // Content ID
+    var mNumberOfViews : Int!       // Total views of content
+    var mNumberOfParticipant : Int! // Total participant of Content
+    var mLastViewedDate : String!   // last viewed time of Content
+    var mActionPerformed : String!  // shows which action has been last performed on Content
+    var mContentID : Int!           // Content ID
 
 }
 
@@ -99,8 +99,7 @@ class ContentListController
     // This function will fetch data from Rest Handler
     func populateUserContentData()
     {
-        print("Inside Controller's populateUserContentData")
-        
+
         //get Data from Rest
         let contentDataRest = mContentListRestServiceHandler!.getContentData()
         
@@ -166,25 +165,34 @@ class ContentListController
     }
     
    
+    // this function will insert ContentInfo array in table named ContentInfo
     func InsertIntoLocalDB()
     {
+        // intialize DB handler
         mContentListDBHandler = ContentListDBHandler()
         
-        print("mContentInfo",mContentInfo)
-       
-        for a in mContentInfo
+       // pass one Array at time to Local DB for insertion in ContentInfo table
+        for contentInfo in mContentInfo
 
         {
-           
-            mContentListDBHandler?.InsertContentInfo(a)
+           // pass array for insertion in table ContentInfo
+            mContentListDBHandler?.InsertContentInfo(contentInfo)
         }
+        
+        
+        // pass one Array at time to Local DB for insertion in ContentView table
+        for contentView in mContentView
+        {
+            // pass array for insertion in table ContentInfo
+            mContentListDBHandler?.InsertContentView(contentView)
+        }
+        
+        
     }
     
     // Fetch ContentInfo From Rest
     func setContentInfoRest(array :[ContentInfoRestModel])
     {
-        
-        print("4")
         for cInfo in array
         {
         
@@ -199,13 +207,11 @@ class ContentListController
     // Fetch ContentView From Rest
     func setContentViewRest(array :[ContentViewRestModel])
     {
-        
-        print("5")
+
         for cView in array
         {
         
             let set1 = ContentView(mNumberOfViews: cView.mNumberOfViews, mNumberOfParticipant: cView.mNumberOfParticipant, mLastViewedDate: cView.mLastViewedDate, mActionPerformed: cView.mActionPerformed, mContentID: cView.mContentID)
-        
         
             mContentView.append(set1)
         }

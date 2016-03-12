@@ -78,33 +78,25 @@ class ContentListRestServiceHandler
     // set dummy ContentView Data
     func setContentViewRest()
     {
-        
-        print("2")
-        
         // Json Array define for ContentView
          jsonContentView = [["contentId" : 1 , "mActionPerformed" : "opened" , "mNumberOfParticipant" : 23 , "mNumberOfViews" : 24 , "mLastViewedDate" : "29 May 2015"],["contentId" : 2 , "mActionPerformed" : "Clicked" , "mNumberOfParticipant" : 11 , "mNumberOfViews" : 11 , "mLastViewedDate" : "30 May 2015"]]
 
         
     }
     
+    
     // set dummy ContentInfo Data
     func setContentInfoRest()
     {
-
-        print("11")
          // Json Array define for ContentInfo
-         jsonContentInfo = [["contentTitle" : "Sofa" , "contentId" : 1 , "contentImagePath" : "imagePath.jpeg"] , ["contentTitle" : "Bed" , "contentId" : 2 , "contentImagePath" : "imagePath.jpeg"]]
-        
+         jsonContentInfo = [["contentTitle" : "Sofa" , "contentId" : 1 , "contentImagePath" : "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg"] , ["contentTitle" : "Bed" , "contentId" : 2 , "contentImagePath" : "/Users/BridgeLabz/Documents/komal/ShoppingPad/A.jpg"]]
     }
+    
     
     // This function will be calling from ContentListController
     func getContentData() -> (info :NSMutableArray, view : NSMutableArray)
     {
-
-        print("3")
-        
         return(jsonContentInfo,jsonContentView)
-        
     }
     
     
@@ -115,7 +107,7 @@ class ContentListRestServiceHandler
     }
   
     
-    
+    // here main REST call to URL
     // populate JSon and send it to Controller
     func populateContentData() ->(info : NSArray, view : NSArray)
      {
@@ -127,7 +119,6 @@ class ContentListRestServiceHandler
         let jsonContentView = " [{\"contentId\":\"01\", \"mNumberOfViews\":\"2\", \"mNumberOfParticipant\":\"00\", \"mLastViewedDate\":\"Today\", \"mActionPerformed\":\"Opened\", \"contentId\":\"01\"}]"
         
 
-        
         // Convert json Strong To Data
         let data1 = jsonContentInfo.dataUsingEncoding(NSUTF8StringEncoding)
         
@@ -148,8 +139,7 @@ class ContentListRestServiceHandler
             
             contentViewJsonArray = try NSJSONSerialization.JSONObjectWithData(data2!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
             
-            print("contentJsonArray", contentViewJsonArray)
-            
+           
         }
         catch
         {

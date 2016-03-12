@@ -62,20 +62,15 @@ class ContentListViewModel
             
             if(mIsUnitTest)
             {
-                
                 // ContentListViewModel call this method for populatingData in ViewModel
-                 self.populateDummyContentData()
-                
-
+                self.populateDummyContentData()
             }
                 
             else
             {
-                
                 // Populate Data from controller
                 mContentListController = ContentListController()
                 populateUserContentData()
-
             }
             
         }
@@ -86,8 +81,7 @@ class ContentListViewModel
     // Populate Data from Controller
     func populateUserContentData()
     {
-        
-         print("6")
+     
         // Calculate total content in contentInfo from controller
         let fContentCount = mContentListController!.contentViewModelCount()
         
@@ -126,9 +120,6 @@ class ContentListViewModel
             }
         }
 
-
-
-        
     }
 
     
@@ -136,7 +127,6 @@ class ContentListViewModel
     // Populate Dummy content data for ViewModel
         func populateDummyContentData() ->[ContentViewModel]
         {
-            print("Inside Dummy content Data")
             // Take Dummy Data from Structure
             let dummyData1 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa", mNumberOfViews: 1, mNumberOfParticipant: 2, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Viewed", mContentID: 1)
     
@@ -146,18 +136,10 @@ class ContentListViewModel
     
             mListOfContentViewModel.append(dummyData1)
             mListOfContentViewModel.append(dummyData2)
-    
-            print("mListOfContentViewModel",mListOfContentViewModel)
+
     
             return mListOfContentViewModel
         }
-    
-    
-    
-
-    
-    
-    
     
 	
 }

@@ -13,20 +13,26 @@ import UIKit
 
 class ContentListDBHandler
 {
+    // Database path
+    var databasePath = String!()
+    
+    // Create database named shoppingPad
+    var shoppingPad = FMDatabase!()
     init()
     {
         // create Table COntentInfo and ContentView
         createTable()
+
     }
     
+    // this function create 2 table in DB ContentInfo and COntentView
     func createTable()
     {
         // path to DB
-        var databasePath = "/Users/BridgeLabz/Documents/komal/ShoppingPad/ShoppingPad.sqlite"
-        
+        databasePath = "/Users/BridgeLabz/Documents/komal/ShoppingPad/ShoppingPad.sqlite"
         
         // create ShoppingPad DB
-        let shoppingPad = FMDatabase(path: databasePath as String)
+        shoppingPad = FMDatabase(path: databasePath as String)
         
         
         if shoppingPad == nil
@@ -34,84 +40,110 @@ class ContentListDBHandler
             print("Error: \(shoppingPad.lastErrorMessage())")
         }
         
-        if shoppingPad.open()
+        // check if Database is open
+        if shoppingPad!.open()
         {
-            // create tAble ContentInfo
-            let createContentTable = "CREATE TABLE  IF NOT EXISTS ContentInfo(contentid INT NOT NULL, contentImage VARCHAR(45) NULL,ContentTitle INT)"
+            // create table ContentInfo
+            let createContentInfo = "CREATE TABLE  IF NOT EXISTS ContentInfo(contentid INT NOT NULL, contentImage VARCHAR(100) NULL,ContentTitle INT)"
             
-            if !shoppingPad.executeStatements(createContentTable)
+            // create table ContentView
+            let createContentView = "CREATE TABLE  IF NOT EXISTS ContentView(contentid INT NOT NULL, actionPerformed VARCHAR(45) NULL, numberOfParticipant VARCHAR(45), numberOfViews VARCHAR(45), LastViewedDate VARCHAR(45) )"
+                
+            
+            if !shoppingPad.executeStatements(createContentInfo)
             {
                 print("Error: \(shoppingPad.lastErrorMessage())")
             }
+            
+            if !shoppingPad.executeStatements(createContentView)
+            {
+                print("Error: \(shoppingPad.lastErrorMessage())")
+            }
+            
+            // Close database
             shoppingPad.close()
         }
         else
         {
             print("Error: \(shoppingPad.lastErrorMessage())")
         }
-
-        
-        
         
     }
     
     
     // ContentInfo will be inserted in table  ContentInfo
     // this function will be called from Controller
-    func InsertContentInfo(info: [Array])
+    func InsertContentInfo(info: ContentInfo)
     {
-        var databasePath = "/Users/BridgeLabz/Documents/komal/ShoppingPad/ShoppingPad.sqlite"
-
-            let contactDB = FMDatabase(path: databasePath as String)
+        if shoppingPad == nil
+        {
+            print("Error: \(shoppingPad.lastErrorMessage())")
+        }
             
-            if contactDB == nil
+        if shoppingPad.open()
+        {
+                
+            // retrive value from Array to insert into table
+         
+            let insertContentInfo = "INSERT INTO ContentInfo VALUES(\(info.mContentID),'\(info.mContentImage)','\(info.mContentTitle)') "
+                
+            // excute Insert Query
+            if !shoppingPad.executeStatements(insertContentInfo)
             {
-                print("Error: \(contactDB.lastErrorMessage())")
+                print("Error: \(shoppingPad.lastErrorMessage())")
             }
-            
-            if contactDB.open()
-            {
-                let sql_stmt = "INSERT INTO ContentInfo VALUES() "
-                if !contactDB.executeStatements(sql_stmt)
-                {
-                    print("Error: \(contactDB.lastErrorMessage())")
-                }
-                contactDB.close()
-            }
+                
             else
             {
-                print("Error: \(contactDB.lastErrorMessage())")
+                print("Successfully Inserted in ContentInfo")
             }
+                
+            shoppingPad.close()
+        }
+                
+        else
+        {
+            print("Error: \(shoppingPad.lastErrorMessage())")
+        }
         
     }
     
-    func InsertContentView()
+    
+    //ContentView inserted into ContentView table
+    //This function is callled from controller
+    func InsertContentView(view : ContentView)
     {
-        var databasePath = "/Users/BridgeLabz/Documents/komal/ShoppingPad/ShoppingPad.sqlite"
-        
-        
-        
-        let contactDB = FMDatabase(path: databasePath as String)
-        
-        if contactDB == nil
+
+        if shoppingPad == nil
         {
-            print("Error: \(contactDB.lastErrorMessage())")
+            print("Error: \(shoppingPad.lastErrorMessage())")
         }
         
-        if contactDB.open()
+        if shoppingPad.open()
         {
-            //                let sql_stmt = "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, ADDRESS TEXT, PHONE TEXT)"
-            //                if !contactDB.executeStatements(sql_stmt)
-            //                {
-            //                    print("Error: \(contactDB.lastErrorMessage())")
-            //                }
-            contactDB.close()
+            
+            // retrive value from Array to insert into table
+            
+            let insertContentView = "INSERT INTO ContentView VALUES(\(view.mContentID),'\(view.mActionPerformed)',\(view.mNumberOfParticipant),\(view.mNumberOfViews),'\(view.mLastViewedDate)') "
+            
+            // excute Insert Query
+            if !shoppingPad.executeStatements(insertContentView)
+            {
+                print("Error: \(shoppingPad.lastErrorMessage())")
+            }
+                
+            else
+            {
+                print("Successfully Inserted into ContentView")
+            }
+            
+            shoppingPad.close()
         }
+            
         else
         {
-            print("Error: \(contactDB.lastErrorMessage())")
+            print("Error: \(shoppingPad.lastErrorMessage())")
         }
-        
     }
 
 }

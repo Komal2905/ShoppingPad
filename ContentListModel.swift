@@ -53,34 +53,36 @@ class ContentListModel
         setContentView(view)
         
     }
+    
+    
     // intialze Model with ContentInfo Array
     func setContentInfo(info : NSDictionary)
     {
         
         let set1 = ContentInfoRestModel(mContentImage: info["contentImagePath"] as! String, mContentTitle: info["contentTitle"] as! String, mContentID: info["contentId"] as! Int)
-        
-        print("set1----",set1)
+     
         contentInfoRestModel.append(set1)
     }
+    
 
+    
     // intialze Model with ContentView Array
     func setContentView(view : NSDictionary)
     {
-        print("view00",view)
-        
-        
         let set1 = ContentViewRestModel(mNumberOfViews: view["mNumberOfViews"] as! Int, mNumberOfParticipant: view["mNumberOfParticipant"] as! Int, mLastViewedDate: view["mLastViewedDate"] as! String, mActionPerformed: view["mActionPerformed"] as! String, mContentID: view["contentId"] as! Int)
         
         contentViewRestModel.append(set1)
     }
 
     
+    // return ContentInfoRestModel to Controller
     func getContentInfoModel ()->[ContentInfoRestModel]
     {
-        print("contentInfoRestModel--",contentInfoRestModel)
         return contentInfoRestModel
     }
     
+    
+     // return ContentViewRestModel to Controller
     func getContentViewModel() ->[ContentViewRestModel]
     
     {
