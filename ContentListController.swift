@@ -247,13 +247,16 @@ class ContentListController : PContentListListener
     func updateControllerViewModel(JsonContentView : NSMutableArray)
     {
         //Populate ContentView
+        
         self.populateContentView(JsonContentView)
         mContentViewModelListener!.updateViewModelContentListInformer()
+        
     }
     
     // This method will be called from ViewModel
     func getContentData(userId : Int) ->(info : [ContentInfo], views : [ContentView])
     {
+        
         // return Content info and Content View to View Model
         // which will set it to ContentViewModel
         return(mContentInfo, mContentView)

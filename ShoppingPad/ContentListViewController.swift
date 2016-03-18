@@ -47,7 +47,9 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         activityIndiactor.startAnimating()
+        
         // call init() of ContentListViewModel
+        
         mContentListViewModel = ContentListViewModelHandler(pContentListInformerToViewModel: self)
         
         // populate content list model
@@ -85,8 +87,6 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         // set value to outlet of CustomCell
         // call getContentViewModel function in ViewModel for respective list
         contentViewModel = (mContentListViewModel?.getContentViewModel(indexPath.row))! as  CViewModel
-        
-        
         
         //set content's Title label
         customCell.mContentTitleLabel.text = contentViewModel!.mContentTitle.value

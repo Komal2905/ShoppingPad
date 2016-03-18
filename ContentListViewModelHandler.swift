@@ -33,8 +33,6 @@ struct ContentViewModel
     var mActionPerformed : String!              // shows which action has been last performed on Content
     var mContentID : Int!
     
-//    let mContentA = Observable()
-
 }
 
 class ContentListViewModelHandler : PContentListInformerToViewModel
@@ -48,7 +46,6 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     // Create List Of ViewModel
     
     var mListOfViewModel = [CViewModel]()
-    
     
     // contentListViewModel is type of ContentListViewModel
     var contentListViewModel : ContentListViewModelHandler?
@@ -83,6 +80,7 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     }
     
     // Constructor of ContentListViewModel
+    //ContentListViewModelHandler take argument of class which implements PContentListViewObserver
     init(pContentListInformerToViewModel : PContentListViewObserver)
     {
         // Check if ListOfContentView Is Nill
@@ -99,18 +97,20 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
             {
                 mContentViewObserver = pContentListInformerToViewModel
             }
-                
-            //else
-            //{
-                // Populate Data from controller
-             //   mContentListController = ContentListController()
-              //  populateUserContentData()
-           // }
-            
         }
         
     }
     
+    
+    // This function is called from ContentListViewController
+    func populateContentViewModelData()
+    {
+        mContentListController = ContentListController(pContentListInformerToViewModel: self)
+        mContentListController!.populateUserContentData()
+        
+    }
+
+    // implementing protocol PContentListInformerToViewModel
     func updateViewModelContentListInformer()
     {
         //Populate  ViewModel
@@ -120,14 +120,7 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     }
     
     
-    
-    func populateContentViewModelData()
-    {
-        mContentListController = ContentListController(pContentListInformerToViewModel: self)
-        mContentListController!.populateUserContentData()
-        
-    }
-    // Populate Data from Controller
+        // Populate Data from Controller
     func populateUserContentData()
     {
      
@@ -164,16 +157,9 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
                     //append to array of type CViewModel
                     mListOfViewModel.append(cViewModel)
         
-//                    observeChanges()
-        
-                   //mListOfContentViewModel.append(setContentViewModel)
-                    
-        
-                    
-
+                    //observeChanges()
                 }
             }
-            
             
         }
     
