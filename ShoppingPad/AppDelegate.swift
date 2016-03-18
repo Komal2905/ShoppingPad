@@ -8,6 +8,9 @@
 
 import UIKit
 import CoreData
+import ReactiveKit
+import ReactiveUIKit
+import ReactiveFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

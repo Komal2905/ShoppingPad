@@ -44,10 +44,10 @@ class ContentListDBHandler
         if shoppingPad!.open()
         {
             // create table ContentInfo
-            let createContentInfo = "CREATE TABLE  IF NOT EXISTS ContentInfo(contentid INT NOT NULL, contentImage VARCHAR(100) NULL,ContentTitle INT)"
+            let createContentInfo = "CREATE TABLE  IF NOT EXISTS ContentInfo(contentid INT NOT NULL, contentImage VARCHAR(100) NULL,ContentTitle INT,PRIMARY KEY (contentid))"
             
             // create table ContentView
-            let createContentView = "CREATE TABLE  IF NOT EXISTS ContentView(contentid INT NOT NULL, actionPerformed VARCHAR(45) NULL, numberOfParticipant VARCHAR(45), numberOfViews VARCHAR(45), LastViewedDate VARCHAR(45) )"
+            let createContentView = "CREATE TABLE  IF NOT EXISTS ContentView(contentid INT NOT NULL, actionPerformed VARCHAR(45) NULL, numberOfParticipant VARCHAR(45), numberOfViews VARCHAR(45), LastViewedDate VARCHAR(45),PRIMARY KEY (contentid) )"
                 
             
             if !shoppingPad.executeStatements(createContentInfo)
@@ -145,5 +145,42 @@ class ContentListDBHandler
             print("Error: \(shoppingPad.lastErrorMessage())")
         }
     }
+    
+    // check table is Empty or Not
+    func isEmptyTable(name:String)->Bool
+    {
+        databasePath = "/Users/BridgeLabz/Documents/komal/ShoppingPad/ShoppingPad.sqlite"
+        
+        let shoppingPad = FMDatabase(path: databasePath as String)
+        
+        var isEmpty = Bool()
+        
+        if(shoppingPad.open())
+        {
+            let checkEmpty = shoppingPad.executeQuery("SELECT COUNT(*) FROM \(name)", withArgumentsInArray: [])
+            if checkEmpty.next()
+            {
+                let count = checkEmpty.intForColumnIndex(0)
+                if count > 0
+                {
+                    shoppingPad.close()
+                    isEmpty = false
+                }
+                else
+                {
+                    shoppingPad.close()
+                    isEmpty = true
+                }
+            }
+            else
+            {
+                print("Database error", name)
+            }
+            shoppingPad.close()
+        }
+        print("ISEMPTY", isEmpty)
+        return isEmpty
+    }
+
 
 }

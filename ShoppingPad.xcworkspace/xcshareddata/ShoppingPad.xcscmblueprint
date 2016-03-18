@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C1193FBB044F8526A59DF60B9B01AA458ABD65AB",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "498AA435D8A85B54FB99031E763444E7B8ACCD40" : 0,
+    "C1193FBB044F8526A59DF60B9B01AA458ABD65AB" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "FE0E09D1-96F6-4960-8EC2-9AA5B57205C4",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "498AA435D8A85B54FB99031E763444E7B8ACCD40" : "..\/..\/Downloads\/new_sp",
+    "C1193FBB044F8526A59DF60B9B01AA458ABD65AB" : "ShoppingPad\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "ShoppingPad",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "ShoppingPad.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/priyankakanse123\/new_sp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "498AA435D8A85B54FB99031E763444E7B8ACCD40"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Komal2905\/ShoppingPad.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C1193FBB044F8526A59DF60B9B01AA458ABD65AB"
+    }
+  ]
+}

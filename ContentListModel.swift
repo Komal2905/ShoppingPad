@@ -13,88 +13,130 @@ import UIKit
 
 
 // class for ContentInfo
-struct ContentInfoRestModel
+//struct ContentInfoRestModel
+//{
+//    var mContentImage : String!     // Thumbview Image link of the Content
+//    var mContentTitle : String!    // Title of Content
+//    var mContentID : Int!          // Content ID
+//    
+//
+//
+//    // return ContentInfoRestModel object to controller
+//    
+//
+//}
+//
+//// class for Content View
+//struct ContentViewRestModel
+//{
+//    var mNumberOfViews : Int!       // Total views of content
+//    var mNumberOfParticipant : Int! // Total participant of Content
+//    var mLastViewedDate : String!   // last viewed time of Content
+//    var mActionPerformed : String!  // shows which action has been last performed on Content
+//    var mContentID : Int!           // Content ID
+//    
+//}
+//
+//
+//class ContentListModel
+//{
+//    
+//    // create object of structure
+//    
+//    var contentInfoRestModel = [ContentInfoRestModel]()
+//    
+//    var contentViewRestModel = [ContentViewRestModel]()
+//    
+//
+//    // intialze Model with ContentInfo Array
+//    func setContentInfo(info : NSDictionary)
+//    {
+//        let set1 = ContentInfoRestModel(mContentImage: info["imagesLink"] as! String, mContentTitle: info["display_name"] as! String, mContentID: info["content_id"] as! Int)
+//     
+//        contentInfoRestModel.append(set1)
+//    }
+//    
+//
+//    
+//    // intialze Model with ContentView Array
+//    func setContentView(view : NSDictionary)
+//    {
+//        let set1 = ContentViewRestModel(mNumberOfViews: view["numberOfViews"] as! Int, mNumberOfParticipant: view["numberofparticipant"] as! Int, mLastViewedDate: view["lastViewedDateTime"] as! String, mActionPerformed: view["action"] as! String, mContentID: view["contentId"] as! Int)
+//        
+//        contentViewRestModel.append(set1)
+//    }
+//
+//    
+//    // return ContentInfoRestModel to Controller
+//    func getContentInfoModel ()->[ContentInfoRestModel]
+//    {
+//        print("contentInfoRestModel--",contentInfoRestModel)
+//        return contentInfoRestModel
+//    }
+//    
+//    
+//     // return ContentViewRestModel to Controller
+//    func getContentViewModel() ->[ContentViewRestModel]
+//    
+//    {
+//        return contentViewRestModel
+//        
+//    }
+//    
+//    
+//    // This will call from controller
+//    func getContentData() ->(info : [ContentInfoRestModel], view : [ContentViewRestModel])
+//    {
+//        return(contentInfoRestModel,contentViewRestModel)
+//    }
+
+    //-------------------------------------------------------------------------
+    
+    
+// define classs for ContentInfo
+class ContentInfoRestModel
 {
     var mContentImage : String!     // Thumbview Image link of the Content
     var mContentTitle : String!    // Title of Content
     var mContentID : Int!          // Content ID
-    
-
-
-    // return ContentInfoRestModel object to controller
-    
-
+        
+    // constructor
+    init(info : NSDictionary)
+    {
+        // initialize mContentImage with info Dictionary
+        mContentImage = info["imagesLink"] as! String
+        
+        // initialize mContentTitle with info Dictionary
+        mContentTitle = info["display_name"] as! String
+        
+        // initialize mContentID with info Dictionary
+        mContentID = info["content_id"] as! Int
+    }
+        
 }
 
-// class for Content View
-struct ContentViewRestModel
+
+//define class For ContentView
+
+class ContentViewRestModel
 {
     var mNumberOfViews : Int!       // Total views of content
     var mNumberOfParticipant : Int! // Total participant of Content
     var mLastViewedDate : String!   // last viewed time of Content
     var mActionPerformed : String!  // shows which action has been last performed on Content
     var mContentID : Int!           // Content ID
-    
+
+    // intialize with Dictionary
+    init(view : NSDictionary)
+    {
+        mNumberOfViews = view["numberOfViews"] as! Int
+        mNumberOfParticipant = view["numberofparticipant"] as! Int
+        mLastViewedDate = view["lastViewedDateTime"] as! String
+        mActionPerformed = view["action"] as! String
+        mContentID =  view["contentId"] as! Int
+        
+    }
 }
 
-
-class ContentListModel
-{
-    
-    // create object of structure
-    
-    var contentInfoRestModel = [ContentInfoRestModel]()
-    
-    var contentViewRestModel = [ContentViewRestModel]()
-    
-    init(info: NSDictionary, view: NSDictionary)
-    {
-        setContentInfo(info)
-        setContentView(view)
-        
-    }
-    
-    
-    // intialze Model with ContentInfo Array
-    func setContentInfo(info : NSDictionary)
-    {
-        
-        let set1 = ContentInfoRestModel(mContentImage: info["contentImagePath"] as! String, mContentTitle: info["contentTitle"] as! String, mContentID: info["contentId"] as! Int)
-     
-        contentInfoRestModel.append(set1)
-    }
     
 
-    
-    // intialze Model with ContentView Array
-    func setContentView(view : NSDictionary)
-    {
-        let set1 = ContentViewRestModel(mNumberOfViews: view["mNumberOfViews"] as! Int, mNumberOfParticipant: view["mNumberOfParticipant"] as! Int, mLastViewedDate: view["mLastViewedDate"] as! String, mActionPerformed: view["mActionPerformed"] as! String, mContentID: view["contentId"] as! Int)
-        
-        contentViewRestModel.append(set1)
-    }
-
-    
-    // return ContentInfoRestModel to Controller
-    func getContentInfoModel ()->[ContentInfoRestModel]
-    {
-        return contentInfoRestModel
-    }
-    
-    
-     // return ContentViewRestModel to Controller
-    func getContentViewModel() ->[ContentViewRestModel]
-    
-    {
-        return contentViewRestModel
-        
-    }
-    
-    
-    // This will call from controller
-    func getContentData() ->(info : [ContentInfoRestModel], view : [ContentViewRestModel])
-    {
-        return(contentInfoRestModel,contentViewRestModel)
-    }
-    
-}

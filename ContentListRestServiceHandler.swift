@@ -1,4 +1,4 @@
-//
+		//
 //  ContentListRestServiceHandler.swift
 //  ShoppingPad
 //
@@ -35,7 +35,7 @@ struct ContentViewRest
 class ContentListRestServiceHandler
 {
     // for Unit Test
-    var mIsUnitTest : Bool = true
+    var mIsUnitTest : Bool = false
     
     var jsonContentView = NSMutableArray()
     var jsonContentInfo = NSMutableArray()
@@ -46,25 +46,114 @@ class ContentListRestServiceHandler
     
     // create Array of ContentViewRest for dummy data
     var mContentViewRest = ContentViewRest()
-    var mContentViewRestB = ContentViewRest()
-    var mContentViewRestA = [ContentViewRest]()
-    
+
     
     init()
     {
+        
+        print("REST Constructor")
         // Populate Dummy data if it is in Test
         if(mIsUnitTest)
         {
             populateDummyContentData()
         }
         
-        else
-        {
-            populateContentData()
- 
-        }
+//        else
+//        {
+//           populateContentInfoData()
+//
+//        }
 
     }
+    
+    
+    // Populate ContentInfo From Rest call
+    func populateContentInfoData(pContentListListener : PContentListListener)
+    {
+      // define StringURL
+        let urlString = "http://54.165.130.78:3000/api/v4/contentinfo"
+        
+        //Convert String to URL
+        let url = NSURL(string: urlString)
+        
+        //Session
+        NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler:{
+            (data,response,error) -> Void in
+            
+            if error == nil && data != nil
+            {
+                do
+                {
+                    // Convert NSData to Dictionary where keys are of type String, and values are of any type
+                    self.jsonContentInfo = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
+                    
+                    // Access specific key with value of type String
+                    let Dict = self.jsonContentInfo [1]
+                    
+                    print ("INFO : Dictionary from REST",Dict)
+                    
+                    pContentListListener.updateControllerInfoModel(self.jsonContentInfo)
+
+                    //pContentListListener.updateControllerInfoModel(self.jsonContentInfo)
+                    
+                }
+                
+                catch
+                {
+                   print("Something Went Wrong in REST")
+                }
+                
+            }
+            
+        }).resume()
+
+    }
+    
+    // Populate ContentInfo From Rest call
+    func populateContentViewData(pContentListListener : PContentListListener)
+    {
+        // define StringURL
+        let urlString = "http://54.165.130.78:3000/api/v4/usercontentview"
+        
+        //Convert String to URL
+        let url = NSURL(string: urlString)
+        
+        //Session
+        NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler:{
+            (data,response,error) -> Void in
+            
+            if error == nil && data != nil
+            {
+                do
+                {
+                    // Convert NSData to Dictionary where keys are of type String, and values are of any type
+                    self.jsonContentView = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
+                    
+                    // Access specific key with value of type String
+                    let Dict = self.jsonContentView [1]
+                    
+                    print ("VIEW from REST",Dict)
+                    
+                    //pass ContentView To Protocol
+                    pContentListListener.updateControllerViewModel(self.jsonContentView)
+                    
+                }
+                
+                catch
+                {
+                    print("Something Went Wrong in REST")
+                    
+                }
+                
+            }
+            
+        }).resume()
+        
+        
+        
+        print ("Dictionary from REST",jsonContentInfo)
+    }
+    
     
     
     // populate dummy data for controller in Rest Handler
@@ -109,11 +198,45 @@ class ContentListRestServiceHandler
     
     // here main REST call to URL
     // populate JSon and send it to Controller
-    func populateContentData() ->(info : NSArray, view : NSArray)
+    func populateContentData()// ->(info : NSArray, view : NSArray)
      {
- 
+        // call the json from server
+        var json : NSMutableArray?
+        
+        print("1")
+        
+        NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "http://52.90.50.117:3046/api/v1/user_content_view")!, completionHandler: { (data, response, error) ->
+            Void in
+            
+        print("2")
+          
+            
+            // Check if data was received successfully
+            if error == nil && data != nil
+            {
+                do
+                {
+                    // Convert NSData to Dictionary where keys are of type String, and values are of any type
+                    let mJsonArrayInfo = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
+                    
+                    print("mJsonArrayInfo",mJsonArrayInfo)
+                    
+                    // Access specific key with value of type String
+                    
+                }
+                catch
+                {
+                    print("SOmehting went wrong")
+                }
+            }
+        }).resume()
+        print("3")
+        
+    
+        /*
         // declare Dummy Jason String
 
+        
         let jsonContentInfo = "[{\"contentId\":\"01\", \"contentTitle\":\"Gopal Varma\",\"contentImagePath\":\"00\"}]"
         
         let jsonContentView = " [{\"contentId\":\"01\", \"mNumberOfViews\":\"2\", \"mNumberOfParticipant\":\"00\", \"mLastViewedDate\":\"Today\", \"mActionPerformed\":\"Opened\", \"contentId\":\"01\"}]"
@@ -148,8 +271,9 @@ class ContentListRestServiceHandler
         
         // return Array
         return(contentInfoJsonArray!, contentViewJsonArray!)
+      */
         
      }
-    
+
 
 }

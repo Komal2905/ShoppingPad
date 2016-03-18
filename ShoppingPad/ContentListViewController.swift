@@ -16,28 +16,42 @@
 
 import UIKit
 
+import ReactiveKit
+import ReactiveUIKit
+import ReactiveFoundation
 
-class ContentListViewController: UIViewController, ContentListViewObserver, UITableViewDataSource, UITableViewDelegate
+
+class ContentListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PContentListViewObserver
 {
+    @IBOutlet weak var tableView: UITableView!
+
+    
+    @IBOutlet weak var activityIndiactor: UIActivityIndicatorView!
+    
     // use Utility class function for Round Image
     var util = Util()
-    
     
     //create CustomCell Object for Table Cell
     var customCell : CustomCell = CustomCell()
     
     
     // contentListViewModel is type of ContentListViewModel. It can be null or hold any value.
-    var mContentListViewModel : ContentListViewModel?
+    var mContentListViewModel : ContentListViewModelHandler?
 
     
+    
+    var contentViewModel : CViewModel?
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        activityIndiactor.startAnimating()
         // call init() of ContentListViewModel
-        mContentListViewModel = ContentListViewModel()
+        mContentListViewModel = ContentListViewModelHandler(pContentListInformerToViewModel: self)
+        
+        // populate content list model
+        mContentListViewModel!.populateContentViewModelData()
     }
 
     override func didReceiveMemoryWarning()
@@ -57,8 +71,8 @@ class ContentListViewController: UIViewController, ContentListViewObserver, UITa
     // define number of row
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
+        return (mContentListViewModel!.mListOfViewModel.count)
         
-        return (mContentListViewModel?.mListOfContentViewModel.count)!
     }
     
     
@@ -70,35 +84,69 @@ class ContentListViewController: UIViewController, ContentListViewObserver, UITa
         
         // set value to outlet of CustomCell
         // call getContentViewModel function in ViewModel for respective list
-        let contentViewModel = (mContentListViewModel?.getContentViewModel(indexPath.row))! as  ContentViewModel
+        contentViewModel = (mContentListViewModel?.getContentViewModel(indexPath.row))! as  CViewModel
         
-
+        
         
         //set content's Title label
-        customCell.mContentTitleLabel.text = contentViewModel.mContentTitle!
+        customCell.mContentTitleLabel.text = contentViewModel!.mContentTitle.value
         
         // set content's action label
-        customCell.mContentActioLabel.text = contentViewModel.mActionPerformed!
+        customCell.mContentActioLabel.text = contentViewModel!.mActionPerformed.value
         
         // set content's last viewed date
-        customCell.mContentLastViewedDate.text = contentViewModel.mLastViewedDate!
+        customCell.mContentLastViewedDate.text = contentViewModel!.mLastViewedDate.value
         
         //set content's participant count Lable
-        customCell.mContentParticipantLabel.text = String(format :"%d" ,contentViewModel.mNumberOfParticipant!) + " Participants"
+        customCell.mContentParticipantLabel.text = String(format :"%d" ,contentViewModel!.mNumberOfParticipant.value) + " Participants"
         
         //set content's view count Lable
-        customCell.mContentViewLabel.text = String(format: "%d", contentViewModel.mNumberOfViews!) + " Views "
+        customCell.mContentViewLabel.text = String(format: "%d", contentViewModel!.mNumberOfViews.value) + " Views "
         
         // call Util method for round imageview
         util.roundImage(customCell.mContentImageView)
         
         
-        customCell.mContentImageView.image = UIImage(named: contentViewModel.mContentImage!)
+        customCell.mContentImageView.image = UIImage(named: contentViewModel!.mContentImage.value)
         
+//        tableView.reloadData()
+        
+       
+        self.bind()
         return customCell
         
     }
    
+    //for binding Varible with Outlet
+    func bind()
+    {
+        //bind.mContentTitleLabel Label with contentViewModel!.mContentTitle
+        contentViewModel!.mContentTitle.bindTo(customCell.mContentTitleLabel)
+        
+        
+        //bind mContentLastViewedDate Label with contentViewModel!.mLastViewedDate
+        contentViewModel!.mLastViewedDate.bindTo(customCell.mContentLastViewedDate)
+        
+        
+        //bind mContentActioLabel Label with contentViewModel!.mActionPerformed
+        contentViewModel!.mActionPerformed.bindTo(customCell.mContentActioLabel)
+        
+    }
+    
+    // implemeeting protocol ContentListViewObserver
+    func  updateContentListViewModel()
+    {
+        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+        
+            self.tableView.reloadData()
+            
+            //Stop Activity Indicator
+            self.activityIndiactor.stopAnimating()
+            self.activityIndiactor.hidesWhenStopped = true
+           
+        }
+        
+    }
 
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
@@ -122,7 +170,6 @@ class ContentListViewController: UIViewController, ContentListViewObserver, UITa
         // show alertController in main view
         presentViewController(alertController, animated: true, completion: nil)
     }
-    
     
     
     // When Share button on cell is pressed this Action calls.

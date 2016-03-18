@@ -10,10 +10,12 @@
 //
 
 import UIKit
+import ReactiveKit
+import ReactiveUIKit
+import ReactiveFoundation
 
-protocol ContentListViewObserver
+protocol PContentListViewObserver
 {
-
-    
-
+    // update ContentListViewController
+     func updateContentListViewModel()
 }
