@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ContentListModel.swift"
-            timestampString = "479971515.075356"
+            timestampString = "479990376.211812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "init(view:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -89,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShoppingPad/ContentListViewController.swift"
-            timestampString = "479982379.92329"
+            filePath = "ContentListViewModelHandler.swift"
+            timestampString = "480059549.366666"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "updateViewModelContentListInformer()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

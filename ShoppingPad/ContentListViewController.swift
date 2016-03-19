@@ -50,7 +50,7 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         
         // call init() of ContentListViewModel
         
-        mContentListViewModel = ContentListViewModelHandler(pContentListInformerToViewModel: self)
+        mContentListViewModel = ContentListViewModelHandler(pContentListViewObserver: self)
         
         // populate content list model
         mContentListViewModel!.populateContentViewModelData()
@@ -131,13 +131,20 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         //bind mContentActioLabel Label with contentViewModel!.mActionPerformed
         contentViewModel!.mActionPerformed.bindTo(customCell.mContentActioLabel)
         
+        //bind mNumberOfParticipant with contentViewModel!.mContentParticipantLabel
+        
+        //contentViewModel!.mNumberOfParticipant.bindTo(customCell.mContentParticipantLabel)
+        
+        
     }
     
     // implemeeting protocol ContentListViewObserver
     func  updateContentListViewModel()
     {
+        //tranfer to main thred for asychThred
         dispatch_async(dispatch_get_main_queue()) { [unowned self] in
         
+            // reload table
             self.tableView.reloadData()
             
             //Stop Activity Indicator

@@ -62,6 +62,8 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     // create object of content list ContentListViewObserver
     var mContentViewObserver : PContentListViewObserver?
     
+    // Checking status of Protocol function execution
+    var mCheck : Bool? = true
     
     //This return list of content to View
 //    func getContentViewModel(position : Int)->ContentViewModel
@@ -81,7 +83,7 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     
     // Constructor of ContentListViewModel
     //ContentListViewModelHandler take argument of class which implements PContentListViewObserver
-    init(pContentListInformerToViewModel : PContentListViewObserver)
+    init(pContentListViewObserver : PContentListViewObserver)
     {
         // Check if ListOfContentView Is Nill
         if(mListOfContentViewModel.count == 0)
@@ -95,7 +97,7 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
             
             else
             {
-                mContentViewObserver = pContentListInformerToViewModel
+                mContentViewObserver = pContentListViewObserver
             }
         }
         
@@ -113,10 +115,18 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     // implementing protocol PContentListInformerToViewModel
     func updateViewModelContentListInformer()
     {
+        // fro checking that ConetntInfo and ContentView
+        // are populate we execute this function twice.
+        if (mCheck == false)
+        {
         //Populate  ViewModel
         self.populateUserContentData()
         
+        // call back to ViewController
         mContentViewObserver?.updateContentListViewModel()
+            
+        }
+        mCheck = false
     }
     
     
@@ -140,10 +150,10 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
         
 
         // Iterate through ContentInfo and ContentView
-        for index1 in 0...mContentInfo.count - 1
+        for index1 in 0...mContentInfo.count-1
         {
             
-            for index2 in 0...mContentView.count - 1
+            for index2 in 0...mContentView.count-1
             {
                 
                 // if ContentId from ContentInfo and ContentView matches
@@ -157,7 +167,8 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
                     //append to array of type CViewModel
                     mListOfViewModel.append(cViewModel)
         
-                    //observeChanges()
+                    //Observe changes in property
+                   // observeChanges()
                 }
             }
             
@@ -170,7 +181,7 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     func observeChanges()
     {
         //change value of variable
-        cViewModel.mContentTitle.value = "MyTitle"
+//        cViewModel.mContentTitle.value = "MyTitle"
         
         //observ changes in ContentTitle
         

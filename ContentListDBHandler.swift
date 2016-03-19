@@ -73,7 +73,7 @@ class ContentListDBHandler
     
     // ContentInfo will be inserted in table  ContentInfo
     // this function will be called from Controller
-    func InsertContentInfo(info: ContentInfo)
+    func insertContentInfo(info: ContentInfo)
     {
         if shoppingPad == nil
         {
@@ -111,7 +111,7 @@ class ContentListDBHandler
     
     //ContentView inserted into ContentView table
     //This function is callled from controller
-    func InsertContentView(view : ContentView)
+    func insertContentView(view : ContentView)
     {
 
         if shoppingPad == nil

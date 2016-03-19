@@ -66,10 +66,7 @@ class ContentListController : PContentListListener
     
     var mContentInfo = [ContentInfo]()
    
-    
-    var test = ContentView()
-    
-    
+
     // object for ContentView Structure
     var mContentView = [ContentView]()
     
@@ -87,6 +84,10 @@ class ContentListController : PContentListListener
         else
         {
             mContentViewModelListener = pContentListInformerToViewModel
+            
+            // intialize DB handler
+            mContentListDBHandler = ContentListDBHandler()
+    
         }
         
         
@@ -114,71 +115,7 @@ class ContentListController : PContentListListener
         //get ContentView from Rest
         mContentListRestServiceHandler!.populateContentViewData(self)
         
-        //print("contentDataRest",contentDataRest)
         
-        
-        //        let contentInfo = contentDataRest.info
-        //        let contentView = contentDataRest.view
-        //
-        //
-        //        // retrive Dictionary from Array
-        //        for  contentCount in 0...0//contentInfo.count-1
-        //        {
-        //            // define Dictiory for ContentInfo
-        //            let contentInfoDictionary = contentInfo[contentCount] as! NSDictionary
-        //
-        //            // define Dictiory for ContentView
-        //            let contentViewDictionary = contentView[contentCount] as! NSDictionary
-        //
-        //            // call ContentListModel and pass Dictionary as arguments
-        //            contentListModel = ContentListModel(info: contentInfoDictionary,view: contentViewDictionary)
-        //
-        //            //get ContentInfo from model
-        //            let contentInfoC = contentListModel!.getContentInfoModel()
-        //
-        //            //get ContentVIew from Model
-        //            let contentViewC = contentListModel!.getContentViewModel()
-        //
-        //            setContentInfoRest(contentInfoC)
-        //            setContentViewRest(contentViewC)
-        //
-        //        } // for loop closed
-        
-        
-        
-        
-        //          call ContentInfoRest of ContentListModel
-        //        let cInfo = contentInfoRestModel?.getContentInfo()
-        //
-        //        print("cInfo",cInfo)
-        
-        //        let getContent =  contentInfoRestModel!.getContentInfo()
-        //
-        //        print("getContent", getContent)
-        // call ContentViewRest of ContentListModel
-        //        contentViewRestModel = ContentViewRestModel(view : contentView)
-        //
-        //        let getView = contentViewRestModel!.getContentView()
-        //
-        //        print("getView",getView)
-        //        print("getContentInfo11",getContentInfo)
-        //
-        //        var getContentView = getContent.view
-        //        self.setContentInfoRest(getContentInfo)
-        //        self.setContentViewRest(getContentView)
-        
-        // set Content Info in Model
-        //        contentListModel!.setContentInfo(contentInfo)
-        
-        // set Content View in Model
-        //        contentListModel!.setContentView(contentView)
-        
-        //        setContentInfoRest(contentDataRest!.info)
-        //
-        //        
-        //        setContentViewRest(contentDataRest!.view)
-        
-        //       mContentViewModelListener?.updateViewModelContentListInformer()
     }
     
 
@@ -204,6 +141,12 @@ class ContentListController : PContentListListener
             // append set to ContentInfo's Array
         
             mContentInfo.append(set)
+            
+            // Insert Into Local database
+            
+            // pass array for insertion in table ContentInfo
+            mContentListDBHandler!.insertContentInfo(set)
+        
         }
     }
     
@@ -229,6 +172,9 @@ class ContentListController : PContentListListener
             // append set to ContentView's Array
             mContentView.append(set)
             
+            // pass array for insertion in table ContentInfo
+            mContentListDBHandler?.insertContentView(set)
+            
             }
 
     }
@@ -241,13 +187,15 @@ class ContentListController : PContentListListener
         //Populate ContentInfo
         self.populateContentInfo(JsonContentInfo)
         
+        // Call back to ViewModelHandler
+        mContentViewModelListener!.updateViewModelContentListInformer()
+        
     }
     
     // Function form PContentListListener Protocol
     func updateControllerViewModel(JsonContentView : NSMutableArray)
     {
         //Populate ContentView
-        
         self.populateContentView(JsonContentView)
         mContentViewModelListener!.updateViewModelContentListInformer()
         
@@ -263,13 +211,13 @@ class ContentListController : PContentListListener
     }
     
     
-    
     // return number of content in ContentInfo
     // This method will be called from ViewModel
     func contentViewModelCount() -> Int
     {
         return mContentInfo.count
     }
+    
 
     // this function will insert ContentInfo array in table named ContentInfo
     func InsertIntoLocalDB()
@@ -282,7 +230,7 @@ class ContentListController : PContentListListener
 
         {
            // pass array for insertion in table ContentInfo
-            mContentListDBHandler?.InsertContentInfo(contentInfo)
+            mContentListDBHandler?.insertContentInfo(contentInfo)
         }
         
         
@@ -290,11 +238,15 @@ class ContentListController : PContentListListener
         for contentView in mContentView
         {
             // pass array for insertion in table ContentInfo
-            mContentListDBHandler?.InsertContentView(contentView)
+            mContentListDBHandler?.insertContentView(contentView)
         }
         
         
     }
+    
+    
+   
+    
     
     // Fetch ContentInfo From Rest // Not in use
     func setContentInfoRest(array :[ContentInfoRestModel])
