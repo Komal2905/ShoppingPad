@@ -2,8 +2,8 @@
 //  ContentListModel.swift
 //  ShoppingPad
 //
-//  Purpose : 1) Holds variable for ContentView Model 
-//              2) Intialize its variable from datat which it got from COntroller
+//  Purpose :   1) Holds variable for Content info and ContentView Model
+//              2) Intialize its variable from data which it got from COntroller
 //
 //  Created by Vidya Ramamurthy on 06/03/16.
 //  Copyright © 2016 BridgeLabz. All rights reserved.
@@ -30,7 +30,7 @@ class ContentInfoRestModel
         // initialize mContentID with info Dictionary
         mContentID = info["content_id"] as! Int
     }
-        
+    
 }
 
 

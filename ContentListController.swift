@@ -122,7 +122,7 @@ class ContentListController : PContentListListener
             // define dictionary
             let contentInfoDictionary = JsonContentInfo[contentCount] as! NSDictionary
             
-            //Populate ContentInfo class  of Model with Dicionary
+            //Populate ContentInfoRestModel class  of Model with Dicionary
             let contentInfoRestModel = ContentInfoRestModel(info: contentInfoDictionary)
             
             
@@ -153,7 +153,7 @@ class ContentListController : PContentListListener
             // define dictionary
             let contentViewDictionary = JsonContentView[contentCount] as! NSDictionary
         
-             //Populate ContentInfo class  of Model with Dicionary
+             //Populate ContentViewRestModel class  of Model with Dicionary
             let contentViewRestModel = ContentViewRestModel(view: contentViewDictionary)
             
             // Populate Controller's Structure ContentView

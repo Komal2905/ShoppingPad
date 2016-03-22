@@ -50,6 +50,9 @@
 		0A56F3D51C8C678D00A3CC27 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F3D41C8C678D00A3CC27 /* Util.swift */; };
 		0A56F3D61C8C678D00A3CC27 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F3D41C8C678D00A3CC27 /* Util.swift */; };
 		0A56F3D71C8C678D00A3CC27 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A56F3D41C8C678D00A3CC27 /* Util.swift */; };
+		0A5E88AF1CA1487400650EA4 /* ContentInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E88AE1CA1487400650EA4 /* ContentInfoModel.swift */; };
+		0A5E88B01CA1487400650EA4 /* ContentInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E88AE1CA1487400650EA4 /* ContentInfoModel.swift */; };
+		0A5E88B11CA1487400650EA4 /* ContentInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5E88AE1CA1487400650EA4 /* ContentInfoModel.swift */; };
 		0A625BD11C9FB08900077552 /* ContentInfoViewModelHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A625BD01C9FB08900077552 /* ContentInfoViewModelHandler.swift */; };
 		0A625BD21C9FB08900077552 /* ContentInfoViewModelHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A625BD01C9FB08900077552 /* ContentInfoViewModelHandler.swift */; };
 		0A625BD31C9FB08900077552 /* ContentInfoViewModelHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A625BD01C9FB08900077552 /* ContentInfoViewModelHandler.swift */; };
@@ -134,6 +137,7 @@
 		0A56F3C71C8C61D100A3CC27 /* b.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = b.jpg; sourceTree = "<group>"; };
 		0A56F3C81C8C61D100A3CC27 /* A.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = A.jpg; sourceTree = "<group>"; };
 		0A56F3D41C8C678D00A3CC27 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		0A5E88AE1CA1487400650EA4 /* ContentInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentInfoModel.swift; sourceTree = "<group>"; };
 		0A625BD01C9FB08900077552 /* ContentInfoViewModelHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentInfoViewModelHandler.swift; sourceTree = "<group>"; };
 		0A625BD41C9FB0A100077552 /* ContentInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentInfoController.swift; sourceTree = "<group>"; };
 		0A625BE01C9FBAAE00077552 /* ContentInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentInfoViewController.swift; sourceTree = "<group>"; };
@@ -266,6 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				0A56F3A71C8BF7DE00A3CC27 /* ContentListModel.swift */,
+				0A5E88AE1CA1487400650EA4 /* ContentInfoModel.swift */,
 			);
 			name = ShopingPadModel;
 			sourceTree = "<group>";
@@ -573,6 +578,7 @@
 				0A56F39B1C8BF4AB00A3CC27 /* ContentListViewController.swift in Sources */,
 				0A7483D51C9A870400C412E8 /* PContentListListener.swift in Sources */,
 				0A56F36B1C8BF27000A3CC27 /* ShoppingPad.xcdatamodeld in Sources */,
+				0A5E88AF1CA1487400650EA4 /* ContentInfoModel.swift in Sources */,
 				0A625BE11C9FBAAE00077552 /* ContentInfoViewController.swift in Sources */,
 				0AF57CF31C92EEAE009A31BE /* FMDatabase.m in Sources */,
 				0A56F3B41C8BF86100A3CC27 /* ContentListViewObserver.swift in Sources */,
@@ -601,6 +607,7 @@
 				0A56F3AD1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
 				0A56F39C1C8BF4AB00A3CC27 /* ContentListViewController.swift in Sources */,
 				0AF57CFA1C92EEAE009A31BE /* FMDatabasePool.m in Sources */,
+				0A5E88B01CA1487400650EA4 /* ContentInfoModel.swift in Sources */,
 				0A625BD21C9FB08900077552 /* ContentInfoViewModelHandler.swift in Sources */,
 				0AF57CFD1C92EEAE009A31BE /* FMDatabaseQueue.m in Sources */,
 				0A56F3B51C8BF86100A3CC27 /* ContentListViewObserver.swift in Sources */,
@@ -629,6 +636,7 @@
 				0A56F3AE1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
 				0A56F39D1C8BF4AB00A3CC27 /* ContentListViewController.swift in Sources */,
 				0AF57CFB1C92EEAE009A31BE /* FMDatabasePool.m in Sources */,
+				0A5E88B11CA1487400650EA4 /* ContentInfoModel.swift in Sources */,
 				0A625BD31C9FB08900077552 /* ContentInfoViewModelHandler.swift in Sources */,
 				0AF57CFE1C92EEAE009A31BE /* FMDatabaseQueue.m in Sources */,
 				0A56F3B61C8BF86100A3CC27 /* ContentListViewObserver.swift in Sources */,

@@ -54,6 +54,9 @@ class ContentListRestServiceHandler
         if(mIsUnitTest)
         {
             populateDummyContentData()
+            
+            // Populate dummy data for ContentINFO
+            populateContentDetailsDummy()
         }
         
 //        else
@@ -69,7 +72,7 @@ class ContentListRestServiceHandler
     func populateContentInfoData(pContentListListener : PContentListListener)
     {
       // define StringURL
-        let urlString = "http://54.86.64.100:3000/api/v4/contentinfo"
+        let urlString = "http://54.86.64.100:3000/api/v4/content/info"
         
         //Convert String to URL
         let url = NSURL(string: urlString)
@@ -104,7 +107,7 @@ class ContentListRestServiceHandler
     func populateContentViewData(pContentListListener : PContentListListener)
     {
         // define StringURL
-        let urlString = "http://54.86.64.100:3000/api/v4/usercontentview"
+        let urlString = "http://54.86.64.100:3000/api/v4/content/View"
         
         //Convert String to URL
         let url = NSURL(string: urlString)
@@ -134,11 +137,18 @@ class ContentListRestServiceHandler
             }
             
         }).resume()
-        
-        
-        
-        print ("Dictionary from REST",jsonContentInfo)
+      
     }
+    
+    // populate Dummy COntentDeatils and COntentParticipant for COntentInfo
+    func populateContentDetailsDummy()
+    {
+        print("jsonContentInfo",jsonContentInfo)
+        jsonContentInfo = [["content_id" : 1 , "display_name" : "opened"],["content_id" : 2 , "display_name" : "Clicked"],["content_id" : 3 , "display_name" : "Shared"]]
+        
+        jsonContentView =  [["contentId" : 1 , "action" : "opened" , "mNumberOfParticipant" : 23 , "numberOfViews" : 24 , "lastViewedDateTime" : "29 May 2015", "displayProfile" :"Display","userId" : 2,"firstName" :"myName"],["contentId" : 2 , "action" : "opened" , "mNumberOfParticipant" : 23 , "numberOfViews" : 24 , "lastViewedDateTime" : "29 May 2015", "displayProfile" :"Display","userId" : 2,"firstName" :"myName"],["contentId" : 3 , "action" : "opened" , "mNumberOfParticipant" : 23 , "numberOfViews" : 24 , "lastViewedDateTime" : "29 May 2015", "displayProfile" :"Display","userId" : 3,"firstName" :"myName"]]
+    }
+    
     
     
     
@@ -154,7 +164,7 @@ class ContentListRestServiceHandler
     func setContentViewRest()
     {
         // Json Array define for ContentView
-         jsonContentView = [["contentId" : 1 , "mActionPerformed" : "opened" , "mNumberOfParticipant" : 23 , "mNumberOfViews" : 24 , "mLastViewedDate" : "29 May 2015"],["contentId" : 2 , "mActionPerformed" : "Clicked" , "mNumberOfParticipant" : 11 , "mNumberOfViews" : 11 , "mLastViewedDate" : "30 May 2015"]]
+        jsonContentView = [["contentId" : 1 , "mActionPerformed" : "opened" , "mNumberOfParticipant" : 23 , "mNumberOfViews" : 24 , "mLastViewedDate" : "29 May 2015"],["contentId" : 2 , "mActionPerformed" : "Clicked" , "mNumberOfParticipant" : 11 , "mNumberOfViews" : 11 , "mLastViewedDate" : "30 May 2015"]]
 
         
     }
@@ -171,6 +181,7 @@ class ContentListRestServiceHandler
     // This function will be calling from ContentListController
     func getContentData() -> (info :NSMutableArray, view : NSMutableArray)
     {
+        print("jsonContentInfo",jsonContentInfo)
         return(jsonContentInfo,jsonContentView)
     }
     

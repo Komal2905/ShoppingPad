@@ -37,8 +37,7 @@ struct ContentParticipant
 class ContentInfoController
 {
     // for Unit Test
-    var mIsUnitTest : Bool = true
-    
+    var mIsUnitTest : Bool = false
     
     // create array object of ContentDetails
     var mContentDetails = [ContentDetails]()
@@ -47,12 +46,77 @@ class ContentInfoController
     
     var mContentParticipant = [ContentParticipant]()
     
+    //create object REST service handler
+    var mContentListRestServiceHandler : ContentListRestServiceHandler?
+    
     init()
     {
         if(mIsUnitTest)
         {
             self.populateDummyDataController()
         }
+        
+        else
+        {
+           self.populateDataFromRest()
+        }
+    }
+    
+    // this function in calling Rest Service and populate ContentInfoModel
+    // then in popultae Controller
+    func populateDataFromRest()
+    {
+        // all Rest service
+        mContentListRestServiceHandler = ContentListRestServiceHandler()
+        
+        // populate DUmmy Data fro ContentDetails
+        mContentListRestServiceHandler!.populateContentDetailsDummy()
+
+        
+        let mContentInfoFroRest =  mContentListRestServiceHandler!.getContentData()
+        
+        //seperate ContentInfo
+        let mContentData = mContentInfoFroRest.info
+        
+        for cCount in 0...mContentData.count-1
+        {
+
+            // populate ContentDetailsModel
+            let contentDetailDictionary = mContentData[cCount] as! NSDictionary
+            
+            // populate ContentDetailsModel
+            let mContentDetailsModel = ContentDetailsModel(contentDetail: contentDetailDictionary)
+            
+            // populate COntrollers structure ContentDetails
+            let set = ContentDetails(mContentID: mContentDetailsModel.mContentID, mContentTitle: mContentDetailsModel.mContentTitle)
+            
+            mContentDetails.append(set)
+            
+        }
+        
+        //seperate ContentParticipant
+        let mContentParticipants = mContentInfoFroRest.view
+        
+         print("mContentParticipants",mContentParticipants.count)
+        
+        for pCount in 0...mContentParticipants.count-1
+        {
+            // populate ContentDetailsModel
+            
+            let contentParticipantDictionary = mContentParticipants[pCount] as! NSDictionary
+        
+            // populate ContentParticipantModel
+            let mContentParticipantModel = ContentParticipantModel(contentParticipant: contentParticipantDictionary)
+            
+            
+            // populate COntrollers structure ContentDetails
+            let set = ContentParticipant(mParticipantName: mContentParticipantModel.mParticipantName, mParticipantLastOpenedDate: mContentParticipantModel.mParticipantLastOpenedDate, mParticipantAction: mContentParticipantModel.mParticipantAction, mParticipantViewCount: mContentParticipantModel.mParticipantViewCount, mParticipantImageView: mContentParticipantModel.mParticipantImageView, mParticipantId: mContentParticipantModel.mParticipantId, mContentID: mContentParticipantModel.mContentID)
+            
+            mContentParticipant.append(set)
+            
+        }
+
+        
     }
     
     // This method will be called from ContentInfoViewModelHandler
@@ -67,6 +131,8 @@ class ContentInfoController
     // this function populate dummy data from controller
     func populateDummyDataController()
     {
+
+
         self.setDummyContentDetails()
         self.setDummyContentparticipant()
 
