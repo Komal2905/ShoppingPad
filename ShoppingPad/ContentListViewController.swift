@@ -40,7 +40,7 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
 
     
     
-    var contentViewModel : CViewModel?
+    var contentViewModel : ContentListViewModel?
     
     override func viewDidLoad()
     {
@@ -49,11 +49,11 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         activityIndiactor.startAnimating()
         
         // call init() of ContentListViewModel
-        
         mContentListViewModel = ContentListViewModelHandler(pContentListViewObserver: self)
         
         // populate content list model
         mContentListViewModel!.populateContentViewModelData()
+        
     }
 
     override func didReceiveMemoryWarning()
@@ -83,10 +83,12 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     {
         customCell = tableView.dequeueReusableCellWithIdentifier("cell") as! CustomCell
         
+        //accept multiple line to text field
+        util.multiLineLabel(customCell.mContentLastViewedDate)
         
         // set value to outlet of CustomCell
         // call getContentViewModel function in ViewModel for respective list
-        contentViewModel = (mContentListViewModel?.getContentViewModel(indexPath.row))! as  CViewModel
+        contentViewModel = (mContentListViewModel?.getContentViewModel(indexPath.row))! as  ContentListViewModel
         
         //set content's Title label
         customCell.mContentTitleLabel.text = contentViewModel!.mContentTitle.value
@@ -96,22 +98,22 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         
         // set content's last viewed date
         customCell.mContentLastViewedDate.text = contentViewModel!.mLastViewedDate.value
+ 
         
+        // Uncomment following In ViewModel is All STRING
+        print(String(contentViewModel!.mNumberOfParticipant.value) + " Participants")
         //set content's participant count Lable
-        customCell.mContentParticipantLabel.text = String(format :"%d" ,contentViewModel!.mNumberOfParticipant.value) + " Participants"
+        customCell.mContentParticipantLabel.text = String(contentViewModel!.mNumberOfParticipant.value) + " Participants"
         
         //set content's view count Lable
-        customCell.mContentViewLabel.text = String(format: "%d", contentViewModel!.mNumberOfViews.value) + " Views "
+        customCell.mContentViewLabel.text = (String(contentViewModel!.mNumberOfViews.value) + " Views ")
         
         // call Util method for round imageview
         util.roundImage(customCell.mContentImageView)
         
         
         customCell.mContentImageView.image = UIImage(named: contentViewModel!.mContentImage.value)
-        
-//        tableView.reloadData()
-        
-       
+ 
         self.bind()
         return customCell
         
@@ -133,8 +135,10 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         
         //bind mNumberOfParticipant with contentViewModel!.mContentParticipantLabel
         
-        //contentViewModel!.mNumberOfParticipant.bindTo(customCell.mContentParticipantLabel)
+        contentViewModel!.mNumberOfParticipant.bindTo(customCell.mContentParticipantLabel)
         
+        // bind NumberOfViews to ViewsLabel
+        contentViewModel?.mNumberOfViews.bindTo(customCell.mContentViewLabel)
         
     }
     
@@ -193,7 +197,6 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     // when clicked this button it will show large imageView
     @IBAction func mShowLargeImage(sender: AnyObject)
     {
-        
         showAlertController("Large Image will be here")
 
     }

@@ -14,15 +14,30 @@ import ReactiveKit
 import ReactiveUIKit
 import ReactiveFoundation
 
-// Holds variable
-struct CViewModel
+// Holds variable for ViewModel ContentList
+struct ContentListViewModel
 {
     var mContentImage : Observable<String>              // Thumbview Image link of the Content
     var mContentTitle : Observable<String>              // Title of Content
-    var mNumberOfViews : Observable< Int>               // Total views of content
-    var mNumberOfParticipant : Observable<Int>          // Total participant of Content
+    var mNumberOfViews : Observable<String>             // Total views of content
+    var mNumberOfParticipant : Observable<String>        // Total participant of Content
     var mLastViewedDate : Observable<String>            // last viewed time of Content
     var mActionPerformed : Observable<String>           // shows which action has been lastperformed on Content
-    var mContentID : Observable<Int>
+    var mContentID : Observable<String>
 }
 
+// Structure holds variable For COntentInfoViewModel
+// It give list of participants for Content
+
+struct ContentInfoViewModel
+{
+    var mContentID : Observable<String>
+    var mContentTitle : Observable<String>
+    var mParticipantName : Observable<String>
+    var mParticipantLastOpenedDate : Observable<String>
+    var mParticipantAction : Observable<String>
+    var mParticipantViewCount : Observable<String>
+    var mParticipantImageView : Observable<String>
+    var mParticipantId : Observable<String>
+
+}

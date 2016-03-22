@@ -50,8 +50,6 @@ class ContentListRestServiceHandler
     
     init()
     {
-        
-        print("REST Constructor")
         // Populate Dummy data if it is in Test
         if(mIsUnitTest)
         {
@@ -71,7 +69,7 @@ class ContentListRestServiceHandler
     func populateContentInfoData(pContentListListener : PContentListListener)
     {
       // define StringURL
-        let urlString = "http://54.165.130.78:3000/api/v4/contentinfo"
+        let urlString = "http://54.86.64.100:3000/api/v4/contentinfo"
         
         //Convert String to URL
         let url = NSURL(string: urlString)
@@ -87,15 +85,8 @@ class ContentListRestServiceHandler
                     // Convert NSData to Dictionary where keys are of type String, and values are of any type
                     self.jsonContentInfo = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
                     
-                    // Access specific key with value of type String
-                    let Dict = self.jsonContentInfo [1]
-                    
-                    print ("INFO : Dictionary from REST",Dict)
-                    
+                    // callback to controller protocol
                     pContentListListener.updateControllerInfoModel(self.jsonContentInfo)
-
-                    //pContentListListener.updateControllerInfoModel(self.jsonContentInfo)
-                    
                 }
                 
                 catch
@@ -113,7 +104,7 @@ class ContentListRestServiceHandler
     func populateContentViewData(pContentListListener : PContentListListener)
     {
         // define StringURL
-        let urlString = "http://54.165.130.78:3000/api/v4/usercontentview"
+        let urlString = "http://54.86.64.100:3000/api/v4/usercontentview"
         
         //Convert String to URL
         let url = NSURL(string: urlString)
@@ -128,11 +119,6 @@ class ContentListRestServiceHandler
                 {
                     // Convert NSData to Dictionary where keys are of type String, and values are of any type
                     self.jsonContentView = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
-                    
-                    // Access specific key with value of type String
-                    let Dict = self.jsonContentView [1]
-                    
-                    print ("VIEW from REST",Dict)
                     
                     //pass ContentView To Protocol
                     pContentListListener.updateControllerViewModel(self.jsonContentView)
@@ -233,47 +219,7 @@ class ContentListRestServiceHandler
         print("3")
         
     
-        /*
-        // declare Dummy Jason String
-
-        
-        let jsonContentInfo = "[{\"contentId\":\"01\", \"contentTitle\":\"Gopal Varma\",\"contentImagePath\":\"00\"}]"
-        
-        let jsonContentView = " [{\"contentId\":\"01\", \"mNumberOfViews\":\"2\", \"mNumberOfParticipant\":\"00\", \"mLastViewedDate\":\"Today\", \"mActionPerformed\":\"Opened\", \"contentId\":\"01\"}]"
-        
-
-        // Convert json Strong To Data
-        let data1 = jsonContentInfo.dataUsingEncoding(NSUTF8StringEncoding)
-        
-        let data2 = jsonContentView.dataUsingEncoding(NSUTF8StringEncoding)
-
-        // define 2 Array
-        var contentInfoJsonArray = NSArray?()
-        var contentViewJsonArray = NSArray?()
-        
-        
-        do
-        {
-            // Read data form jason and add it to Dictionary
-            contentInfoJsonArray = try NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
-            
-            
-            print("contentJsonArray", contentInfoJsonArray)
-            
-            contentViewJsonArray = try NSJSONSerialization.JSONObjectWithData(data2!, options: NSJSONReadingOptions.MutableContainers) as? NSArray
-            
-           
-        }
-        catch
-        {
-            print("Some Problem ")
-        }
-        
-        // return Array
-        return(contentInfoJsonArray!, contentViewJsonArray!)
-      */
-        
-     }
+    }
 
 
 }

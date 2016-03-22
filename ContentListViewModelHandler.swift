@@ -14,10 +14,7 @@
 
 
 
-// holding required attribute for ContentListViewModel
-
 // Import Reactive Framework
-
 import ReactiveKit
 import ReactiveUIKit
 import ReactiveFoundation
@@ -41,23 +38,22 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     var mContentListController : ContentListController?
     
     // mListOfContentViewModel holds list of all content
+    // This holds array for Dummy Data
     var mListOfContentViewModel = [ContentViewModel]()
     
     // Create List Of ViewModel
     
-    var mListOfViewModel = [CViewModel]()
+    var mListOfViewModel = [ContentListViewModel]()
     
+    //create object of View Model
+    var cViewModel : ContentListViewModel!
+
     // contentListViewModel is type of ContentListViewModel
-    var contentListViewModel : ContentListViewModelHandler?
+    //var contentListViewModel : ContentListViewModelHandler?
     
     // for Unit Test
     var mIsUnitTest : Bool = false
     
-    var setContentViewModel = ContentViewModel()
-    
-    //create object of View Model
-    
-    var cViewModel : CViewModel!
     
     // create object of content list ContentListViewObserver
     var mContentViewObserver : PContentListViewObserver?
@@ -65,16 +61,18 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     // Checking status of Protocol function execution
     var mCheck : Bool? = true
     
-    //This return list of content to View
-//    func getContentViewModel(position : Int)->ContentViewModel
-//
-//
-//        //return mListOfContentViewModel[position]
-//        
-//    }
-    
+    //This return list of ContentViewModel to View ; For Dummy Data
+    /*
+    func getContentViewModel(position : Int)->ContentViewModel
+
+
+        //return mListOfContentViewModel[position]
+        
+    }
+    */
+
 // this return List of content from ViewModel
-    func getContentViewModel(position : Int)-> CViewModel
+    func getContentViewModel(position : Int)-> ContentListViewModel
     {
         
         return mListOfViewModel[position]
@@ -85,20 +83,19 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     //ContentListViewModelHandler take argument of class which implements PContentListViewObserver
     init(pContentListViewObserver : PContentListViewObserver)
     {
-        // Check if ListOfContentView Is Nill
-        if(mListOfContentViewModel.count == 0)
+        if(mIsUnitTest)
         {
+            // ContentListViewModel call this method for populating Dummy Data in ViewModel
+            self.populateDummyContentData()
+        }
             
-            if(mIsUnitTest)
-            {
-                // ContentListViewModel call this method for populatingData in ViewModel
-                self.populateDummyContentData()
-            }
-            
-            else
-            {
-                mContentViewObserver = pContentListViewObserver
-            }
+        else
+        {
+            mContentViewObserver = pContentListViewObserver
+                
+            // call Controller Constructor
+            mContentListController = ContentListController(pContentListInformerToViewModel: self)
+
         }
         
     }
@@ -107,7 +104,6 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     // This function is called from ContentListViewController
     func populateContentViewModelData()
     {
-        mContentListController = ContentListController(pContentListInformerToViewModel: self)
         mContentListController!.populateUserContentData()
         
     }
@@ -115,14 +111,14 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     // implementing protocol PContentListInformerToViewModel
     func updateViewModelContentListInformer()
     {
-        // fro checking that ConetntInfo and ContentView
+        // for checking that ConetntInfo and ContentView
         // are populate we execute this function twice.
         if (mCheck == false)
         {
         //Populate  ViewModel
         self.populateUserContentData()
         
-        // call back to ViewController
+        // callback to ContentListViewController
         mContentViewObserver?.updateContentListViewModel()
             
         }
@@ -130,13 +126,9 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     }
     
     
-        // Populate Data from Controller
+    // Populate Data from Controller
     func populateUserContentData()
     {
-     
-        // Calculate total content in contentInfo from controller
-        let fContentCount = mContentListController!.contentViewModelCount()
-        
         //get Content from Controller
         let mContentData = mContentListController!.getContentData(1)
         
@@ -161,14 +153,15 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
                 if(mContentInfo[index1].mContentID == mContentView[index2].mContentID)
                 {
                     // Intialzed CViewModel of ViewModel
-                    cViewModel = CViewModel(mContentImage : Observable(mContentInfo[index1].mContentImage), mContentTitle : Observable(mContentInfo[index1].mContentTitle), mNumberOfViews : Observable(mContentView[index2].mNumberOfViews),mNumberOfParticipant : Observable(mContentView[index2].mNumberOfParticipant), mLastViewedDate : Observable(mContentView[index2].mLastViewedDate), mActionPerformed : Observable(mContentView[index2].mActionPerformed), mContentID : Observable( mContentView[index2].mContentID))
+                    cViewModel = ContentListViewModel(mContentImage : Observable(mContentInfo[index1].mContentImage), mContentTitle : Observable(mContentInfo[index1].mContentTitle), mNumberOfViews : Observable(String(mContentView[index2].mNumberOfViews)),mNumberOfParticipant : Observable(String(mContentView[index2].mNumberOfParticipant)), mLastViewedDate : Observable(mContentView[index2].mLastViewedDate), mActionPerformed : Observable(mContentView[index2].mActionPerformed), mContentID : Observable(String( mContentView[index2].mContentID)))
+
         
     
                     //append to array of type CViewModel
                     mListOfViewModel.append(cViewModel)
         
                     //Observe changes in property
-                   // observeChanges()
+                    //observeChanges()
                 }
             }
             
@@ -180,11 +173,10 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     // whenever variable changes its value this excutes
     func observeChanges()
     {
-        //change value of variable
-//        cViewModel.mContentTitle.value = "MyTitle"
+        //change value of variable; Testing how to change Value of Observable
+        //cViewModel.mContentTitle.value = "MyTitle"
         
         //observ changes in ContentTitle
-        
         cViewModel.mContentTitle.observe
         {
             Value in
@@ -192,7 +184,6 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
         }
          //change value of variable
         cViewModel.mLastViewedDate.value = "3rd Jun 2016"
-        
         
         //observ changes in mLastViewedDate
         cViewModel.mLastViewedDate.observe
@@ -208,9 +199,6 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
                 Value in
                 print("mNumberOfViews",(Value))
             }
-        
-        //change Value in mNumberOfViews
-        cViewModel.mNumberOfViews.value = 90
 
     }
     
@@ -228,10 +216,8 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     
     }
 
-    
-
-    
-    // Populate Dummy content data for ViewModel
+        
+    // Populate Dummy content data for ContentListViewModelHandler Structure
         func populateDummyContentData() ->[ContentViewModel]
         {
             // Take Dummy Data from Structure
@@ -240,11 +226,11 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     
             let dummyData2 = ContentViewModel(mContentImage: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Bed", mNumberOfViews: 3, mNumberOfParticipant: 4, mLastViewedDate: "3rd March 2016", mActionPerformed: "Opened",mContentID: 2)
     
-    
+            // append dummy data to ContentViewModel array
             mListOfContentViewModel.append(dummyData1)
             mListOfContentViewModel.append(dummyData2)
 
-    
+            
             return mListOfContentViewModel
         }
     

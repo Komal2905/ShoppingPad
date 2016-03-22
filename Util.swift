@@ -26,4 +26,10 @@ class Util
         imageView.contentMode = .ScaleAspectFill
         
     }
+    
+    // This function take UILable as argument and define totel number of lines
+    func multiLineLabel(label : UILabel)
+    {
+        label.numberOfLines = 0
+    }
 }

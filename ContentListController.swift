@@ -42,10 +42,8 @@ struct ContentView
 // this class Implement PContentListListener protocol
 class ContentListController : PContentListListener
 {
- 
     // for Unit Test
     var mIsUnitTest : Bool = false
-    
     
     //create object REST service handler
     var mContentListRestServiceHandler : ContentListRestServiceHandler?
@@ -53,20 +51,15 @@ class ContentListController : PContentListListener
     // create object of Database handler
     var mContentListDBHandler : ContentListDBHandler?
     
-    
-    
     // create object of  ContentInfoRest of Model
-    
     var contentInfoRestModel : ContentInfoRestModel?
     
     // create object of  ContentViewRest of Model
     var contentViewRestModel : ContentViewRestModel?
     
     // object for ContentInfo Structure
-    
     var mContentInfo = [ContentInfo]()
    
-
     // object for ContentView Structure
     var mContentView = [ContentView]()
     
@@ -84,7 +77,7 @@ class ContentListController : PContentListListener
         else
         {
             mContentViewModelListener = pContentListInformerToViewModel
-            
+
             // intialize DB handler
             mContentListDBHandler = ContentListDBHandler()
     
@@ -105,6 +98,7 @@ class ContentListController : PContentListListener
     }
     
     // This function will fetch data from Rest Handler
+    // called from ContentListViewModelHandler
     func populateUserContentData()
     {
         mContentListRestServiceHandler = ContentListRestServiceHandler()
@@ -115,12 +109,10 @@ class ContentListController : PContentListListener
         //get ContentView from Rest
         mContentListRestServiceHandler!.populateContentViewData(self)
         
-        
     }
     
 
-    // This function will populate COntentInfo in Controller 
-    
+    // This function will populate COntentInfo in ContentListController
     func populateContentInfo(JsonContentInfo : NSMutableArray)
     {
         // Iterate thorugh Array
@@ -142,8 +134,6 @@ class ContentListController : PContentListListener
         
             mContentInfo.append(set)
             
-            // Insert Into Local database
-            
             // pass array for insertion in table ContentInfo
             mContentListDBHandler!.insertContentInfo(set)
         
@@ -152,7 +142,7 @@ class ContentListController : PContentListListener
     
     
     
-    // This function will populate COntentViewin Controller
+    // This function will populate COntentView in Controller
     
     func populateContentView(JsonContentView : NSMutableArray)
     {
