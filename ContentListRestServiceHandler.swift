@@ -35,18 +35,22 @@ struct ContentViewRest
 class ContentListRestServiceHandler
 {
     // for Unit Test
-    var mIsUnitTest : Bool = false
+    var mIsUnitTest : Bool = true
     
     var jsonContentView = NSMutableArray()
     var jsonContentInfo = NSMutableArray()
     
     // create Array of ContentInfoRest for dummy data
-     var mContentInfoRest = [ContentInfoRest]()
+    var mContentInfoRest = [ContentInfoRest]()
     
     
     // create Array of ContentViewRest for dummy data
     var mContentViewRest = ContentViewRest()
 
+    
+    //testing PostDataDummy
+    var jsonContentParticipants = NSMutableArray()
+    
     
     init()
     {
@@ -55,7 +59,7 @@ class ContentListRestServiceHandler
         {
             populateDummyContentData()
             
-            // Populate dummy data for ContentINFO
+            // Populate dummy data for ContentINFO REST
             populateContentDetailsDummy()
         }
         
@@ -140,13 +144,88 @@ class ContentListRestServiceHandler
       
     }
     
+    
+  // Function get all participant for content
+func getParticipantDetails(pContentParticipantListener : PContentParticipantListener)
+{
+            
+    // post parameter
+    let postParams : [Int] = [3]
+    //url String
+    let postEndpoint: String = "http://54.86.64.100:3000/api/v4/content/\(postParams[0])/participant/"
+            
+    print("postEndpoint",postEndpoint)
+    // convert string to NSURL
+    let url = NSURL(string: postEndpoint)!
+            
+    // establish seesion
+    let session = NSURLSession.sharedSession()
+            
+    // Create the request
+    let request = NSMutableURLRequest(URL: url)
+            
+    // HTTP Post
+    request.HTTPMethod = "POST"
+            
+    request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            
+    do
+    {
+        // write json
+        request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams, options: NSJSONWritingOptions())
+        
+    }
+    catch
+    {
+        print("bad things happened")
+    }
+            
+    // Make the POST call and handle it in a completion handler
+    // make a Request
+    session.dataTaskWithRequest(request, completionHandler: { ( data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+        // Make sure we get an OK response
+    guard let realResponse = response as? NSHTTPURLResponse where
+    realResponse.statusCode == 200
+        
+        else
+        {
+            print("Not a 200 response")
+            return
+        }
+                
+        // Read the JSON and append it to jsonContentParticipants
+        
+        do
+        {
+            // Convert NSData to Dictionary where keys are of type String, and values are of any type
+            self.jsonContentParticipants = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
+            
+            // call back to ContentInfoController
+            pContentParticipantListener.updateContentParticipant(self.jsonContentParticipants )
+        }
+            
+        catch
+        {
+            print("Something Went Wrong in REST")
+            
+        }
+
+    }).resume()
+            
+            
+}
+        
+    
+
+    
+    
     // populate Dummy COntentDeatils and COntentParticipant for COntentInfo
     func populateContentDetailsDummy()
     {
         print("jsonContentInfo",jsonContentInfo)
-        jsonContentInfo = [["content_id" : 1 , "display_name" : "opened"],["content_id" : 2 , "display_name" : "Clicked"],["content_id" : 3 , "display_name" : "Shared"]]
+        jsonContentInfo = [["content_id" : 1 , "display_name" : "opened"],["content_id" : 2 , "display_name" : "Clicked"],["content_id" : 3 , "display_name" : "Shared000"]]
         
-        jsonContentView =  [["contentId" : 1 , "action" : "opened" , "mNumberOfParticipant" : 23 , "numberOfViews" : 24 , "lastViewedDateTime" : "29 May 2015", "displayProfile" :"Display","userId" : 2,"firstName" :"myName"],["contentId" : 2 , "action" : "opened" , "mNumberOfParticipant" : 23 , "numberOfViews" : 24 , "lastViewedDateTime" : "29 May 2015", "displayProfile" :"Display","userId" : 2,"firstName" :"myName"],["contentId" : 3 , "action" : "opened" , "mNumberOfParticipant" : 23 , "numberOfViews" : 24 , "lastViewedDateTime" : "29 May 2015", "displayProfile" :"Display","userId" : 3,"firstName" :"myName"]]
+        jsonContentView =  [["contentId" : 1 , "action" : "opened" , "mNumberOfParticipant" : 23 , "numberOfViews" : 24 , "lastViewedDateTime" : "29 May 2015", "displayProfile" :"Display","userId" : 2,"firstName" :"myName1"],["contentId" : 2 , "action" : "opened" , "mNumberOfParticipant" : 23 , "numberOfViews" : 24 , "lastViewedDateTime" : "30 May 2015", "displayProfile" :"Display","userId" : 2,"firstName" :"myName2"],["contentId" : 3 , "action" : "opened" , "mNumberOfParticipant" : 23 , "numberOfViews" : 24 , "lastViewedDateTime" : "31 May 2015", "displayProfile" :"Display","userId" : 3,"firstName" :"myName3"]]
     }
     
     
@@ -181,7 +260,6 @@ class ContentListRestServiceHandler
     // This function will be calling from ContentListController
     func getContentData() -> (info :NSMutableArray, view : NSMutableArray)
     {
-        print("jsonContentInfo",jsonContentInfo)
         return(jsonContentInfo,jsonContentView)
     }
     

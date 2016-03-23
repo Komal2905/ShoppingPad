@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A458C711CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A458C701CA2BE0F006CB5F7 /* PContentParticipantListener.swift */; };
+		0A458C721CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A458C701CA2BE0F006CB5F7 /* PContentParticipantListener.swift */; };
+		0A458C731CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A458C701CA2BE0F006CB5F7 /* PContentParticipantListener.swift */; };
 		0A4743551C8D34470071B0F6 /* shareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4743541C8D34470071B0F6 /* shareIcon.png */; };
 		0A4743561C8D34470071B0F6 /* shareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4743541C8D34470071B0F6 /* shareIcon.png */; };
 		0A4743571C8D34470071B0F6 /* shareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4743541C8D34470071B0F6 /* shareIcon.png */; };
@@ -112,6 +115,7 @@
 
 /* Begin PBXFileReference section */
 		021F34B6DB856C9025AEC4BB /* Pods_ShoppingPad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingPad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A458C701CA2BE0F006CB5F7 /* PContentParticipantListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PContentParticipantListener.swift; sourceTree = "<group>"; };
 		0A4743541C8D34470071B0F6 /* shareIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareIcon.png; sourceTree = "<group>"; };
 		0A56F35F1C8BF26F00A3CC27 /* ShoppingPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A56F3621C8BF26F00A3CC27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ShoppingPad/AppDelegate.swift; sourceTree = "<group>"; };
@@ -262,6 +266,7 @@
 				0A56F3A31C8BF7B800A3CC27 /* ContentListController.swift */,
 				0A625BD41C9FB0A100077552 /* ContentInfoController.swift */,
 				0A7483D41C9A870400C412E8 /* PContentListListener.swift */,
+				0A458C701CA2BE0F006CB5F7 /* PContentParticipantListener.swift */,
 			);
 			name = ShoppingPadController;
 			sourceTree = "<group>";
@@ -586,6 +591,7 @@
 				0A97D9651C99360A005836BE /* ViewModel.swift in Sources */,
 				0AF57CFF1C92EEAE009A31BE /* FMResultSet.m in Sources */,
 				0A56F3AC1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
+				0A458C711CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */,
 				0A56F3A41C8BF7B800A3CC27 /* ContentListController.swift in Sources */,
 				0A625BD51C9FB0A100077552 /* ContentInfoController.swift in Sources */,
 				0A625BD11C9FB08900077552 /* ContentInfoViewModelHandler.swift in Sources */,
@@ -604,6 +610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A458C721CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */,
 				0A56F3AD1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
 				0A56F39C1C8BF4AB00A3CC27 /* ContentListViewController.swift in Sources */,
 				0AF57CFA1C92EEAE009A31BE /* FMDatabasePool.m in Sources */,
@@ -633,6 +640,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A458C731CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */,
 				0A56F3AE1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
 				0A56F39D1C8BF4AB00A3CC27 /* ContentListViewController.swift in Sources */,
 				0AF57CFB1C92EEAE009A31BE /* FMDatabasePool.m in Sources */,

@@ -34,7 +34,7 @@ struct ContentParticipant
     var mContentID : Int!
 }
 
-class ContentInfoController
+class ContentInfoController : PContentParticipantListener
 {
     // for Unit Test
     var mIsUnitTest : Bool = false
@@ -58,23 +58,49 @@ class ContentInfoController
         
         else
         {
-           self.populateDataFromRest()
+            self.populateDataFromRest()
+            
+            //Uncomment this when used Protocol
+            
+            //populateParticipantDetails()
         }
     }
     
+    // this function is called form ContentInfoMovieModelHandler
+    // it fetch data form Rest
+    func populateParticipantDetails()
+    {
+        // all Rest service
+        mContentListRestServiceHandler = ContentListRestServiceHandler()
+        
+        //populate Participant data from rest using POST
+        mContentListRestServiceHandler!.getParticipantDetails(self)
+    }
+    
+    // protocol function
+    func updateContentParticipant(JsonContentParticipant : NSMutableArray)
+    {
+        print("JsonContentParticipant in Protocol FUnction",JsonContentParticipant)
+        // populate ContentParticipant
+        self.populateDataFromRest()
+    }
+    
     // this function in calling Rest Service and populate ContentInfoModel
-    // then in popultae Controller
-    func populateDataFromRest()
+    // then in popultate Controller
+    func populateDataFromRest()//JsonContentParticipant : NSMutableArray
     {
         // all Rest service
         mContentListRestServiceHandler = ContentListRestServiceHandler()
         
         // populate DUmmy Data fro ContentDetails
-        mContentListRestServiceHandler!.populateContentDetailsDummy()
+        //mContentListRestServiceHandler!.populateContentDetailsDummy()
 
+        
+        mContentListRestServiceHandler!.getParticipantDetails(self)
         
         let mContentInfoFroRest =  mContentListRestServiceHandler!.getContentData()
         
+
         //seperate ContentInfo
         let mContentData = mContentInfoFroRest.info
         
@@ -112,22 +138,21 @@ class ContentInfoController
             // populate COntrollers structure ContentDetails
             let set = ContentParticipant(mParticipantName: mContentParticipantModel.mParticipantName, mParticipantLastOpenedDate: mContentParticipantModel.mParticipantLastOpenedDate, mParticipantAction: mContentParticipantModel.mParticipantAction, mParticipantViewCount: mContentParticipantModel.mParticipantViewCount, mParticipantImageView: mContentParticipantModel.mParticipantImageView, mParticipantId: mContentParticipantModel.mParticipantId, mContentID: mContentParticipantModel.mContentID)
             
-            mContentParticipant.append(set)
+                mContentParticipant.append(set)
             
         }
 
-        
+     
     }
     
     // This method will be called from ContentInfoViewModelHandler
     func getContentInfoData(userId : Int) ->(contentDetail : [ContentDetails], contentParticiapnt : [ContentParticipant])
     {
-        
         // return Content details and Content participant to ContentInfoViewModelHandler
         // which will set it to ContentViewModel
         return(mContentDetails, mContentParticipant)
     }
-
+    
     // this function populate dummy data from controller
     func populateDummyDataController()
     {

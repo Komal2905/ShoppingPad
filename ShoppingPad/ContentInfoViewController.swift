@@ -21,6 +21,10 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
     // outlet for content Info Image View
     @IBOutlet weak var contentInfoImageView: UIImageView!
     
+    
+    @IBOutlet weak var contentTitleLabel: UILabel!
+    
+    
     //oultet of contentDetailTableView
     @IBOutlet weak var contentDetailTableView: UITableView!
     
@@ -30,6 +34,9 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
     
     // use Utility class function for Round Image
     var util = Util()
+
+    //ContentTitle 
+    var contentTitle = String()
     
     
     //create CustomCell Object for Table Cell
@@ -53,6 +60,10 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
         
         // call constructor of ContentInfoViewModelHandler
         mContentInfoViewModelHandler = ContentInfoViewModelHandler()
+        
+        // set value to ConetntTitle
+        
+        contentTitleLabel.text = contentTitle
         
        
 
@@ -143,7 +154,6 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
             //get ContentInfo dummy data fro each cell
             mContentInfoViewModel =  mContentInfoViewModelHandler!.getContentInfoViewModel(indexPath.row)
             
-            print("IndexPAth",indexPath.row)
              // construct cell with identifier participantCell
             customCell = participantTable.dequeueReusableCellWithIdentifier("participantCell") as! CustomCell
             

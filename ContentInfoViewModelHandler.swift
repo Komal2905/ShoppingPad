@@ -97,8 +97,6 @@ class ContentInfoViewModelHandler
             {
                 if (mContentDetail[index1].mContentID == mContentParticipant[index2].mContentID)
                 {
-                    print("SomeMatch'")
-                    
                     // populate ContentInfoViewModel
                     mContentInfoViewModel = ContentInfoViewModel(mContentID : Observable(String(mContentDetail[index1].mContentID)),mContentTitle : Observable(mContentDetail[index1].mContentTitle),mParticipantName: Observable(mContentParticipant[index2].mParticipantName),mParticipantLastOpenedDate : Observable(mContentParticipant[index2].mParticipantLastOpenedDate),mParticipantAction: Observable(mContentParticipant[index2].mParticipantAction),mParticipantViewCount: Observable(String(mContentParticipant[index2].mParticipantViewCount)),mParticipantImageView : Observable(mContentParticipant[index2].mParticipantImageView),mParticipantId:Observable(String(mContentParticipant[index2].mParticipantId)))
                     

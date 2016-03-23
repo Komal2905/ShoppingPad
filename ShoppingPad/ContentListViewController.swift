@@ -163,6 +163,7 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         showAlertController("Cell Selected")
+        self.performSegueWithIdentifier("showContentInfo", sender: self)
     }
     
     // This function declare AlertController and its action
@@ -199,6 +200,26 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     {
         showAlertController("Large Image will be here")
 
+    }
+    
+    
+    // function for segue; this will send ConetentTitle and contentId
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        // segue for ContentInfoViewController
+        if(segue.identifier == "showContentInfo")
+        {
+            // access ConetentInfoViewController
+            
+            let contentInfoViewController : ContentInfoViewController = segue.destinationViewController as! ContentInfoViewController
+            
+            // set value of ContentLable of COntentInfoViewController
+            
+            print("contentViewModel!.mContentTitle.value",contentViewModel!.mContentTitle.value)
+            contentInfoViewController.contentTitle = contentViewModel!.mContentTitle.value
+            
+        }
     }
     
     

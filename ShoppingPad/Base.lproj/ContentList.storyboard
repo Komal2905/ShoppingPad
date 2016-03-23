@@ -325,7 +325,11 @@
                                 <animations/>
                                 <items>
                                     <navigationItem id="9Ba-TE-par">
-                                        <barButtonItem key="leftBarButtonItem" title="Back" id="jz6-GX-hc7"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="jz6-GX-hc7">
+                                            <connections>
+                                                <segue destination="BYZ-38-t0r" kind="show" id="cSe-QK-qLM"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Edit" id="Qrd-6o-R1h"/>
                                     </navigationItem>
                                 </items>
@@ -538,6 +542,7 @@
                     <connections>
                         <outlet property="contentDetailTableView" destination="fsd-Io-eAj" id="kFf-5t-Fin"/>
                         <outlet property="contentInfoImageView" destination="nTz-bI-50A" id="qjl-nP-4hu"/>
+                        <outlet property="contentTitleLabel" destination="oLB-Ii-Qg0" id="ZrE-fS-Anw"/>
                         <outlet property="participantTable" destination="rdI-yx-4vF" id="bzH-pa-9hr"/>
                     </connections>
                 </viewController>
