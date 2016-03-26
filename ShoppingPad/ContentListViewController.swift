@@ -39,6 +39,11 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     var mContentListViewModel : ContentListViewModelHandler?
 
     
+    // for selection of contentTitle; used in ContentInfoViewController
+    var mContentTitlePass : String?
+
+    // for selection of ContentId ; used in ContentInfoViewCOntrolle
+    var mContentIdPass : Int!
     
     var contentViewModel : ContentListViewModel?
     
@@ -110,10 +115,10 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         
         // call Util method for round imageview
         util.roundImage(customCell.mContentImageView)
-        
-        
-        customCell.mContentImageView.image = UIImage(named: contentViewModel!.mContentImage.value)
- 
+        /*
+        let contentImage = util.getImage(contentViewModel!.mContentImage.value)
+        customCell.mContentImageView.image = contentImage
+        */
         self.bind()
         return customCell
         
@@ -146,7 +151,8 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     func  updateContentListViewModel()
     {
         //tranfer to main thred for asychThred
-        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+        dispatch_async(dispatch_get_main_queue())
+            { [unowned self] in
         
             // reload table
             self.tableView.reloadData()
@@ -162,7 +168,13 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        showAlertController("Cell Selected")
+        //showAlertController("Cell Selected")
+        
+        //pass ContentTitle and ContentID
+        mContentTitlePass =  (mContentListViewModel?.getContentViewModel(indexPath.row))!.mContentTitle.value
+        
+        mContentIdPass = Int((mContentListViewModel?.getContentViewModel(indexPath.row))!.mContentID.value)
+        
         self.performSegueWithIdentifier("showContentInfo", sender: self)
     }
     
@@ -214,10 +226,10 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
             
             let contentInfoViewController : ContentInfoViewController = segue.destinationViewController as! ContentInfoViewController
             
-            // set value of ContentLable of COntentInfoViewController
+            print("mContentTitleArray HERE0",mContentTitlePass)
+            contentInfoViewController.mContentTitle = mContentTitlePass!
             
-            print("contentViewModel!.mContentTitle.value",contentViewModel!.mContentTitle.value)
-            contentInfoViewController.contentTitle = contentViewModel!.mContentTitle.value
+            contentInfoViewController.mContentId = mContentIdPass
             
         }
     }

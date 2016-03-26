@@ -31,7 +31,7 @@ struct ContentInfoViewModelDummy
     var mParticipantId : Int!
 }
 
-class ContentInfoViewModelHandler
+class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
 {
     // for Unit Test
     var mIsUnitTest : Bool = false
@@ -43,17 +43,21 @@ class ContentInfoViewModelHandler
     // create object of ContentInfoController
     var mContentInfoController : ContentInfoController!
     
-    
-    
     // Aray of ContentInfoViewModel
     var mContentInfoViewModelArray = [ContentInfoViewModel]()
     
     // object of ContentInfoViewModel
-    
     var mContentInfoViewModel : ContentInfoViewModel!
     
     
-    init()
+    // object of PContentParticipantInformerToViewModel
+    var pContentParticipantInformerToViewModel : PContentParticipantInformerToViewModel!
+    
+    // object of PContentListViewObserver
+    var mContentParticipantViewObserver : PContentParticipantViewObserver?
+    
+    
+    init(pContentParticipantViewObserver : PContentParticipantViewObserver)
     {
         if(mIsUnitTest == true)
         {
@@ -64,15 +68,34 @@ class ContentInfoViewModelHandler
         else
         {
             // get data from Cotroller and Populate ContentInfoViewModel
-            mContentInfoController = ContentInfoController()
+            mContentInfoController = ContentInfoController(pContentParticipantInformerToViewModel: self)
             
-            // populate structure of ContentInfoViewModelHandler
-            self.populateContentInfo()
+            mContentParticipantViewObserver = pContentParticipantViewObserver
             
         }
     }
     
     
+    //this function is Called form COntentInfoViewController
+    func populateContentParticipantData(content : Int)
+    {
+       // call controller and participant ID
+        mContentInfoController!.populateParticipantDetails(content)
+        
+    }
+    
+    // PContentParticipantInformerToViewModel protocol's Function
+    // this is called form ContentInfoController
+    func updateViewModelContentParticipant()
+    {
+        // populate ContentInfo
+        self.populateContentInfo()
+        
+        // callback to ContentInfoViewCOntroller
+        mContentParticipantViewObserver!.updateContentInfoViewModel()
+        
+        
+    }
     // This function populate ContentInfo; it calls Controller for ContentInfo;
     // after getting data from Controller it populate ContentInfoViewModel
     
@@ -93,23 +116,21 @@ class ContentInfoViewModelHandler
         
         for index1 in 0...mContentDetail.count-1
         {
-            for index2 in 0...mContentParticipant.count-1
-            {
-                if (mContentDetail[index1].mContentID == mContentParticipant[index2].mContentID)
-                {
-                    // populate ContentInfoViewModel
-                    mContentInfoViewModel = ContentInfoViewModel(mContentID : Observable(String(mContentDetail[index1].mContentID)),mContentTitle : Observable(mContentDetail[index1].mContentTitle),mParticipantName: Observable(mContentParticipant[index2].mParticipantName),mParticipantLastOpenedDate : Observable(mContentParticipant[index2].mParticipantLastOpenedDate),mParticipantAction: Observable(mContentParticipant[index2].mParticipantAction),mParticipantViewCount: Observable(String(mContentParticipant[index2].mParticipantViewCount)),mParticipantImageView : Observable(mContentParticipant[index2].mParticipantImageView),mParticipantId:Observable(String(mContentParticipant[index2].mParticipantId)))
+        
+            // populate ContentInfoViewModel
+            mContentInfoViewModel = ContentInfoViewModel(mContentID : Observable(String(mContentDetail[index1].mContentID)),mContentTitle : Observable(mContentDetail[index1].mContentTitle),mParticipantName: Observable(mContentParticipant[index1].mParticipantName),mParticipantLastOpenedDate : Observable(mContentParticipant[index1].mParticipantLastOpenedDate),mParticipantAction: Observable(mContentParticipant[index1].mParticipantAction),mParticipantViewCount: Observable(String(mContentParticipant[index1].mParticipantViewCount)),mParticipantImageView : Observable(mContentParticipant[index1].mParticipantImageView),mParticipantId:Observable(String(mContentParticipant[index1].mParticipantId)))
                     
                     
-                    mContentInfoViewModelArray.append(mContentInfoViewModel)
-                }
-            }
+            mContentInfoViewModelArray.append(mContentInfoViewModel)
         
         }
-        
     }
     
-    
+ // This function is called from ContentInfoViewController
+    func getContentInfoViewModel(position : Int) -> ContentInfoViewModel
+    {
+        return mContentInfoViewModelArray[position]
+    }
     
    // This function populate dummy participant data for ContentInfoViewModel
     func populateDummyData()
@@ -137,10 +158,6 @@ class ContentInfoViewModelHandler
     }
     */
     
-    
-func getContentInfoViewModel(position : Int) -> ContentInfoViewModel
-{
-   return mContentInfoViewModelArray[position]
-}
+
     
 }

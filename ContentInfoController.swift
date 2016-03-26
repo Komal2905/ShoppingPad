@@ -49,66 +49,58 @@ class ContentInfoController : PContentParticipantListener
     //create object REST service handler
     var mContentListRestServiceHandler : ContentListRestServiceHandler?
     
-    init()
+    
+    // object of PContentParticipantInformerToViewModel
+    
+    var mContentParticipantInformerToViewModel : PContentParticipantInformerToViewModel?
+    
+    init(pContentParticipantInformerToViewModel : PContentParticipantInformerToViewModel)
     {
         if(mIsUnitTest)
         {
+            // populate dummy data
             self.populateDummyDataController()
         }
         
         else
-        {
-            self.populateDataFromRest()
-            
-            //Uncomment this when used Protocol
-            
-            //populateParticipantDetails()
+        {   // initalize object of ContentParticipantInformerToViewModel
+            mContentParticipantInformerToViewModel = pContentParticipantInformerToViewModel
         }
     }
     
     // this function is called form ContentInfoMovieModelHandler
     // it fetch data form Rest
-    func populateParticipantDetails()
+    func populateParticipantDetails(contentId : Int)
     {
         // all Rest service
         mContentListRestServiceHandler = ContentListRestServiceHandler()
         
         //populate Participant data from rest using POST
-        mContentListRestServiceHandler!.getParticipantDetails(self)
+        mContentListRestServiceHandler!.getParticipantDetails(self,content:contentId)
     }
     
     // protocol function
     func updateContentParticipant(JsonContentParticipant : NSMutableArray)
     {
-        print("JsonContentParticipant in Protocol FUnction",JsonContentParticipant)
         // populate ContentParticipant
-        self.populateDataFromRest()
+        self.populateDataFromRest(JsonContentParticipant)
+        
+        // call back to ContentInfoViewModelHandler
+        
+        mContentParticipantInformerToViewModel!.updateViewModelContentParticipant()
     }
+    
     
     // this function in calling Rest Service and populate ContentInfoModel
     // then in popultate Controller
-    func populateDataFromRest()//JsonContentParticipant : NSMutableArray
+    func populateDataFromRest(JsonContentParticipant : NSMutableArray)
     {
-        // all Rest service
-        mContentListRestServiceHandler = ContentListRestServiceHandler()
         
-        // populate DUmmy Data fro ContentDetails
-        //mContentListRestServiceHandler!.populateContentDetailsDummy()
-
-        
-        mContentListRestServiceHandler!.getParticipantDetails(self)
-        
-        let mContentInfoFroRest =  mContentListRestServiceHandler!.getContentData()
-        
-
-        //seperate ContentInfo
-        let mContentData = mContentInfoFroRest.info
-        
-        for cCount in 0...mContentData.count-1
+        // populate
+        for cCount in 0...JsonContentParticipant.count-1
         {
-
             // populate ContentDetailsModel
-            let contentDetailDictionary = mContentData[cCount] as! NSDictionary
+            let contentDetailDictionary = JsonContentParticipant[cCount] as! NSDictionary
             
             // populate ContentDetailsModel
             let mContentDetailsModel = ContentDetailsModel(contentDetail: contentDetailDictionary)
@@ -117,19 +109,13 @@ class ContentInfoController : PContentParticipantListener
             let set = ContentDetails(mContentID: mContentDetailsModel.mContentID, mContentTitle: mContentDetailsModel.mContentTitle)
             
             mContentDetails.append(set)
-            
         }
         
-        //seperate ContentParticipant
-        let mContentParticipants = mContentInfoFroRest.view
-        
-         print("mContentParticipants",mContentParticipants.count)
-        
-        for pCount in 0...mContentParticipants.count-1
+        for pCount in 0...JsonContentParticipant.count-1
         {
             // populate ContentDetailsModel
             
-            let contentParticipantDictionary = mContentParticipants[pCount] as! NSDictionary
+            let contentParticipantDictionary = JsonContentParticipant[pCount] as! NSDictionary
         
             // populate ContentParticipantModel
             let mContentParticipantModel = ContentParticipantModel(contentParticipant: contentParticipantDictionary)
@@ -156,8 +142,6 @@ class ContentInfoController : PContentParticipantListener
     // this function populate dummy data from controller
     func populateDummyDataController()
     {
-
-
         self.setDummyContentDetails()
         self.setDummyContentparticipant()
 

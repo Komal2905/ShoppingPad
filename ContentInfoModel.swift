@@ -20,8 +20,8 @@ class ContentDetailsModel
     // intialize ContentDetailModel with value of Dictionary
     init(contentDetail : NSDictionary)
     {
-        mContentID = contentDetail["content_id"] as! Int
-        mContentTitle = contentDetail["display_name"] as! String
+        mContentID = contentDetail["contentId"] as! Int
+        mContentTitle = contentDetail["Name"] as! String
     }
 }
 
@@ -41,11 +41,11 @@ class ContentParticipantModel
     // intialize ContentParticipantModel with value of Dictionary
     init(contentParticipant : NSDictionary)
     {
-        mParticipantName = contentParticipant["firstName"] as! String
+        mParticipantName = contentParticipant["Name"] as! String
         mParticipantLastOpenedDate = contentParticipant["lastViewedDateTime"] as! String
         mParticipantAction = contentParticipant["action"] as! String
         mParticipantViewCount = contentParticipant["numberOfViews"] as! Int
-        mParticipantImageView = contentParticipant["displayProfile"] as! String
+        mParticipantImageView = contentParticipant["Image"] as! String
         mParticipantId = contentParticipant["userId"] as! Int
         mContentID = contentParticipant["contentId"] as! Int
     }

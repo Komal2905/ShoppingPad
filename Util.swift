@@ -32,4 +32,33 @@ class Util
     {
         label.numberOfLines = 0
     }
+   
+    
+    // this function takes an Image Url from Rest
+    // and return an Image
+    
+    func getImage(urlString : String) -> UIImage
+    {
+        // define an image
+        var convertedImage : UIImage = UIImage(named: "defaultImage.png")!
+        
+        // convert String url to NSURL
+        let url = NSURL(string: urlString)
+        
+        // if url exist
+        if (url != nil)
+        {
+            // fetch the imageData from url
+            let data = NSData(contentsOfURL: url!)
+            
+            // if image data exist
+            if (data != nil)
+            {
+                // convert imagedata back to an image
+                convertedImage = UIImage(data: data!)!
+            }
+        }
+        
+        return convertedImage
+    }
 }

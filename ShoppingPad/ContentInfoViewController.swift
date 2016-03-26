@@ -15,7 +15,7 @@
 
 import UIKit
 
-class ContentInfoViewController: UIViewController,UITableViewDataSource, UITableViewDelegate
+class ContentInfoViewController: UIViewController,UITableViewDataSource, UITableViewDelegate,PContentParticipantViewObserver
 {
     
     // outlet for content Info Image View
@@ -35,10 +35,12 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
     // use Utility class function for Round Image
     var util = Util()
 
-    //ContentTitle 
-    var contentTitle = String()
+    //ContentTitle fromsegue
+    var mContentTitle = String()
     
-    
+    // ContentId From segue
+    var mContentId = Int()
+   
     //create CustomCell Object for Table Cell
     var customCell : CustomCell = CustomCell()
     
@@ -58,15 +60,15 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
         // create ContentImagevIew round shape
         util.roundImage(contentInfoImageView)
         
-        // call constructor of ContentInfoViewModelHandler
-        mContentInfoViewModelHandler = ContentInfoViewModelHandler()
-        
-        // set value to ConetntTitle
-        
-        contentTitleLabel.text = contentTitle
-        
-       
+        // set value to ConetntTitle from value whi from segue
+        contentTitleLabel.text = mContentTitle
 
+        // call constructor of ContentInfoViewModelHandler
+        mContentInfoViewModelHandler = ContentInfoViewModelHandler(pContentParticipantViewObserver: self)
+        
+        
+        //call ContentInfoViewModelHandler method and pass ContentId
+        mContentInfoViewModelHandler.populateContentParticipantData(mContentId)
         
     }
 
@@ -77,6 +79,7 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
     }
     
 
+    // updateContentListViewModelprotocol function
     // define number of row in section
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
@@ -93,7 +96,7 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
         }
         else
         {
-            numberOfrow = 3
+            numberOfrow = mContentInfoViewModelHandler.mContentInfoViewModelArray.count
         }
         return numberOfrow
         
@@ -170,12 +173,27 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
             
             // create round profile Image of participant
             util.roundImage(customCell.participantProfileImageView)
+           
+            let mParticipnatImage = util.getImage( mContentInfoViewModel.mParticipantImageView.value)
             
-            
+            customCell.participantProfileImageView.image = mParticipnatImage
+           
         }
         
         return customCell
     }
 
 
+    // function of  PContentParticipantViewObserver
+    
+    func updateContentInfoViewModel()
+    {
+        //tranfer to main thred for asychThred
+        dispatch_async(dispatch_get_main_queue())
+        { [unowned self] in
+                self.contentDetailTableView.reloadData()
+                self.participantTable.reloadData()
+        }
+    }
+   
 }

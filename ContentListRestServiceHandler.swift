@@ -25,7 +25,7 @@ struct ContentViewRest
 {
     var mNumberOfViews : Int!       // Total views of content
     var mNumberOfParticipant : Int! // Total participant of Content
-    var mLastViewedDate : String!  // last viewed time of Content
+    var mLastViewedDate : String!   // last viewed time of Content
     var mActionPerformed : String!  // shows which action has been last performed on Content
     var mContentID : Int!           // Content ID
     
@@ -35,7 +35,7 @@ struct ContentViewRest
 class ContentListRestServiceHandler
 {
     // for Unit Test
-    var mIsUnitTest : Bool = true
+    var mIsUnitTest : Bool = false
     
     var jsonContentView = NSMutableArray()
     var jsonContentInfo = NSMutableArray()
@@ -146,14 +146,16 @@ class ContentListRestServiceHandler
     
     
   // Function get all participant for content
-func getParticipantDetails(pContentParticipantListener : PContentParticipantListener)
+func getParticipantDetails(pContentParticipantListener : PContentParticipantListener, content : Int)
 {
             
     // post parameter
-    let postParams : [Int] = [3]
+    let postParams : [Int] = [content]
     //url String
     let postEndpoint: String = "http://54.86.64.100:3000/api/v4/content/\(postParams[0])/participant/"
-            
+    
+    
+    
     print("postEndpoint",postEndpoint)
     // convert string to NSURL
     let url = NSURL(string: postEndpoint)!
@@ -200,6 +202,8 @@ func getParticipantDetails(pContentParticipantListener : PContentParticipantList
             // Convert NSData to Dictionary where keys are of type String, and values are of any type
             self.jsonContentParticipants = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
             
+            
+            print("Json in Rest COunt",self.jsonContentParticipants.count)
             // call back to ContentInfoController
             pContentParticipantListener.updateContentParticipant(self.jsonContentParticipants )
         }

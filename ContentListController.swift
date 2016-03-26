@@ -165,7 +165,7 @@ class ContentListController : PContentListListener
             // pass array for insertion in table ContentInfo
             mContentListDBHandler?.insertContentView(set)
             
-            }
+        }
 
     }
     
