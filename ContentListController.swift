@@ -53,24 +53,36 @@ struct ContentView
 
 }
 
+// this structure holds variable for ContentParticipant
+struct ContentParticipant
+{
+    var mParticipantName : String!
+    var mParticipantLastOpenedDate : String!
+    var mParticipantAction : String!
+    var mParticipantViewCount : Int!
+    var mParticipantImageView : String!
+    var mParticipantId : Int!
+    var mContentID : Int!
+}
+
 
 // this class Implement PContentListListener protocol
-class ContentListController : PContentListListener
+class ContentListController : PControllerListener
 {
     // for Unit Test
     var mIsUnitTest : Bool = false
     
     //create object REST service handler
-    var mContentListRestServiceHandler : ContentListRestServiceHandler?
+    var mContentListRestServiceHandler : ContentListRestServiceHandler!
     
     // create object of Database handler
-    var mContentListDBHandler : ContentListDBHandler?
+    var mContentListDBHandler : ContentListDBHandler!
     
     // create object of  ContentInfoDataModel of Model
     var contentInfoDataModel : ContentInfoDataModel!
     
     // create object of  ContentViewDataModel of Model
-    var contentViewRestModel : ContentViewDataModel?
+    var contentViewRestModel : ContentViewDataModel!
     
     // object for ContentInfo Structure
     var mContentInfo = [ContentInfo]()
@@ -78,43 +90,40 @@ class ContentListController : PContentListListener
     // object for ContentView Structure
     var mContentView = [ContentView]()
     
-    // protocol of view model
+    // create array object of ContentParticipant
+    var mContentParticipant = [ContentParticipant]()
+    
+    
+    var mContentDetails = [ContentDetails]()
+
+    // protocol of ViewModel
     var mContentViewModelListener : PContentListInformerToViewModel?
+    
+    // array that will hold Result of Resultset For ContentParticipant
+    var contentInfoArray = [AnyObject]()
     
     init(pContentListInformerToViewModel : PContentListInformerToViewModel)
     {
         // Populate Dummy data if it is in Test
         if(mIsUnitTest)
         {
-            populateDummyContentData()
+            self.populateDummyContentData()
+            self.populateDummyContentParticipant()
         }
         
         else
         {
             mContentViewModelListener = pContentListInformerToViewModel
-
             // intialize DB handler
             mContentListDBHandler = ContentListDBHandler()
     
         }
-        
-        
-//        else
-//        {
-//            mContentListRestServiceHandler = ContentListRestServiceHandler()
-//            
-////            populateUserContentData()
-//            
-//            //insert data to local database
-//            InsertIntoLocalDB()
-//        }
-        
 
     }
     
     // This function will fetch data from Rest Handler
     // called from ContentListViewModelHandler
-    func populateUserContentData()
+    func populateContentData()
     {
         mContentListRestServiceHandler = ContentListRestServiceHandler()
         
@@ -149,13 +158,12 @@ class ContentListController : PContentListListener
             mContentInfo.append(set)
             
             // pass array for insertion in table ContentInfo
-                mContentListDBHandler!.insertContentInfo(set)
+            mContentListDBHandler!.insertContentInfo(set)
         
         }
     }
     
-    
-    
+
     // This function will populate COntentView in Controller
     
     func populateContentView(JsonContentView : NSMutableArray)
@@ -177,7 +185,7 @@ class ContentListController : PContentListListener
             mContentView.append(set)
             
             // pass array for insertion in table ContentInfo
-                    mContentListDBHandler?.insertContentView(set)
+            mContentListDBHandler?.insertContentView(set)
             
         }
 
@@ -192,7 +200,7 @@ class ContentListController : PContentListListener
         self.populateContentInfo(JsonContentInfo)
         
         // Call back to ViewModelHandler
-        mContentViewModelListener!.updateViewModelContentListInformer()
+        mContentViewModelListener!.updateViewModelContentInformer()
         
     }
     
@@ -201,11 +209,63 @@ class ContentListController : PContentListListener
     {
         //Populate ContentView
         self.populateContentView(JsonContentView)
-        mContentViewModelListener!.updateViewModelContentListInformer()
+        mContentViewModelListener!.updateViewModelContentInformer()
         
     }
     
-    // This method will be called from ViewModel
+    
+    // protocol function for COntentParticipant
+    func updateContentParticipant(JsonContentParticipant : NSMutableArray)
+    {
+        // populate ContentParticipant
+        self.populateContentParticipant(JsonContentParticipant)
+        
+        // call back to ContentInfoViewModelHandler
+        mContentViewModelListener!.updateViewModelContentInformer()
+    }
+    
+    
+    // this function in calling Rest Service and populate ContentInfoModel
+    // then in popultate Controller
+    func populateContentParticipant(JsonContentParticipant : NSMutableArray)
+    {
+        
+        
+        for pCount in 0...JsonContentParticipant.count-1
+        {
+            // populate ContentParticipantModel
+            
+            let contentParticipantDictionary = JsonContentParticipant[pCount] as! NSDictionary
+            
+            // populate ContentParticipantModel
+            let mContentParticipantModel = ContentParticipantModel(contentParticipant: contentParticipantDictionary)
+            
+            
+            // populate COntrollers structure ContentDetails
+            let set = ContentParticipant(mParticipantName: mContentParticipantModel.mParticipantName, mParticipantLastOpenedDate: mContentParticipantModel.mParticipantLastOpenedDate, mParticipantAction: mContentParticipantModel.mParticipantAction, mParticipantViewCount: mContentParticipantModel.mParticipantViewCount, mParticipantImageView: mContentParticipantModel.mParticipantImageView, mParticipantId: mContentParticipantModel.mParticipantId, mContentID: mContentParticipantModel.mContentID)
+            
+            mContentParticipant.append(set)
+            
+            // Insert Into Database
+            
+        }
+        
+    }
+    
+    
+    // This method will be called from ContentInfoViewModelHandler
+    func getContentParticipantData(userId : Int) ->(contentDetail : [ContentDetails], contentParticiapnt : [ContentParticipant])
+    {
+        // return Content details and Content participant to ContentInfoViewModelHandler
+        // which will set it to ContentViewModel
+        
+        print("mContentDetails in COntrooler", mContentDetails)
+        return(mContentDetails, mContentParticipant)
+    }
+
+    
+    
+    // This method will be called from ContentInfoViewModel
     func getContentData(userId : Int) ->(info : [ContentInfo], views : [ContentView])
     {
         
@@ -213,6 +273,52 @@ class ContentListController : PContentListListener
         // which will set it to ContentViewModel
         return(mContentInfo, mContentView)
     }
+    
+    
+    
+    // This function will fetch ContentInfoData from LocalDB
+    func getContentInfo(contentId : Int)
+    {
+        // call LocalDb
+        print("IN CONTROLLER")
+        contentInfoArray = mContentListDBHandler!.getContentInfo(contentId)
+        
+        print("ContentInfoInt COntroller",contentInfoArray)
+        // populate ContentInfo Model
+        self.populateContentInfoDataModel(contentInfoArray)
+        
+    }
+    
+    // this function populate COntentInfo data model
+    func populateContentInfoDataModel(jsonContentInfo : [AnyObject])
+    {
+        // itearte through array and poulate ContentInfo model
+        for pCount in 0...jsonContentInfo.count-1
+        {
+            // define dictionary
+            let contentInfoDictionary = jsonContentInfo[pCount] as! NSDictionary
+            
+            //Populate ContentInfoDataModel class  of ContentListModel with Dictionary
+            contentInfoDataModel = ContentInfoDataModel(info: contentInfoDictionary)
+            
+            
+        }
+    }
+
+    
+    
+    
+    // this function is called form ContentInfoMovieModelHandler
+    // it fetch data form Rest
+    func populateParticipantDetails(contentId : Int)
+    {
+        // all Rest service
+        mContentListRestServiceHandler = ContentListRestServiceHandler()
+        
+        //populate Participant data from rest using POST
+        mContentListRestServiceHandler!.getParticipantDetails(self,content:contentId)
+    }
+    
     
     
     // return number of content in ContentInfo
@@ -320,6 +426,44 @@ class ContentListController : PContentListListener
         mContentView.append(dummyData2)
         mContentView.append(dummyData3)
     }
-
     
-   }
+    
+    
+    // this function populate dummy ContentPArticipatdata from controller
+    func populateDummyContentParticipant()
+    {
+        self.setDummyContentDetails()
+        self.setDummyContentparticipant()
+        
+    }
+    
+    //this function populate dummy ContentDetails fro ContentInfoController
+    func setDummyContentDetails()
+    {
+        let dummyData1 = ContentDetails(mContentID: 31, mContentTitle: "Title31Duumy")
+        let dummyData2 = ContentDetails(mContentID: 32, mContentTitle: "Title32Duumy")
+        let dummyData3 = ContentDetails(mContentID: 33, mContentTitle: "Title33Duumy")
+        
+        //add to array
+        
+        mContentDetails.append(dummyData1)
+        mContentDetails.append(dummyData2)
+        mContentDetails.append(dummyData3)
+    }
+    
+    //this function populate dummy ContentPArticipant fro ContentInfoController
+    func setDummyContentparticipant()
+    {
+        let dummyData1 = ContentParticipant(mParticipantName: "ABC", mParticipantLastOpenedDate: "01 Jan 2000", mParticipantAction: "Clicked", mParticipantViewCount: 90, mParticipantImageView: "ImageViewTestDuumy", mParticipantId: 1,mContentID : 31)
+        let dummyData2 = ContentParticipant(mParticipantName: "PQR", mParticipantLastOpenedDate: "01 Jan 2000", mParticipantAction: "Shared", mParticipantViewCount: 90, mParticipantImageView: "ImageViewTestDuumy", mParticipantId: 2,mContentID : 31)
+        let dummyData3 = ContentParticipant(mParticipantName: "RST", mParticipantLastOpenedDate: "01 Jan 2000", mParticipantAction: "Opened", mParticipantViewCount: 90, mParticipantImageView: "ImageViewTestDuumy", mParticipantId: 3,mContentID : 31)
+        
+        mContentParticipant.append(dummyData1)
+        mContentParticipant.append(dummyData2)
+        mContentParticipant.append(dummyData3)
+        
+    }
+    
+}
+
+

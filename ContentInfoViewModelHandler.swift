@@ -31,7 +31,7 @@ struct ContentInfoViewModelDummy
     var mParticipantId : Int!
 }
 
-class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
+class ContentInfoViewModelHandler : PContentListInformerToViewModel
 {
     // for Unit Test
     var mIsUnitTest : Bool = false
@@ -41,17 +41,13 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
     var mContentInfoViewModelDummy = [ContentInfoViewModelDummy]()
     
     // create object of ContentInfoController
-    var mContentInfoController : ContentInfoController!
+    var mContentInfoController : ContentListController!
     
     // Aray of ContentParticipantViewModel
     var mContentInfoViewModelArray = [ContentParticipantViewModel]()
     
     // object of ContentParticipantViewModel
     var mContentInfoViewModel : ContentParticipantViewModel!
-    
-    
-    // object of PContentParticipantInformerToViewModel
-    var pContentParticipantInformerToViewModel : PContentParticipantInformerToViewModel!
     
     // object of PContentListViewObserver
     var mContentParticipantViewObserver : PContentParticipantViewObserver?
@@ -68,7 +64,7 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
         else
         {
             // get data from Cotroller and Populate ContentInfoViewModel
-            mContentInfoController = ContentInfoController(pContentParticipantInformerToViewModel: self)
+            mContentInfoController = ContentListController(pContentListInformerToViewModel: self)
             
             mContentParticipantViewObserver = pContentParticipantViewObserver
             
@@ -80,7 +76,7 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
     {
         // call Controller
         print("IN HANDLELER")
-        mContentInfoController.getContentInfo(contentId)
+            //mContentInfoController.getContentInfo(contentId)
         
     }
     
@@ -99,9 +95,9 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
         
     }
     
-    // PContentParticipantInformerToViewModel protocol's Function
+    // PContentListInformerToViewModel protocol's Function
     // this is called form ContentInfoController
-    func updateViewModelContentParticipant()
+    func updateViewModelContentInformer()
     {
         // populate ContentInfo
         self.populateContentInfo()
@@ -116,7 +112,7 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
     func populateContentInfo()
     {
         // call Controller for populateing data
-        let mContentInfo = mContentInfoController.getContentInfoData(1)
+        let mContentInfo = mContentInfoController.getContentParticipantData(1)
         
         // seperate ContentInfoDetails;uncomment
                 //let mContentDetail = mContentInfo.contentDetail

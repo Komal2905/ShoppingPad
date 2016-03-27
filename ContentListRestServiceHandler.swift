@@ -37,19 +37,23 @@ class ContentListRestServiceHandler
     // for Unit Test
     var mIsUnitTest : Bool = false
     
+    // json array for ContentView
     var jsonContentView = NSMutableArray()
+    
+    // json array for contentInfo
     var jsonContentInfo = NSMutableArray()
+    
+    //json Array for ContentParticipant
+    var jsonContentParticipants = NSMutableArray()
+    
+
     
     // create Array of ContentInfoRest for dummy data
     var mContentInfoRest = [ContentInfoRest]()
-    
-    
+
     // create Array of ContentViewRest for dummy data
     var mContentViewRest = ContentViewRest()
 
-    
-    //testing PostDataDummy
-    var jsonContentParticipants = NSMutableArray()
     
     
     init()
@@ -73,7 +77,7 @@ class ContentListRestServiceHandler
     
     
     // Populate ContentInfo From Rest call
-    func populateContentInfoData(pContentListListener : PContentListListener)
+    func populateContentInfoData(pContentListListener : PControllerListener)
     {
       // define StringURL
         let urlString = "http://54.86.64.100:3000/api/v4/content/info"
@@ -108,7 +112,7 @@ class ContentListRestServiceHandler
     }
     
     // Populate ContentInfo From Rest call
-    func populateContentViewData(pContentListListener : PContentListListener)
+    func populateContentViewData(pContentListListener : PControllerListener)
     {
         // define StringURL
         let urlString = "http://54.86.64.100:3000/api/v4/content/View"
@@ -127,8 +131,6 @@ class ContentListRestServiceHandler
                     // Convert NSData to Dictionary where keys are of type String, and values are of any type
                     self.jsonContentView = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
                     
-                    
-                    print("JSON CONTWNTVIEW", self.jsonContentView)
                     //pass ContentView To Protocol
                     pContentListListener.updateControllerViewModel(self.jsonContentView)
                     
@@ -148,7 +150,7 @@ class ContentListRestServiceHandler
     
     
   // Function get all participant for content
-func getParticipantDetails(pContentParticipantListener : PContentParticipantListener, content : Int)
+func getParticipantDetails(pContentParticipantListener : PControllerListener, content : Int)
 {
     // post parameter
     let postParams : [Int] = [content]
@@ -203,7 +205,7 @@ func getParticipantDetails(pContentParticipantListener : PContentParticipantList
             self.jsonContentParticipants = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
             
             
-            print("Json in Rest COunt",self.jsonContentParticipants)
+            print("ParticipantJson in Rest ",self.jsonContentParticipants)
             
             // call back to ContentInfoController
             pContentParticipantListener.updateContentParticipant(self.jsonContentParticipants )

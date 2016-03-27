@@ -32,6 +32,17 @@ struct ContentViewModel
     
 }
 
+
+
+
+
+
+
+
+
+
+
+
 class ContentListViewModelHandler : PContentListInformerToViewModel
 {
     //contentListController is type of ContentListController.
@@ -104,12 +115,12 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     // This function is called from ContentListViewController
     func populateContentViewModelData()
     {
-        mContentListController!.populateUserContentData()
+        mContentListController!.populateContentData()
         
     }
 
     // implementing protocol PContentListInformerToViewModel
-    func updateViewModelContentListInformer()
+    func updateViewModelContentInformer()
     {
         // for checking that ConetntInfo and ContentView
         // are populate we execute this function twice.

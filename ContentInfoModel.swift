@@ -25,19 +25,19 @@ import Foundation
 //    }
 //}
 
-// taking data from localDB
-class ContentDetailsModel
-{
-    var mContentID : Int!
-    var mContentTitle : String!
-    
-    // intialize ContentDetailModel with value of Dictionary
-    init(contentDetail : FMResultSet)
-    {
-        mContentID = Int(contentDetail.stringForColumn("contentId"))!
-        mContentTitle = contentDetail.stringForColumn("ContentTitle") as String
-    }
-}
+// taking data from localDB // NO need This Delete once tested
+//class ContentDetailsModel
+//{
+//    var mContentID : Int!
+//    var mContentTitle : String!
+//    
+//    // intialize ContentDetailModel with value of Dictionary
+//    init(contentDetail : FMResultSet)
+//    {
+//        mContentID = Int(contentDetail.stringForColumn("contentId"))!
+//        mContentTitle = contentDetail.stringForColumn("ContentTitle") as String
+//    }
+//}
 // holds variable for participants of contets
 
 class ContentParticipantModel

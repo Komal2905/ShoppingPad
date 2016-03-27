@@ -21,6 +21,10 @@ class ContentListDBHandler
     
     // define resulteset
     var contentInfo = FMResultSet()
+    
+    // array that will host Result of Resultset
+    var contentInfoArray = [AnyObject]()
+
     init()
     {
         // create Table COntentInfo and ContentView
@@ -47,7 +51,9 @@ class ContentListDBHandler
         if shoppingPad!.open()
         {
             // create table ContentInfo
-            let createContentInfo = "CREATE TABLE  IF NOT EXISTS ContentInfo (contentid INT NOT NULL, contentLink VARCHAR(100) NULL, contentType VARCHAR(100),created_at VARCHAR(100), decription VARCHAR(100), display_name VARCHAR(100), imagesLink VARCHAR(100), modified_at VARCHAR(100), syncDateTime VARCHAR(100),  title INT, url VARCHAR(50), zip VARCHAR(50), PRIMARY KEY (contentid))"
+            let createContentInfo = "CREATE TABLE  IF NOT EXISTS ContentInfo (content_id INT NOT NULL, contentLink VARCHAR(100) NULL, contentType VARCHAR(100),created_at VARCHAR(100), decription VARCHAR(100), display_name VARCHAR(100), imagesLink VARCHAR(100), modified_at VARCHAR(100), syncDateTime VARCHAR(100),  title INT, url VARCHAR(50), zip VARCHAR(50), PRIMARY KEY (content_id))"
+            
+            
             
             
             // create table ContentView
@@ -179,7 +185,7 @@ class ContentListDBHandler
     
     
     // This function will fetch ContentInfoData from LocalDB
-    func getContentInfo(contentId : Int) -> FMResultSet
+    func getContentInfo(contentId : Int) -> [AnyObject]
     {
         
        print("IN LOCALDB")
@@ -192,16 +198,28 @@ class ContentListDBHandler
         if shoppingPad.open()
         {
             // select query
-            let getContentInfo = "SELECT * FROM CONTENTINFO where contentid = \(contentId)"
+            let getContentInfo = "SELECT * FROM CONTENTINFO where content_id = \(contentId)"
             
             // define resultset
             contentInfo = shoppingPad.executeQuery(getContentInfo, withArgumentsInArray: nil)
             
+            
+                //testing ContentInfoForMutable
+                //var contentInfoArray = NSMutableArray()
+            
+
             // seperate value form resultset
             if(contentInfo.next() == true)
             {
                 print("Some data macth")
-                return contentInfo
+                
+                // conver to NsDictionary and add to Array
+                contentInfoArray.append(contentInfo.resultDictionary())
+                
+                    //contentInfoArray.addObject(contentInfo.resultDictionary())
+                print("contentInfoArray in DB ", contentInfoArray)
+                
+                return contentInfoArray
                 
             }
             else
@@ -216,7 +234,7 @@ class ContentListDBHandler
         {
             print("Error: \(shoppingPad.lastErrorMessage())")
         }
-        return contentInfo
+        return contentInfoArray
     }
     
     // check table is Empty or Not

@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A458C711CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A458C701CA2BE0F006CB5F7 /* PContentParticipantListener.swift */; };
-		0A458C721CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A458C701CA2BE0F006CB5F7 /* PContentParticipantListener.swift */; };
-		0A458C731CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A458C701CA2BE0F006CB5F7 /* PContentParticipantListener.swift */; };
 		0A4743551C8D34470071B0F6 /* shareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4743541C8D34470071B0F6 /* shareIcon.png */; };
 		0A4743561C8D34470071B0F6 /* shareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4743541C8D34470071B0F6 /* shareIcon.png */; };
 		0A4743571C8D34470071B0F6 /* shareIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4743541C8D34470071B0F6 /* shareIcon.png */; };
@@ -74,9 +71,6 @@
 		0A7483D91C9A8A9300C412E8 /* PContentListInformerToViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7483D81C9A8A9300C412E8 /* PContentListInformerToViewModel.swift */; };
 		0A7483DA1C9A8A9300C412E8 /* PContentListInformerToViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7483D81C9A8A9300C412E8 /* PContentListInformerToViewModel.swift */; };
 		0A7483DB1C9A8A9300C412E8 /* PContentListInformerToViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7483D81C9A8A9300C412E8 /* PContentListInformerToViewModel.swift */; };
-		0A7F9DCC1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7F9DCB1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift */; };
-		0A7F9DCD1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7F9DCB1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift */; };
-		0A7F9DCE1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7F9DCB1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift */; };
 		0A7F9DD01CA5146100E3C49B /* PContentParticipantViewObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7F9DCF1CA5146100E3C49B /* PContentParticipantViewObserver.swift */; };
 		0A7F9DD11CA5146100E3C49B /* PContentParticipantViewObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7F9DCF1CA5146100E3C49B /* PContentParticipantViewObserver.swift */; };
 		0A7F9DD21CA5146100E3C49B /* PContentParticipantViewObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7F9DCF1CA5146100E3C49B /* PContentParticipantViewObserver.swift */; };
@@ -124,7 +118,6 @@
 
 /* Begin PBXFileReference section */
 		021F34B6DB856C9025AEC4BB /* Pods_ShoppingPad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShoppingPad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A458C701CA2BE0F006CB5F7 /* PContentParticipantListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PContentParticipantListener.swift; sourceTree = "<group>"; };
 		0A4743541C8D34470071B0F6 /* shareIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareIcon.png; sourceTree = "<group>"; };
 		0A56F35F1C8BF26F00A3CC27 /* ShoppingPad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShoppingPad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A56F3621C8BF26F00A3CC27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ShoppingPad/AppDelegate.swift; sourceTree = "<group>"; };
@@ -157,7 +150,6 @@
 		0A625BE81C9FDAE200077552 /* sendMessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sendMessage.png; sourceTree = "<group>"; };
 		0A7483D41C9A870400C412E8 /* PContentListListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PContentListListener.swift; sourceTree = "<group>"; };
 		0A7483D81C9A8A9300C412E8 /* PContentListInformerToViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PContentListInformerToViewModel.swift; sourceTree = "<group>"; };
-		0A7F9DCB1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PContentParticipantInformerToViewModel.swift; sourceTree = "<group>"; };
 		0A7F9DCF1CA5146100E3C49B /* PContentParticipantViewObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PContentParticipantViewObserver.swift; sourceTree = "<group>"; };
 		0A7F9DD31CA5472500E3C49B /* defaultImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultImage.png; sourceTree = "<group>"; };
 		0A97D9641C99360A005836BE /* ViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
@@ -268,7 +260,6 @@
 				0A625BD01C9FB08900077552 /* ContentInfoViewModelHandler.swift */,
 				0A97D9641C99360A005836BE /* ViewModel.swift */,
 				0A7483D81C9A8A9300C412E8 /* PContentListInformerToViewModel.swift */,
-				0A7F9DCB1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift */,
 			);
 			name = ShoppingPadViewModel;
 			sourceTree = "<group>";
@@ -279,7 +270,6 @@
 				0A56F3A31C8BF7B800A3CC27 /* ContentListController.swift */,
 				0A625BD41C9FB0A100077552 /* ContentInfoController.swift */,
 				0A7483D41C9A870400C412E8 /* PContentListListener.swift */,
-				0A458C701CA2BE0F006CB5F7 /* PContentParticipantListener.swift */,
 			);
 			name = ShoppingPadController;
 			sourceTree = "<group>";
@@ -609,10 +599,8 @@
 				0A97D9651C99360A005836BE /* ViewModel.swift in Sources */,
 				0AF57CFF1C92EEAE009A31BE /* FMResultSet.m in Sources */,
 				0A56F3AC1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
-				0A458C711CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */,
 				0A56F3A41C8BF7B800A3CC27 /* ContentListController.swift in Sources */,
 				0A625BD51C9FB0A100077552 /* ContentInfoController.swift in Sources */,
-				0A7F9DCC1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift in Sources */,
 				0A625BD11C9FB08900077552 /* ContentInfoViewModelHandler.swift in Sources */,
 				0A56F3A81C8BF7DE00A3CC27 /* ContentListModel.swift in Sources */,
 				0A7483D91C9A8A9300C412E8 /* PContentListInformerToViewModel.swift in Sources */,
@@ -630,7 +618,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A458C721CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */,
 				0A56F3AD1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
 				0A56F39C1C8BF4AB00A3CC27 /* ContentListViewController.swift in Sources */,
 				0A7F9DD11CA5146100E3C49B /* PContentParticipantViewObserver.swift in Sources */,
@@ -641,7 +628,6 @@
 				0A56F3B51C8BF86100A3CC27 /* ContentListViewObserver.swift in Sources */,
 				0A56F3A91C8BF7DE00A3CC27 /* ContentListModel.swift in Sources */,
 				0A97D9661C99360A005836BE /* ViewModel.swift in Sources */,
-				0A7F9DCD1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift in Sources */,
 				0A56F3A51C8BF7B800A3CC27 /* ContentListController.swift in Sources */,
 				0A56F37B1C8BF27000A3CC27 /* ShoppingPadTests.swift in Sources */,
 				0A56F3C51C8C56E600A3CC27 /* CustomCell.swift in Sources */,
@@ -662,7 +648,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A458C731CA2BE10006CB5F7 /* PContentParticipantListener.swift in Sources */,
 				0A56F3AE1C8BF81300A3CC27 /* ContentListRestServiceHandler.swift in Sources */,
 				0A56F39D1C8BF4AB00A3CC27 /* ContentListViewController.swift in Sources */,
 				0A7F9DD21CA5146100E3C49B /* PContentParticipantViewObserver.swift in Sources */,
@@ -673,7 +658,6 @@
 				0A56F3B61C8BF86100A3CC27 /* ContentListViewObserver.swift in Sources */,
 				0A56F3AA1C8BF7DE00A3CC27 /* ContentListModel.swift in Sources */,
 				0A97D9671C99360A005836BE /* ViewModel.swift in Sources */,
-				0A7F9DCE1CA50F0C00E3C49B /* PContentParticipantInformerToViewModel.swift in Sources */,
 				0A56F3A61C8BF7B800A3CC27 /* ContentListController.swift in Sources */,
 				0A56F3861C8BF27000A3CC27 /* ShoppingPadUITests.swift in Sources */,
 				0A56F3C61C8C56E600A3CC27 /* CustomCell.swift in Sources */,

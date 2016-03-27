@@ -10,14 +10,18 @@
 
 import Foundation
 
-// define protocol which will be implemented by ContentListController
+// define protocol which will be implemented by ContentListController 
 
-protocol PContentListListener
+protocol PControllerListener
 {
     // For ContentInfo
     func updateControllerInfoModel(JsonContentInfo : NSMutableArray)
     
     //For COntentVIew
     func updateControllerViewModel(JsonContentView : NSMutableArray)
+    
+    // for ContentParticipant
+    func updateContentParticipant(JsonContentParticipant : NSMutableArray)
+
 }
 

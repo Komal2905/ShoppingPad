@@ -14,5 +14,8 @@ import Foundation
 
 protocol PContentListInformerToViewModel
 {
-    func updateViewModelContentListInformer()
+    // implemetend by COntentList
+    
+    func updateViewModelContentInformer()
+    
 }
