@@ -33,6 +33,7 @@ struct ContentParticipantViewModel
 {
     var mContentID : Observable<String>
     var mContentTitle : Observable<String>
+    var mContentImage : Observable<String>
     var mParticipantName : Observable<String>
     var mParticipantLastOpenedDate : Observable<String>
     var mParticipantAction : Observable<String>

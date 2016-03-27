@@ -82,7 +82,10 @@ class ContentListController : PControllerListener
     var contentInfoDataModel : ContentInfoDataModel!
     
     // create object of  ContentViewDataModel of Model
-    var contentViewRestModel : ContentViewDataModel!
+    var contentViewDataModel : ContentViewDataModel!
+    
+    // create objetc of ContentParticipantDataModel of ContentInfoModel
+    var contentParticipantDataModel : ContentParticipantDataModel!
     
     // object for ContentInfo Structure
     var mContentInfo = [ContentInfo]()
@@ -100,7 +103,7 @@ class ContentListController : PControllerListener
     var mContentViewModelListener : PContentListInformerToViewModel?
     
     // array that will hold Result of Resultset For ContentParticipant
-    var contentInfoArray = [AnyObject]()
+     var contentInfoArray = NSMutableArray()
     
     init(pContentListInformerToViewModel : PContentListInformerToViewModel)
     {
@@ -139,6 +142,8 @@ class ContentListController : PControllerListener
     // This function will populate COntentInfo in ContentListController
     func populateContentInfo(JsonContentInfo : NSMutableArray)
     {
+         print("REST CALLING")
+        
         // Iterate thorugh Array
         for contentCount in 0...JsonContentInfo.count-1
         {
@@ -158,7 +163,7 @@ class ContentListController : PControllerListener
             mContentInfo.append(set)
             
             // pass array for insertion in table ContentInfo
-            mContentListDBHandler!.insertContentInfo(set)
+                mContentListDBHandler!.insertContentInfo(set)
         
         }
     }
@@ -176,7 +181,7 @@ class ContentListController : PControllerListener
             let contentViewDictionary = JsonContentView[contentCount] as! NSDictionary
         
              //Populate ContentViewDataModel class  of Model with Dicionary
-            let contentViewDataModel = ContentViewDataModel(view: contentViewDictionary)
+        contentViewDataModel = ContentViewDataModel(view: contentViewDictionary)
             
             // Populate Controller's Structure ContentView
             let set = ContentView(mContentID: contentViewDataModel.mContentID, mActionPerformed: contentViewDataModel.mActionPerformed, mDisplayProfile: contentViewDataModel.mDisplayProfile, mEmail: contentViewDataModel.mEmail, mFirstName: contentViewDataModel.mFirstName, mLastName: contentViewDataModel.mLastName, mLastViewedDate: contentViewDataModel.mLastViewedDate, mNumberOfViews: contentViewDataModel.mNumberOfViews, mNumberOfParticipant: contentViewDataModel.mNumberOfParticipant, mUserAdminId: contentViewDataModel.mUserAdminId, mUserContentId: contentViewDataModel.mUserContentId, mUserId: contentViewDataModel.mUserId)
@@ -238,7 +243,7 @@ class ContentListController : PControllerListener
             let contentParticipantDictionary = JsonContentParticipant[pCount] as! NSDictionary
             
             // populate ContentParticipantModel
-            let mContentParticipantModel = ContentParticipantModel(contentParticipant: contentParticipantDictionary)
+            let mContentParticipantModel = ContentParticipantDataModel(contentParticipant: contentParticipantDictionary)
             
             
             // populate COntrollers structure ContentDetails
@@ -254,13 +259,15 @@ class ContentListController : PControllerListener
     
     
     // This method will be called from ContentInfoViewModelHandler
-    func getContentParticipantData(userId : Int) ->(contentDetail : [ContentDetails], contentParticiapnt : [ContentParticipant])
+    func getContentParticipantData(userId : Int) ->(contentDetail : [ContentInfo], contentParticiapnt : [ContentParticipant])
     {
         // return Content details and Content participant to ContentInfoViewModelHandler
         // which will set it to ContentViewModel
         
-        print("mContentDetails in COntrooler", mContentDetails)
-        return(mContentDetails, mContentParticipant)
+        print("mContentInfo  in COntrooler", mContentInfo)
+        
+        print("mContentParticipant  in COntrooler", mContentParticipant)
+        return(mContentInfo, mContentParticipant)
     }
 
     
@@ -274,20 +281,22 @@ class ContentListController : PControllerListener
         return(mContentInfo, mContentView)
     }
     
-    
-    
+
     // This function will fetch ContentInfoData from LocalDB
     func getContentInfo(contentId : Int)
     {
         // call LocalDb
-        print("IN CONTROLLER")
+    
         contentInfoArray = mContentListDBHandler!.getContentInfo(contentId)
         
-        print("ContentInfoInt COntroller",contentInfoArray)
         // populate ContentInfo Model
-        self.populateContentInfoDataModel(contentInfoArray)
         
+       self.populateContentInfo(contentInfoArray)
+    
     }
+    
+    
+    
     
     // this function populate COntentInfo data model
     func populateContentInfoDataModel(jsonContentInfo : [AnyObject])

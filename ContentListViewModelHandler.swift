@@ -33,16 +33,6 @@ struct ContentViewModel
 }
 
 
-
-
-
-
-
-
-
-
-
-
 class ContentListViewModelHandler : PContentListInformerToViewModel
 {
     //contentListController is type of ContentListController.

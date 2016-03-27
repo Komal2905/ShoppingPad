@@ -51,27 +51,41 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
     //var mContentInfoViewModelDummy : ContentInfoViewModelDummy!
     
     //create object of ContentInfoViewModel of ViewModel
-    var mContentInfoViewModel : ContentParticipantViewModel!
+    var mContentInfoViewModel : ContentParticipantViewModel?
 
     
     override func viewDidLoad()
     {
          super.viewDidLoad()
+        
         // create ContentImagevIew round shape
         util.roundImage(contentInfoImageView)
         
-        // set value to ConetntTitle from value whi from segue
-        contentTitleLabel.text = mContentTitle
-
+        
+        
         // call constructor of ContentInfoViewModelHandler
         mContentInfoViewModelHandler = ContentInfoViewModelHandler(pContentParticipantViewObserver: self)
+
+        
+        // Strat Asyc Thread
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        
+        dispatch_async(backgroundQueue, {
+            print("This is run on the background queue")
+            
+            ///call ContentInfoViewModelHandler method and pass ContentId
+            self.mContentInfoViewModelHandler.populateContentParticipantData(self.mContentId)
+            
+            // for DB
+            self.mContentInfoViewModelHandler.getContentInfo(self.mContentId)
+            
+            
+        })
         
         
-        //call ContentInfoViewModelHandler method and pass ContentId
-        mContentInfoViewModelHandler.populateContentParticipantData(mContentId)
         
-        //get Content Info 
-                mContentInfoViewModelHandler.getContentInfo(mContentId)
+        
     }
 
     override func didReceiveMemoryWarning()
@@ -162,7 +176,10 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
         // check for participant details table
         if tableView == participantTable
         {
+            //get Content Info
+            //mContentInfoViewModel = mContentInfoViewModelHandler!.getContentInfo(mContentId)
             
+                       
             //get ContentInfo dummy data fro each cell
             mContentInfoViewModel =  mContentInfoViewModelHandler!.getContentInfoViewModel(indexPath.row)
             
@@ -170,20 +187,27 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
             customCell = participantTable.dequeueReusableCellWithIdentifier("participantCell") as! CustomCell
             
             // set value of lable participantNameLabel
-            customCell.participantNameLabel.text = mContentInfoViewModel.mParticipantName.value
+            customCell.participantNameLabel.text = mContentInfoViewModel!.mParticipantName.value
             
             // set value of lable participantNameLabel
-            customCell.participantLastActionLabel.text = mContentInfoViewModel.mParticipantAction.value
+            customCell.participantLastActionLabel.text = mContentInfoViewModel!.mParticipantAction.value
             
             // set value of lable participantNameLabel
-            customCell.participantLastViewDateLabel.text = mContentInfoViewModel.mParticipantLastOpenedDate.value
+            customCell.participantLastViewDateLabel.text = mContentInfoViewModel!.mParticipantLastOpenedDate.value
             
-            customCell.participantViewCountLabel.text = mContentInfoViewModel.mParticipantViewCount.value
+            customCell.participantViewCountLabel.text = mContentInfoViewModel!.mParticipantViewCount.value
             
+            // set Lable value
+            self.contentTitleLabel.text = mContentInfoViewModel?.mContentTitle.value
+            
+            // set Imageview
             // create round profile Image of participant
             util.roundImage(customCell.participantProfileImageView)
            
-            let mParticipnatImage = util.getImage( mContentInfoViewModel.mParticipantImageView.value)
+            
+            //print("HELLLO",(mContentInfoViewModel!.mContentImage.value))
+            let mParticipnatImage = util.getImage((mContentInfoViewModel!.mParticipantImageView.value))
+            
             
             customCell.participantProfileImageView.image = mParticipnatImage
            

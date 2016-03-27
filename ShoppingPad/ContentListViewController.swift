@@ -56,7 +56,7 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         // call init() of ContentListViewModel
         mContentListViewModel = ContentListViewModelHandler(pContentListViewObserver: self)
         
-        
+        // Strat Asyc Thread
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
         let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
         dispatch_async(backgroundQueue, {
@@ -126,10 +126,10 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         
         // call Util method for round imageview
         util.roundImage(customCell.mContentImageView)
-        /*
-        let contentImage = util.getImage(contentViewModel!.mContentImage.value)
-        customCell.mContentImageView.image = contentImage
-        */
+        
+        //let contentImage = util.getImage(contentViewModel!.mContentImage.value)
+        //customCell.mContentImageView.image = contentImage
+
         self.bind()
         return customCell
         
@@ -228,7 +228,7 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     
     // function for segue; this will send ConetentTitle and contentId
     //
-   // /*
+  
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         // segue for ContentInfoViewController
@@ -239,14 +239,14 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
             let contentInfoViewController : ContentInfoViewController = segue.destinationViewController as! ContentInfoViewController
             
             //set contentTitle of COntentInfoViewController
-            contentInfoViewController.mContentTitle = mContentTitlePass!
+                //contentInfoViewController.mContentTitle = mContentTitlePass!
             
              //set contentId of COntentInfoViewController
             contentInfoViewController.mContentId = mContentIdPass
             
             
         }
-    }// */
+    }
     
     
 }

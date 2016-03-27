@@ -204,9 +204,6 @@ func getParticipantDetails(pContentParticipantListener : PControllerListener, co
             // Convert NSData to Dictionary where keys are of type String, and values are of any type
             self.jsonContentParticipants = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
             
-            
-            print("ParticipantJson in Rest ",self.jsonContentParticipants)
-            
             // call back to ContentInfoController
             pContentParticipantListener.updateContentParticipant(self.jsonContentParticipants )
         }

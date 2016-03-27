@@ -76,8 +76,27 @@ class ContentInfoViewModelHandler : PContentListInformerToViewModel
     {
         // call Controller
         print("IN HANDLELER")
-            //mContentInfoController.getContentInfo(contentId)
+         mContentInfoController.getContentInfo(contentId)
         
+        
+        let mContentData = mContentInfoController.getContentData(1)
+        
+        let contentInfo = mContentData.info
+        
+        print("mContentInfo -- ",mContentData)
+        
+        for index1 in 0...contentInfo.count-1
+        {
+            //mContentInfoViewModel = ContentParticipantViewModel(mContentID : Observable(String(1)),mContentTitle : Observable("MyTitle"),mContentImage :Observable("TitleImage"), mParticipantName: Observable(mContentParticipant[index1].mParticipantName),mParticipantLastOpenedDate : Observable(mContentParticipant[index1].mParticipantLastOpenedDate),mParticipantAction: Observable(mContentParticipant[index1].mParticipantAction),mParticipantViewCount: Observable(String(mContentParticipant[index1].mParticipantViewCount)),mParticipantImageView : Observable(mContentParticipant[index1].mParticipantImageView),mParticipantId:Observable(String(mContentParticipant[index1].mParticipantId)))
+            
+            
+            
+            
+            
+            
+            //mContentInfoViewModelArray.append(mContentInfoViewModel)
+        }
+
     }
     
     
@@ -112,27 +131,25 @@ class ContentInfoViewModelHandler : PContentListInformerToViewModel
     func populateContentInfo()
     {
         // call Controller for populateing data
-        let mContentInfo = mContentInfoController.getContentParticipantData(1)
+        let mContentData = mContentInfoController.getContentParticipantData(1)
         
-        // seperate ContentInfoDetails;uncomment
-                //let mContentDetail = mContentInfo.contentDetail
-       
         //seperate ContentParticipant
         
-        let mContentParticipant = mContentInfo.contentParticiapnt
+        let mContentParticipant = mContentData.contentParticiapnt
         
+        let mContentInfo = mContentData.contentDetail
+        
+        // content Info Count
+        let mContentInfoCount = mContentInfo.count-1
+       
         // seperate ConetntDetais and participant view one by one
         // and populate ContentInfoViewModel
         
         for index1 in 0...mContentParticipant.count-1 // contentDeatilsHere
         {
-        
-            // populate ContentInfoViewModel ;
-            //mContentInfoViewModel = ContentInfoViewModel(mContentID : Observable(String(mContentDetail[index1].mContentID)),mContentTitle : Observable(mContentDetail[index1].mContentTitle),mParticipantName: Observable(mContentParticipant[index1].mParticipantName),mParticipantLastOpenedDate : Observable(mContentParticipant[index1].mParticipantLastOpenedDate),mParticipantAction: Observable(mContentParticipant[index1].mParticipantAction),mParticipantViewCount: Observable(String(mContentParticipant[index1].mParticipantViewCount)),mParticipantImageView : Observable(mContentParticipant[index1].mParticipantImageView),mParticipantId:Observable(String(mContentParticipant[index1].mParticipantId)))
-            
             // TESTING PUROPSE
-            mContentInfoViewModel = ContentParticipantViewModel(mContentID : Observable(String(1)),mContentTitle : Observable("MyTitle"),mParticipantName: Observable(mContentParticipant[index1].mParticipantName),mParticipantLastOpenedDate : Observable(mContentParticipant[index1].mParticipantLastOpenedDate),mParticipantAction: Observable(mContentParticipant[index1].mParticipantAction),mParticipantViewCount: Observable(String(mContentParticipant[index1].mParticipantViewCount)),mParticipantImageView : Observable(mContentParticipant[index1].mParticipantImageView),mParticipantId:Observable(String(mContentParticipant[index1].mParticipantId)))
-                    
+            mContentInfoViewModel = ContentParticipantViewModel(mContentID : Observable(String(mContentInfo[mContentInfoCount].mContentID)),mContentTitle : Observable(mContentInfo[mContentInfoCount].mContentDisplay),mContentImage :Observable(mContentInfo[mContentInfoCount].mcontentLink), mParticipantName: Observable(mContentParticipant[index1].mParticipantName),mParticipantLastOpenedDate : Observable(mContentParticipant[index1].mParticipantLastOpenedDate),mParticipantAction: Observable(mContentParticipant[index1].mParticipantAction),mParticipantViewCount: Observable(String(mContentParticipant[index1].mParticipantViewCount)),mParticipantImageView : Observable(mContentParticipant[index1].mParticipantImageView),mParticipantId:Observable(String(mContentParticipant[index1].mParticipantId)))
+            
                     
             mContentInfoViewModelArray.append(mContentInfoViewModel)
         

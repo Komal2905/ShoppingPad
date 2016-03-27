@@ -30,7 +30,7 @@ class ContentInfoDataModel
     // constructor
     init(info : NSDictionary)
     {
-        
+        print("INFO IN MODLE", info)
         mcontentLink = info["contentLink"] as! String
         
         mContentType = info["contentType"] as! String

@@ -11,36 +11,10 @@
 
 import Foundation
 
-// hold variable of ContentDetailsModelnt
-//class ContentDetailsModel
-//{
-//    var mContentID : Int!
-//    var mContentTitle : String!
-//    
-//    // intialize ContentDetailModel with value of Dictionary
-//    init(contentDetail : NSDictionary)
-//    {
-//        mContentID = contentDetail["contentId"] as! Int
-//        mContentTitle = contentDetail["Name"] as! String
-//    }
-//}
 
-// taking data from localDB // NO need This Delete once tested
-//class ContentDetailsModel
-//{
-//    var mContentID : Int!
-//    var mContentTitle : String!
-//    
-//    // intialize ContentDetailModel with value of Dictionary
-//    init(contentDetail : FMResultSet)
-//    {
-//        mContentID = Int(contentDetail.stringForColumn("contentId"))!
-//        mContentTitle = contentDetail.stringForColumn("ContentTitle") as String
-//    }
-//}
 // holds variable for participants of contets
 
-class ContentParticipantModel
+class ContentParticipantDataModel
 {
     var mParticipantName : String!
     var mParticipantLastOpenedDate : String!

@@ -23,8 +23,10 @@ class ContentListDBHandler
     var contentInfo = FMResultSet()
     
     // array that will host Result of Resultset
-    var contentInfoArray = [AnyObject]()
-
+        //var contentInfoArray = [AnyObject]()
+    var contentInfoArray = NSMutableArray()
+    
+    
     init()
     {
         // create Table COntentInfo and ContentView
@@ -59,8 +61,6 @@ class ContentListDBHandler
             // create table ContentView
             let createContentView = "CREATE TABLE IF NOT EXISTS ContentView (contentid INT NOT NULL, actionPerformed VARCHAR(45) NULL, displayProfile VARCHAR(50), email VARCHAR(50), firstName VARCHAR(50), lastName VARCHAR(50), LastViewedDate VARCHAR(45), numberOfViews INT ,numberOfParticipant INT, userAdminId INT, userContentId INT, userId INT, PRIMARY KEY (contentid) )"
             
-            
-            print("CreateContentView",createContentView)
             // create ContentParticipant Table
             
             let createContentParticipant = "CREATE TABLE IF NOT EXISTS  ContentParticipant(contentid INT, userId INT, userName VARCHAR(50), action VARCHAR(50), image VARCHAR(200), lastViewedDateTime VARCHAR(100), numberOfView INT )"
@@ -153,7 +153,6 @@ class ContentListDBHandler
             
             let insertContentView = "INSERT INTO ContentView VALUES(\(view.mContentID),'\(view.mActionPerformed)','\(view.mDisplayProfile)','\(view.mEmail)','\(view.mFirstName)','\(view.mLastName)','\(view.mLastViewedDate)',\(view.mNumberOfViews),\(view.mNumberOfParticipant),\(view.mUserAdminId),\(view.mUserContentId),\(view.mUserId)) "
             
-            print("insertContentView", insertContentView)
             // excute Insert Query
             if !shoppingPad.executeStatements(insertContentView)
             {
@@ -185,7 +184,7 @@ class ContentListDBHandler
     
     
     // This function will fetch ContentInfoData from LocalDB
-    func getContentInfo(contentId : Int) -> [AnyObject]
+    func getContentInfo(contentId : Int) -> NSMutableArray
     {
         
        print("IN LOCALDB")
@@ -202,7 +201,7 @@ class ContentListDBHandler
             
             // define resultset
             contentInfo = shoppingPad.executeQuery(getContentInfo, withArgumentsInArray: nil)
-            
+    
             
                 //testing ContentInfoForMutable
                 //var contentInfoArray = NSMutableArray()
@@ -214,9 +213,9 @@ class ContentListDBHandler
                 print("Some data macth")
                 
                 // conver to NsDictionary and add to Array
-                contentInfoArray.append(contentInfo.resultDictionary())
+                //contentInfoArray.append(contentInfo.resultDictionary())
                 
-                    //contentInfoArray.addObject(contentInfo.resultDictionary())
+                contentInfoArray.addObject(contentInfo.resultDictionary())
                 print("contentInfoArray in DB ", contentInfoArray)
                 
                 return contentInfoArray
