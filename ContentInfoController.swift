@@ -43,16 +43,19 @@ class ContentInfoController : PContentParticipantListener
     var mContentDetails = [ContentDetails]()
     
     // create array object of ContentParticipant
-    
     var mContentParticipant = [ContentParticipant]()
     
     //create object REST service handler
     var mContentListRestServiceHandler : ContentListRestServiceHandler?
     
+    // create object of Database handler
+    var mContentListDBHandler : ContentListDBHandler?
     
     // object of PContentParticipantInformerToViewModel
-    
     var mContentParticipantInformerToViewModel : PContentParticipantInformerToViewModel?
+    
+    // define resulteset
+    var contentInfo = FMResultSet()
     
     init(pContentParticipantInformerToViewModel : PContentParticipantInformerToViewModel)
     {
@@ -65,7 +68,41 @@ class ContentInfoController : PContentParticipantListener
         else
         {   // initalize object of ContentParticipantInformerToViewModel
             mContentParticipantInformerToViewModel = pContentParticipantInformerToViewModel
+            
+            // intialize DB handler
+            mContentListDBHandler = ContentListDBHandler()
         }
+        
+    }
+    
+    // This function will fetch ContentInfoData from LocalDB
+    func getContentInfo(contentId : Int)
+    {
+        // call LocalDb
+        print("IN CONTROLLER")
+        contentInfo = mContentListDBHandler!.getContentInfo(contentId)
+        
+        print("ContentInfoInt COntroller",contentInfo)
+        
+        // populate contentDetailModel
+            //self.populateContentDetailModel()
+
+    }
+    
+    // this function populate ContentDetailModel.
+    
+    func populateContentDetailModel()
+    {
+        let mContentDetailsModel = ContentDetailsModel(contentDetail: contentInfo)
+        
+         // populate COntrollers structure ContentDetails
+        
+        let set = ContentDetails(mContentID: mContentDetailsModel.mContentID, mContentTitle: mContentDetailsModel.mContentTitle)
+        
+        mContentDetails.append(set)
+        
+        print("mContentDetails In Controler", mContentDetails)
+
     }
     
     // this function is called form ContentInfoMovieModelHandler
@@ -86,7 +123,6 @@ class ContentInfoController : PContentParticipantListener
         self.populateDataFromRest(JsonContentParticipant)
         
         // call back to ContentInfoViewModelHandler
-        
         mContentParticipantInformerToViewModel!.updateViewModelContentParticipant()
     }
     
@@ -95,8 +131,8 @@ class ContentInfoController : PContentParticipantListener
     // then in popultate Controller
     func populateDataFromRest(JsonContentParticipant : NSMutableArray)
     {
-        
-        // populate
+        /*
+         //populate
         for cCount in 0...JsonContentParticipant.count-1
         {
             // populate ContentDetailsModel
@@ -109,11 +145,12 @@ class ContentInfoController : PContentParticipantListener
             let set = ContentDetails(mContentID: mContentDetailsModel.mContentID, mContentTitle: mContentDetailsModel.mContentTitle)
             
             mContentDetails.append(set)
-        }
+
+        } */
         
         for pCount in 0...JsonContentParticipant.count-1
         {
-            // populate ContentDetailsModel
+            // populate ContentParticipantModel
             
             let contentParticipantDictionary = JsonContentParticipant[pCount] as! NSDictionary
         
@@ -126,6 +163,8 @@ class ContentInfoController : PContentParticipantListener
             
                 mContentParticipant.append(set)
             
+            // Insert Into Database
+            
         }
 
      
@@ -136,6 +175,8 @@ class ContentInfoController : PContentParticipantListener
     {
         // return Content details and Content participant to ContentInfoViewModelHandler
         // which will set it to ContentViewModel
+        
+        print("mContentDetails in COntrooler", mContentDetails)
         return(mContentDetails, mContentParticipant)
     }
     

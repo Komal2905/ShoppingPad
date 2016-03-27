@@ -43,11 +43,11 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
     // create object of ContentInfoController
     var mContentInfoController : ContentInfoController!
     
-    // Aray of ContentInfoViewModel
-    var mContentInfoViewModelArray = [ContentInfoViewModel]()
+    // Aray of ContentParticipantViewModel
+    var mContentInfoViewModelArray = [ContentParticipantViewModel]()
     
-    // object of ContentInfoViewModel
-    var mContentInfoViewModel : ContentInfoViewModel!
+    // object of ContentParticipantViewModel
+    var mContentInfoViewModel : ContentParticipantViewModel!
     
     
     // object of PContentParticipantInformerToViewModel
@@ -75,6 +75,21 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
         }
     }
     
+    // This function will fetch ContentInfoData from LocalDB
+    func getContentInfo(contentId : Int)
+    {
+        // call Controller
+        print("IN HANDLELER")
+        mContentInfoController.getContentInfo(contentId)
+        
+    }
+    
+    
+    // this will populate ContentDetailsViewModel
+    func populateContentDetailsViewModel()
+    {
+        
+    }
     
     //this function is Called form COntentInfoViewController
     func populateContentParticipantData(content : Int)
@@ -94,7 +109,6 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
         // callback to ContentInfoViewCOntroller
         mContentParticipantViewObserver!.updateContentInfoViewModel()
         
-        
     }
     // This function populate ContentInfo; it calls Controller for ContentInfo;
     // after getting data from Controller it populate ContentInfoViewModel
@@ -104,8 +118,8 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
         // call Controller for populateing data
         let mContentInfo = mContentInfoController.getContentInfoData(1)
         
-        // seperate ContentInfoDetails
-        let mContentDetail = mContentInfo.contentDetail
+        // seperate ContentInfoDetails;uncomment
+                //let mContentDetail = mContentInfo.contentDetail
        
         //seperate ContentParticipant
         
@@ -114,11 +128,14 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
         // seperate ConetntDetais and participant view one by one
         // and populate ContentInfoViewModel
         
-        for index1 in 0...mContentDetail.count-1
+        for index1 in 0...mContentParticipant.count-1 // contentDeatilsHere
         {
         
-            // populate ContentInfoViewModel
-            mContentInfoViewModel = ContentInfoViewModel(mContentID : Observable(String(mContentDetail[index1].mContentID)),mContentTitle : Observable(mContentDetail[index1].mContentTitle),mParticipantName: Observable(mContentParticipant[index1].mParticipantName),mParticipantLastOpenedDate : Observable(mContentParticipant[index1].mParticipantLastOpenedDate),mParticipantAction: Observable(mContentParticipant[index1].mParticipantAction),mParticipantViewCount: Observable(String(mContentParticipant[index1].mParticipantViewCount)),mParticipantImageView : Observable(mContentParticipant[index1].mParticipantImageView),mParticipantId:Observable(String(mContentParticipant[index1].mParticipantId)))
+            // populate ContentInfoViewModel ;
+            //mContentInfoViewModel = ContentInfoViewModel(mContentID : Observable(String(mContentDetail[index1].mContentID)),mContentTitle : Observable(mContentDetail[index1].mContentTitle),mParticipantName: Observable(mContentParticipant[index1].mParticipantName),mParticipantLastOpenedDate : Observable(mContentParticipant[index1].mParticipantLastOpenedDate),mParticipantAction: Observable(mContentParticipant[index1].mParticipantAction),mParticipantViewCount: Observable(String(mContentParticipant[index1].mParticipantViewCount)),mParticipantImageView : Observable(mContentParticipant[index1].mParticipantImageView),mParticipantId:Observable(String(mContentParticipant[index1].mParticipantId)))
+            
+            // TESTING PUROPSE
+            mContentInfoViewModel = ContentParticipantViewModel(mContentID : Observable(String(1)),mContentTitle : Observable("MyTitle"),mParticipantName: Observable(mContentParticipant[index1].mParticipantName),mParticipantLastOpenedDate : Observable(mContentParticipant[index1].mParticipantLastOpenedDate),mParticipantAction: Observable(mContentParticipant[index1].mParticipantAction),mParticipantViewCount: Observable(String(mContentParticipant[index1].mParticipantViewCount)),mParticipantImageView : Observable(mContentParticipant[index1].mParticipantImageView),mParticipantId:Observable(String(mContentParticipant[index1].mParticipantId)))
                     
                     
             mContentInfoViewModelArray.append(mContentInfoViewModel)
@@ -127,7 +144,7 @@ class ContentInfoViewModelHandler : PContentParticipantInformerToViewModel
     }
     
  // This function is called from ContentInfoViewController
-    func getContentInfoViewModel(position : Int) -> ContentInfoViewModel
+    func getContentInfoViewModel(position : Int) -> ContentParticipantViewModel
     {
         return mContentInfoViewModelArray[position]
     }

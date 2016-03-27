@@ -29,7 +29,7 @@ struct ContentListViewModel
 // Structure holds variable For COntentInfoViewModel
 // It give list of participants for Content
 
-struct ContentInfoViewModel
+struct ContentParticipantViewModel
 {
     var mContentID : Observable<String>
     var mContentTitle : Observable<String>
@@ -40,4 +40,13 @@ struct ContentInfoViewModel
     var mParticipantImageView : Observable<String>
     var mParticipantId : Observable<String>
 
+}
+
+// for ContentDetails
+
+struct ContentDetailsViewModel
+{
+    var mContentID : Observable<String>
+    var mContentTitle : Observable<String>
+    var mContentImage : Observable<String>              // Thumbview Image link of the Content
 }

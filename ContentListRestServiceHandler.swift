@@ -127,6 +127,8 @@ class ContentListRestServiceHandler
                     // Convert NSData to Dictionary where keys are of type String, and values are of any type
                     self.jsonContentView = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
                     
+                    
+                    print("JSON CONTWNTVIEW", self.jsonContentView)
                     //pass ContentView To Protocol
                     pContentListListener.updateControllerViewModel(self.jsonContentView)
                     
@@ -148,13 +150,11 @@ class ContentListRestServiceHandler
   // Function get all participant for content
 func getParticipantDetails(pContentParticipantListener : PContentParticipantListener, content : Int)
 {
-            
     // post parameter
     let postParams : [Int] = [content]
+    
     //url String
     let postEndpoint: String = "http://54.86.64.100:3000/api/v4/content/\(postParams[0])/participant/"
-    
-    
     
     print("postEndpoint",postEndpoint)
     // convert string to NSURL
@@ -203,7 +203,8 @@ func getParticipantDetails(pContentParticipantListener : PContentParticipantList
             self.jsonContentParticipants = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
             
             
-            print("Json in Rest COunt",self.jsonContentParticipants.count)
+            print("Json in Rest COunt",self.jsonContentParticipants)
+            
             // call back to ContentInfoController
             pContentParticipantListener.updateContentParticipant(self.jsonContentParticipants )
         }

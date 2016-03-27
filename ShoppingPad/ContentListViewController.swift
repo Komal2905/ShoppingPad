@@ -56,8 +56,19 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         // call init() of ContentListViewModel
         mContentListViewModel = ContentListViewModelHandler(pContentListViewObserver: self)
         
-        // populate content list model
-        mContentListViewModel!.populateContentViewModelData()
+        
+        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+                    print("This is run on the background queue")
+            
+                    // populate content list model
+                    self.mContentListViewModel!.populateContentViewModelData()
+                    //self.bind()
+            
+                    })
+        
+        
         
     }
 
@@ -173,9 +184,9 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         //pass ContentTitle and ContentID
         mContentTitlePass =  (mContentListViewModel?.getContentViewModel(indexPath.row))!.mContentTitle.value
         
-        mContentIdPass = Int((mContentListViewModel?.getContentViewModel(indexPath.row))!.mContentID.value)
+        mContentIdPass = (Int((mContentListViewModel?.getContentViewModel(indexPath.row))!.mContentID.value))
         
-        self.performSegueWithIdentifier("showContentInfo", sender: self)
+        self.performSegueWithIdentifier("showContentInfo", sender: mContentIdPass)
     }
     
     // This function declare AlertController and its action
@@ -216,7 +227,8 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     
     
     // function for segue; this will send ConetentTitle and contentId
-    
+    //
+   // /*
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         // segue for ContentInfoViewController
@@ -226,13 +238,15 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
             
             let contentInfoViewController : ContentInfoViewController = segue.destinationViewController as! ContentInfoViewController
             
-            print("mContentTitleArray HERE0",mContentTitlePass)
+            //set contentTitle of COntentInfoViewController
             contentInfoViewController.mContentTitle = mContentTitlePass!
             
+             //set contentId of COntentInfoViewController
             contentInfoViewController.mContentId = mContentIdPass
             
+            
         }
-    }
+    }// */
     
     
 }

@@ -153,7 +153,7 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
                 if(mContentInfo[index1].mContentID == mContentView[index2].mContentID)
                 {
                     // Intialzed CViewModel of ViewModel
-                    cViewModel = ContentListViewModel(mContentImage : Observable(mContentInfo[index1].mContentImage), mContentTitle : Observable(mContentInfo[index1].mContentTitle), mNumberOfViews : Observable(String(mContentView[index2].mNumberOfViews)),mNumberOfParticipant : Observable(String(mContentView[index2].mNumberOfParticipant)), mLastViewedDate : Observable(mContentView[index2].mLastViewedDate), mActionPerformed : Observable(mContentView[index2].mActionPerformed), mContentID : Observable(String( mContentView[index2].mContentID)))
+                    cViewModel = ContentListViewModel(mContentImage : Observable(mContentInfo[index1].mContentImage), mContentTitle : Observable(String(mContentInfo[index1].mContentDisplay)), mNumberOfViews : Observable(String(mContentView[index2].mNumberOfViews)),mNumberOfParticipant : Observable(String(mContentView[index2].mNumberOfParticipant)), mLastViewedDate : Observable(mContentView[index2].mLastViewedDate), mActionPerformed : Observable(mContentView[index2].mActionPerformed), mContentID : Observable(String( mContentView[index2].mContentID)))
 
         
     

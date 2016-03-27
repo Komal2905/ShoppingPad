@@ -51,7 +51,7 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
     //var mContentInfoViewModelDummy : ContentInfoViewModelDummy!
     
     //create object of ContentInfoViewModel of ViewModel
-    var mContentInfoViewModel : ContentInfoViewModel!
+    var mContentInfoViewModel : ContentParticipantViewModel!
 
     
     override func viewDidLoad()
@@ -70,6 +70,8 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
         //call ContentInfoViewModelHandler method and pass ContentId
         mContentInfoViewModelHandler.populateContentParticipantData(mContentId)
         
+        //get Content Info 
+                mContentInfoViewModelHandler.getContentInfo(mContentId)
     }
 
     override func didReceiveMemoryWarning()
@@ -78,7 +80,14 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
         // Dispose of any resources that can be recreated.
     }
     
-
+    // This function will fetch ContentInfoData from LocalDB
+    func getContentInfo(contentId : Int)
+    {
+        // call ViewModelHandler
+        print("IN VIEWCONTROLLER")
+        mContentInfoViewModelHandler.getContentInfo(contentId)
+    }
+    
     // updateContentListViewModelprotocol function
     // define number of row in section
     func numberOfSectionsInTableView(tableView: UITableView) -> Int

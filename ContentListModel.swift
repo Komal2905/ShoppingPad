@@ -12,23 +12,49 @@
 import UIKit
 
 // define classs for ContentInfo
-class ContentInfoRestModel
+class ContentInfoDataModel
 {
-    var mContentImage : String!     // Thumbview Image link of the Content
-    var mContentTitle : String!    // Title of Content
+    var mcontentLink  : String!     // Thumbview Image link of the Content
+    var mContentType : String!
     var mContentID : Int!          // Content ID
+    var mCreatedAt : String!
+    var mDescription : String!
+    var mContentDisplay : String!    // Title of Content
+    var mContentImage : String!     // Thumbview Image link of the Content
+    var mModifiedAt : String!
+    var mSyncDateTime : String!
+    var mContentTitle : Int!
+    var mContentUrl : String!
+    var mContentZip : String!
         
     // constructor
     init(info : NSDictionary)
     {
-        // initialize mContentImage with info Dictionary
+        
+        mcontentLink = info["contentLink"] as! String
+        
+        mContentType = info["contentType"] as! String
+        
+        mContentID = info["content_id"] as! Int
+        
+        mCreatedAt = info["created_at"] as! String
+        
+        mDescription = info["decription"] as! String
+        
+        mContentDisplay = info["display_name"] as! String
+        
         mContentImage = info["imagesLink"] as! String
         
-        // initialize mContentTitle with info Dictionary
-        mContentTitle = info["display_name"] as! String
+        mModifiedAt = info["modified_at"] as! String
         
-        // initialize mContentID with info Dictionary
-        mContentID = info["content_id"] as! Int
+        mSyncDateTime = info["syncDateTime"] as! String
+        
+        mContentTitle = info["title"] as! Int
+        
+        mContentUrl = info["url"] as! String
+        
+        mContentZip = info["zip"] as! String
+
     }
     
 }
@@ -36,22 +62,49 @@ class ContentInfoRestModel
 
 //define class For ContentView
 
-class ContentViewRestModel
+class ContentViewDataModel
 {
+    var mContentID : Int!           // Content ID
+    var mActionPerformed : String!  // shows which action has been last performed on Content
+    var mDisplayProfile : String!
+    var mEmail : String!
+    var mFirstName : String!
+    var mLastName : String!
+    var mLastViewedDate : String!   // last viewed time of Content
     var mNumberOfViews : Int!       // Total views of content
     var mNumberOfParticipant : Int! // Total participant of Content
-    var mLastViewedDate : String!   // last viewed time of Content
-    var mActionPerformed : String!  // shows which action has been last performed on Content
-    var mContentID : Int!           // Content ID
-
+    var mUserAdminId : Int!
+    var mUserContentId : Int!
+    var mUserId : Int!
+   
     // intialize with Dictionary
     init(view : NSDictionary)
     {
-        mNumberOfViews = view["numberOfViews"] as! Int
-        mNumberOfParticipant = view["numberofparticipant"] as! Int
-        mLastViewedDate = view["lastViewedDateTime"] as! String
+        
+        
+        mContentID = view["contentId"] as! Int
+        
         mActionPerformed = view["action"] as! String
-        mContentID =  view["contentId"] as! Int
+        
+        mDisplayProfile = view["displayProfile"] as! String
+        
+        mEmail = view["email"] as! String
+        
+        mFirstName = view["firstName"] as! String
+        
+        mLastName = view["lastName"] as! String
+        
+        mLastViewedDate = view["lastViewedDateTime"] as! String
+        
+        mNumberOfViews = view["numberOfViews"] as! Int
+        
+        mNumberOfParticipant = view["numberofparticipant"] as! Int
+        
+        mUserAdminId = view["userAdminId"] as! Int
+        
+        mUserContentId = view["userContentId"] as! Int
+        
+        mUserId = view["userId"] as! Int
         
     }
 }

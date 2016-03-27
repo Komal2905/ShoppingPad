@@ -18,6 +18,9 @@ class ContentListDBHandler
     
     // Create database named shoppingPad
     var shoppingPad = FMDatabase!()
+    
+    // define resulteset
+    var contentInfo = FMResultSet()
     init()
     {
         // create Table COntentInfo and ContentView
@@ -44,15 +47,26 @@ class ContentListDBHandler
         if shoppingPad!.open()
         {
             // create table ContentInfo
-            let createContentInfo = "CREATE TABLE  IF NOT EXISTS ContentInfo(contentid INT NOT NULL, contentImage VARCHAR(100) NULL,ContentTitle INT,PRIMARY KEY (contentid))"
+            let createContentInfo = "CREATE TABLE  IF NOT EXISTS ContentInfo (contentid INT NOT NULL, contentLink VARCHAR(100) NULL, contentType VARCHAR(100),created_at VARCHAR(100), decription VARCHAR(100), display_name VARCHAR(100), imagesLink VARCHAR(100), modified_at VARCHAR(100), syncDateTime VARCHAR(100),  title INT, url VARCHAR(50), zip VARCHAR(50), PRIMARY KEY (contentid))"
+            
             
             // create table ContentView
-            let createContentView = "CREATE TABLE  IF NOT EXISTS ContentView(contentid INT NOT NULL, actionPerformed VARCHAR(45) NULL, numberOfParticipant VARCHAR(45), numberOfViews VARCHAR(45), LastViewedDate VARCHAR(45),PRIMARY KEY (contentid) )"
+            let createContentView = "CREATE TABLE IF NOT EXISTS ContentView (contentid INT NOT NULL, actionPerformed VARCHAR(45) NULL, displayProfile VARCHAR(50), email VARCHAR(50), firstName VARCHAR(50), lastName VARCHAR(50), LastViewedDate VARCHAR(45), numberOfViews INT ,numberOfParticipant INT, userAdminId INT, userContentId INT, userId INT, PRIMARY KEY (contentid) )"
+            
+            
+            print("CreateContentView",createContentView)
+            // create ContentParticipant Table
+            
+            let createContentParticipant = "CREATE TABLE IF NOT EXISTS  ContentParticipant(contentid INT, userId INT, userName VARCHAR(50), action VARCHAR(50), image VARCHAR(200), lastViewedDateTime VARCHAR(100), numberOfView INT )"
                 
             
             if !shoppingPad.executeStatements(createContentInfo)
             {
                 print("Error: \(shoppingPad.lastErrorMessage())")
+            }
+            else
+            {
+                print("Table Created")
             }
             
             if !shoppingPad.executeStatements(createContentView)
@@ -60,6 +74,15 @@ class ContentListDBHandler
                 print("Error: \(shoppingPad.lastErrorMessage())")
             }
             
+            else
+            {
+                print("ContentView Table Created")
+            }
+            
+            if !shoppingPad.executeStatements(createContentParticipant)
+            {
+                print("Error: \(shoppingPad.lastErrorMessage())")
+            }
             // Close database
             shoppingPad.close()
         }
@@ -82,11 +105,10 @@ class ContentListDBHandler
             
         if shoppingPad.open()
         {
-                
             // retrive value from Array to insert into table
-         
-            let insertContentInfo = "INSERT INTO ContentInfo VALUES(\(info.mContentID),'\(info.mContentImage)','\(info.mContentTitle)') "
-                
+            
+            let insertContentInfo = "INSERT INTO ContentInfo VALUES(\(info.mContentID),'\(info.mcontentLink)','\(info.mContentType)','\(info.mCreatedAt)' ,'\(info.mDescription)','\(info.mContentDisplay)','\(info.mContentImage)','\(info.mModifiedAt)','\(info.mSyncDateTime)',\(info.mContentTitle),'\(info.mContentUrl)','\(info.mContentZip)')"
+            
             // excute Insert Query
             if !shoppingPad.executeStatements(insertContentInfo)
             {
@@ -121,11 +143,11 @@ class ContentListDBHandler
         
         if shoppingPad.open()
         {
-            
             // retrive value from Array to insert into table
             
-            let insertContentView = "INSERT INTO ContentView VALUES(\(view.mContentID),'\(view.mActionPerformed)',\(view.mNumberOfParticipant),\(view.mNumberOfViews),'\(view.mLastViewedDate)') "
+            let insertContentView = "INSERT INTO ContentView VALUES(\(view.mContentID),'\(view.mActionPerformed)','\(view.mDisplayProfile)','\(view.mEmail)','\(view.mFirstName)','\(view.mLastName)','\(view.mLastViewedDate)',\(view.mNumberOfViews),\(view.mNumberOfParticipant),\(view.mUserAdminId),\(view.mUserContentId),\(view.mUserId)) "
             
+            print("insertContentView", insertContentView)
             // excute Insert Query
             if !shoppingPad.executeStatements(insertContentView)
             {
@@ -144,6 +166,57 @@ class ContentListDBHandler
         {
             print("Error: \(shoppingPad.lastErrorMessage())")
         }
+    }
+    
+    
+    // this function insert COntentParticipant in ContentParticipant Table
+    
+    func inserContenParticiapnt(contenParticiapnt : ContentParticipant)
+    {
+            print("In Insert")
+    }
+    
+    
+    
+    // This function will fetch ContentInfoData from LocalDB
+    func getContentInfo(contentId : Int) -> FMResultSet
+    {
+        
+       print("IN LOCALDB")
+        
+        if shoppingPad == nil
+        {
+            print("Error: \(shoppingPad.lastErrorMessage())")
+        }
+        
+        if shoppingPad.open()
+        {
+            // select query
+            let getContentInfo = "SELECT * FROM CONTENTINFO where contentid = \(contentId)"
+            
+            // define resultset
+            contentInfo = shoppingPad.executeQuery(getContentInfo, withArgumentsInArray: nil)
+            
+            // seperate value form resultset
+            if(contentInfo.next() == true)
+            {
+                print("Some data macth")
+                return contentInfo
+                
+            }
+            else
+            {
+                print("No data match")
+            }
+            
+            shoppingPad.close()
+        }
+            
+        else
+        {
+            print("Error: \(shoppingPad.lastErrorMessage())")
+        }
+        return contentInfo
     }
     
     // check table is Empty or Not

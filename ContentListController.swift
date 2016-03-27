@@ -21,20 +21,35 @@ import UIKit
 // Structure holding ContentInfo
 struct ContentInfo
 {
+    var mcontentLink  : String!     // Thumbview Image link of the Content
+    var mContentType : String!
+    var mContentID : Int!          // Content ID
+    var mCreatedAt : String!
+    var mDescription : String!
+    var mContentDisplay : String!    // Title of Content
     var mContentImage : String!     // Thumbview Image link of the Content
-    var mContentTitle : String!     // Title of Content
-    var mContentID : Int!           // Content ID
-    
+    var mModifiedAt : String!
+    var mSyncDateTime : String!
+    var mContentTitle : Int!
+    var mContentUrl : String!
+    var mContentZip : String!
 }
 
 // Structure for Content View
 struct ContentView
 {
+    var mContentID : Int!           // Content ID
+    var mActionPerformed : String!  // shows which action has been last performed on Content
+    var mDisplayProfile : String!
+    var mEmail : String!
+    var mFirstName : String!
+    var mLastName : String!
+    var mLastViewedDate : String!   // last viewed time of Content
     var mNumberOfViews : Int!       // Total views of content
     var mNumberOfParticipant : Int! // Total participant of Content
-    var mLastViewedDate : String!   // last viewed time of Content
-    var mActionPerformed : String!  // shows which action has been last performed on Content
-    var mContentID : Int!           // Content ID
+    var mUserAdminId : Int!
+    var mUserContentId : Int!
+    var mUserId : Int!
 
 }
 
@@ -51,11 +66,11 @@ class ContentListController : PContentListListener
     // create object of Database handler
     var mContentListDBHandler : ContentListDBHandler?
     
-    // create object of  ContentInfoRest of Model
-    var contentInfoRestModel : ContentInfoRestModel?
+    // create object of  ContentInfoDataModel of Model
+    var contentInfoDataModel : ContentInfoDataModel!
     
-    // create object of  ContentViewRest of Model
-    var contentViewRestModel : ContentViewRestModel?
+    // create object of  ContentViewDataModel of Model
+    var contentViewRestModel : ContentViewDataModel?
     
     // object for ContentInfo Structure
     var mContentInfo = [ContentInfo]()
@@ -122,20 +137,19 @@ class ContentListController : PContentListListener
             // define dictionary
             let contentInfoDictionary = JsonContentInfo[contentCount] as! NSDictionary
             
-            //Populate ContentInfoRestModel class  of Model with Dicionary
-            let contentInfoRestModel = ContentInfoRestModel(info: contentInfoDictionary)
+            //Populate ContentInfoDataModel class  of ContentListModel with Dictionary
+            contentInfoDataModel = ContentInfoDataModel(info: contentInfoDictionary)
             
             
             // Populate Controller's Structure ContentInfo
-           
-            let set = ContentInfo(mContentImage: contentInfoRestModel.mContentImage, mContentTitle: contentInfoRestModel.mContentTitle, mContentID: contentInfoRestModel.mContentID)
             
+            let set = ContentInfo(mcontentLink: contentInfoDataModel.mcontentLink, mContentType: contentInfoDataModel.mContentType, mContentID: contentInfoDataModel.mContentID, mCreatedAt: contentInfoDataModel.mCreatedAt, mDescription: contentInfoDataModel.mDescription, mContentDisplay: contentInfoDataModel.mContentDisplay, mContentImage: contentInfoDataModel.mContentImage, mModifiedAt: contentInfoDataModel.mModifiedAt, mSyncDateTime: contentInfoDataModel.mSyncDateTime, mContentTitle: contentInfoDataModel.mContentTitle, mContentUrl: contentInfoDataModel.mContentUrl, mContentZip: contentInfoDataModel.mContentZip)
             // append set to ContentInfo's Array
         
             mContentInfo.append(set)
             
             // pass array for insertion in table ContentInfo
-            mContentListDBHandler!.insertContentInfo(set)
+                mContentListDBHandler!.insertContentInfo(set)
         
         }
     }
@@ -153,17 +167,17 @@ class ContentListController : PContentListListener
             // define dictionary
             let contentViewDictionary = JsonContentView[contentCount] as! NSDictionary
         
-             //Populate ContentViewRestModel class  of Model with Dicionary
-            let contentViewRestModel = ContentViewRestModel(view: contentViewDictionary)
+             //Populate ContentViewDataModel class  of Model with Dicionary
+            let contentViewDataModel = ContentViewDataModel(view: contentViewDictionary)
             
             // Populate Controller's Structure ContentView
-            let set = ContentView(mNumberOfViews: contentViewRestModel.mNumberOfViews, mNumberOfParticipant: contentViewRestModel.mNumberOfParticipant, mLastViewedDate: contentViewRestModel.mLastViewedDate, mActionPerformed: contentViewRestModel.mActionPerformed, mContentID: contentViewRestModel.mContentID)
+            let set = ContentView(mContentID: contentViewDataModel.mContentID, mActionPerformed: contentViewDataModel.mActionPerformed, mDisplayProfile: contentViewDataModel.mDisplayProfile, mEmail: contentViewDataModel.mEmail, mFirstName: contentViewDataModel.mFirstName, mLastName: contentViewDataModel.mLastName, mLastViewedDate: contentViewDataModel.mLastViewedDate, mNumberOfViews: contentViewDataModel.mNumberOfViews, mNumberOfParticipant: contentViewDataModel.mNumberOfParticipant, mUserAdminId: contentViewDataModel.mUserAdminId, mUserContentId: contentViewDataModel.mUserContentId, mUserId: contentViewDataModel.mUserId)
             
             // append set to ContentView's Array
             mContentView.append(set)
             
             // pass array for insertion in table ContentInfo
-            mContentListDBHandler?.insertContentView(set)
+                    mContentListDBHandler?.insertContentView(set)
             
         }
 
@@ -239,12 +253,12 @@ class ContentListController : PContentListListener
     
     
     // Fetch ContentInfo From Rest // Not in use
-    func setContentInfoRest(array :[ContentInfoRestModel])
+    func setContentInfoRest(array :[ContentInfoDataModel])
     {
         for cInfo in array
         {
         
-            let set1 = ContentInfo(mContentImage: cInfo.mContentImage, mContentTitle: cInfo.mContentTitle, mContentID: cInfo.mContentID)
+            let set1 = ContentInfo(mcontentLink: cInfo.mcontentLink, mContentType: cInfo.mContentType, mContentID: cInfo.mContentID, mCreatedAt: cInfo.mCreatedAt, mDescription: cInfo.mDescription, mContentDisplay: cInfo.mContentDisplay, mContentImage: cInfo.mContentImage, mModifiedAt: cInfo.mModifiedAt, mSyncDateTime: cInfo.mSyncDateTime, mContentTitle: cInfo.mContentTitle, mContentUrl: cInfo.mContentUrl, mContentZip: cInfo.mContentZip)
         
             mContentInfo.append(set1)
             
@@ -253,13 +267,13 @@ class ContentListController : PContentListListener
     }
     
     // Fetch ContentView From Rest
-    func setContentViewRest(array :[ContentViewRestModel])
+    func setContentViewRest(array :[ContentViewDataModel])
     {
 
         for cView in array
         {
         
-            let set1 = ContentView(mNumberOfViews: cView.mNumberOfViews, mNumberOfParticipant: cView.mNumberOfParticipant, mLastViewedDate: cView.mLastViewedDate, mActionPerformed: cView.mActionPerformed, mContentID: cView.mContentID)
+            let set1 = ContentView(mContentID: cView.mContentID, mActionPerformed: cView.mActionPerformed, mDisplayProfile: cView.mDisplayProfile, mEmail: cView.mEmail, mFirstName: cView.mFirstName, mLastName: cView.mLastName, mLastViewedDate: cView.mLastViewedDate, mNumberOfViews: cView.mNumberOfViews, mNumberOfParticipant: cView.mNumberOfParticipant, mUserAdminId: cView.mUserAdminId, mUserContentId: cView.mUserContentId, mUserId: cView.mUserId)
         
             mContentView.append(set1)
         }
@@ -279,9 +293,11 @@ class ContentListController : PContentListListener
     func setContentInfo()
     {
      
-        let dummyData1 = ContentInfo(mContentImage:  "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentTitle: "Sofa", mContentID: 1)
         
-        let dummyData2 = ContentInfo(mContentImage:  "/Users/BridgeLabz/Documents/komal/ShoppingPad/A.jpg", mContentTitle: "Bed", mContentID: 4)
+        
+        let dummyData1 = ContentInfo(mcontentLink: "/Users/BridgeLabz/Documents/komal/ShoppingPad/b.jpg", mContentType: "Video", mContentID: 1, mCreatedAt: "Today", mDescription: "This is an Desc", mContentDisplay: "Displya1", mContentImage: "Image", mModifiedAt: "yesterday", mSyncDateTime: "Somedate", mContentTitle: 2, mContentUrl: "URL", mContentZip: "SomeZip")
+        
+        let dummyData2 = ContentInfo(mcontentLink: "/Users/BridgeLabz/Documents/komal/ShoppingPad/A.jpg", mContentType: "Video", mContentID: 1, mCreatedAt: "Today", mDescription: "This is an Desc", mContentDisplay: "Displya1", mContentImage: "Image", mModifiedAt: "yesterday", mSyncDateTime: "Somedate", mContentTitle: 2, mContentUrl: "URL", mContentZip: "SomeZip")
         
         mContentInfo.append(dummyData1)
         mContentInfo.append(dummyData2)
@@ -292,11 +308,13 @@ class ContentListController : PContentListListener
     //Populate Dummy data for ContentView
     func setContentView()
     {
-        let dummyData1 = ContentView(mNumberOfViews: 2, mNumberOfParticipant: 4, mLastViewedDate: "22 Feb 2016", mActionPerformed: "Opened",mContentID: 1)
+        let dummyData1 = ContentView(mContentID: 1, mActionPerformed: "Action", mDisplayProfile: "DisplyaProf", mEmail: "Email", mFirstName: "firstNAme", mLastName: "lastNAme", mLastViewedDate: "Today", mNumberOfViews: 8, mNumberOfParticipant: 8, mUserAdminId: 1, mUserContentId: 1, mUserId: 1)
         
-        let dummyData2 = ContentView(mNumberOfViews: 5, mNumberOfParticipant: 1, mLastViewedDate: "03 March 2016", mActionPerformed: "Clicked",mContentID: 4)
+        let dummyData2 = ContentView(mContentID: 2, mActionPerformed: "Action", mDisplayProfile: "DisplyaProf", mEmail: "Email", mFirstName: "firstNAme", mLastName: "lastNAme", mLastViewedDate: "Today", mNumberOfViews: 8, mNumberOfParticipant: 8, mUserAdminId: 1, mUserContentId: 1, mUserId: 1)
+
         
-         let dummyData3 = ContentView(mNumberOfViews: 5, mNumberOfParticipant: 1, mLastViewedDate: "03 March 2016", mActionPerformed: "Clicked",mContentID: 5)
+        let dummyData3 = ContentView(mContentID: 3, mActionPerformed: "Action", mDisplayProfile: "DisplyaProf", mEmail: "Email", mFirstName: "firstNAme", mLastName: "lastNAme", mLastViewedDate: "Today", mNumberOfViews: 8, mNumberOfParticipant: 8, mUserAdminId: 1, mUserContentId: 1, mUserId: 1)
+
         
         mContentView.append(dummyData1)
         mContentView.append(dummyData2)
