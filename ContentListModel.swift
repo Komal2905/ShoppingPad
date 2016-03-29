@@ -81,6 +81,7 @@ class ContentViewDataModel
     init(view : NSDictionary)
     {
         
+        print("View in MODEL",view)
         
         mContentID = view["contentId"] as! Int
         

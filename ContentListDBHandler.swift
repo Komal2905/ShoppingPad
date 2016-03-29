@@ -21,10 +21,14 @@ class ContentListDBHandler
     
     // define resulteset
     var contentInfo = FMResultSet()
+    var contentView = FMResultSet()
+    var contentParticipant = FMResultSet()
     
     // array that will host Result of Resultset
-        //var contentInfoArray = [AnyObject]()
+    
     var contentInfoArray = NSMutableArray()
+    var contentViewArray = NSMutableArray()
+    var contentParticipantArray = NSMutableArray()
     
     
     init()
@@ -59,11 +63,11 @@ class ContentListDBHandler
             
             
             // create table ContentView
-            let createContentView = "CREATE TABLE IF NOT EXISTS ContentView (contentid INT NOT NULL, actionPerformed VARCHAR(45) NULL, displayProfile VARCHAR(50), email VARCHAR(50), firstName VARCHAR(50), lastName VARCHAR(50), LastViewedDate VARCHAR(45), numberOfViews INT ,numberOfParticipant INT, userAdminId INT, userContentId INT, userId INT, PRIMARY KEY (contentid) )"
+            let createContentView = "CREATE TABLE IF NOT EXISTS ContentView (contentId INT NOT NULL, action VARCHAR(45) NULL, displayProfile VARCHAR(50), email VARCHAR(50), firstName VARCHAR(50), lastName VARCHAR(50), lastViewedDateTime VARCHAR(45), numberOfView INT ,numberofparticipant INT, userAdminId INT, userContentId INT, userId INT, PRIMARY KEY (contentId) )"
             
             // create ContentParticipant Table
             
-            let createContentParticipant = "CREATE TABLE IF NOT EXISTS  ContentParticipant(contentid INT, userId INT, userName VARCHAR(50), action VARCHAR(50), image VARCHAR(200), lastViewedDateTime VARCHAR(100), numberOfView INT )"
+            let createContentParticipant = "CREATE TABLE IF NOT EXISTS  ContentParticipant(Image VARCHAR(50), Name VARCHAR(50), action VARCHAR(50), contentId INT, lastViewedDateTime VARCHAR(100), numberOfViews INT ,userId INT, PRIMARY KEY(userId))"
                 
             
             if !shoppingPad.executeStatements(createContentInfo)
@@ -178,16 +182,131 @@ class ContentListDBHandler
     
     func inserContenParticiapnt(contenParticiapnt : ContentParticipant)
     {
-            print("In Insert")
+        if shoppingPad == nil
+        {
+            print("Error: \(shoppingPad.lastErrorMessage())")
+        }
+        
+        if shoppingPad.open()
+        {
+            // retrive value from Array to insert into table
+            
+            let insertContentParticipant = "INSERT INTO ContentParticipant VALUES('\(contenParticiapnt.mParticipantImageView)','\(contenParticiapnt.mParticipantName)','\(contenParticiapnt.mParticipantAction)',\(contenParticiapnt.mContentID),'\(contenParticiapnt.mParticipantLastOpenedDate)',\(contenParticiapnt.mParticipantViewCount),\(contenParticiapnt.mParticipantId)) "
+            
+            // excute Insert Query
+            
+            if !shoppingPad.executeStatements(insertContentParticipant)
+            {
+                print("Error: \(shoppingPad.lastErrorMessage())")
+            }
+                
+            else
+            {
+                print("Successfully Inserted into ContentView")
+            }
+            
+            shoppingPad.close()
+        }
+            
+        else
+        {
+            print("Error: \(shoppingPad.lastErrorMessage())")
+        }
     }
     
     
+    // this function called form Controller;
+    // it return all rows fro ContentInfo table to controller;
+    func getContentInfo(pContentListListener : PControllerListener)
+    {
+        print("IN LOCALDB INFO")
+        
+        if shoppingPad == nil
+        {
+            print("Error: \(shoppingPad.lastErrorMessage())")
+        }
+        
+        if shoppingPad.open()
+        {
+            // select query
+            let getContentInfo = "SELECT * FROM CONTENTINFO"
+            
+            // define resultset
+            contentInfo = shoppingPad.executeQuery(getContentInfo, withArgumentsInArray: nil)
+            
+            // seperate value form resultset
+            while(contentInfo.next() == true)
+            {
+                print("Some data macth in Info")
+                
+                // conver to NsDictionary and add to Array
+                //contentInfoArray.append(contentInfo.resultDictionary())
+                
+                print("ResultDict", contentInfo.resultDictionary())
+                contentInfoArray.addObject(contentInfo.resultDictionary())
+                print("contentInfoArray in DB ", contentInfoArray)
+            }
+            
+            
+            shoppingPad.close()
+        }
+            
+        else
+        {
+            print("Error: \(shoppingPad.lastErrorMessage())")
+        }
+        
+         // callback to controller protocol
+         pContentListListener.updateControllerInfoModel(self.contentInfoArray)
+    }
     
-    // This function will fetch ContentInfoData from LocalDB
-    func getContentInfo(contentId : Int) -> NSMutableArray
+ 
+    func getContentView(pContentListListener : PControllerListener)
+    {
+        print("IN LOCALDB VIEW")
+        
+        if shoppingPad == nil
+        {
+            print("Error: \(shoppingPad.lastErrorMessage())")
+        }
+        
+        if shoppingPad.open()
+        {
+            // select query
+            let getContentView = "SELECT * FROM CONTENTVIEW"
+            
+            // define resultset
+            contentView = shoppingPad.executeQuery(getContentView, withArgumentsInArray: nil)
+        
+            // seperate value form resultset
+            while(contentView.next() == true)
+            {
+                print("Some data macth in VIew")
+                
+                // conver to NsDictionary and add to Array
+                contentViewArray.addObject(contentView.resultDictionary())
+                print("contentViewArray in DB ", contentViewArray)
+                
+            }
+            
+            shoppingPad.close()
+        }
+            
+        else
+        {
+            print("Error: \(shoppingPad.lastErrorMessage())")
+        }
+        
+         // callback to controller protocol
+        pContentListListener.updateControllerViewModel(self.contentViewArray)
+    }
+
+    
+    // This function will fetch ContentInfoData from ContentInfo Table for perticular ContenId; CHECKING Offline
+    func getContentDetails(pContentListListener : PControllerListener, contentId : Int)
     {
         
-       print("IN LOCALDB")
+        print("IN LOCALDB ---")
         
         if shoppingPad == nil
         {
@@ -201,31 +320,14 @@ class ContentListDBHandler
             
             // define resultset
             contentInfo = shoppingPad.executeQuery(getContentInfo, withArgumentsInArray: nil)
-    
             
-                //testing ContentInfoForMutable
-                //var contentInfoArray = NSMutableArray()
-            
-
-            // seperate value form resultset
-            if(contentInfo.next() == true)
+            while(contentInfo.next() == true)
             {
-                print("Some data macth")
-                
-                // conver to NsDictionary and add to Array
-                //contentInfoArray.append(contentInfo.resultDictionary())
-                
+            // conver to NsDictionary and add to Array
                 contentInfoArray.addObject(contentInfo.resultDictionary())
-                print("contentInfoArray in DB ", contentInfoArray)
-                
-                return contentInfoArray
+                print("contentINFOArray in DB ", contentInfoArray)
                 
             }
-            else
-            {
-                print("No data match")
-            }
-            
             shoppingPad.close()
         }
             
@@ -233,8 +335,47 @@ class ContentListDBHandler
         {
             print("Error: \(shoppingPad.lastErrorMessage())")
         }
-        return contentInfoArray
+        
+        // callback to controller protocol
+        pContentListListener.updateControllerInfoModel(self.contentInfoArray)
     }
+
+    
+    
+    
+    
+    // this function return ContentParticipant for perticular COntentId
+    func getContentParticipant(pContentParticipantListener : PControllerListener, contentId : Int)
+    {
+        if shoppingPad == nil
+        {
+            print("Error : \(shoppingPad.lastErrorMessage())")
+        }
+        
+        // check if shopping pad is open
+        if shoppingPad.open()
+        {
+            // fro select query
+            let getParticipant = "SELECT * FROM ContentParticipant where contentId = \(contentId)"
+            
+            print("GetParticipantQuery ",getParticipant)
+            
+            contentParticipant = shoppingPad.executeQuery(getParticipant, withArgumentsInArray: nil)
+            
+            while(contentParticipant.next() == true)
+            {
+                print("Some Match  In participant ")
+                
+                contentParticipantArray.addObject(contentParticipant.resultDictionary())
+            }
+            
+            shoppingPad.close()
+        }
+        
+        
+         pContentParticipantListener.updateContentParticipant(self.contentParticipantArray )
+    }
+    
     
     // check table is Empty or Not
     func isEmptyTable(name:String)->Bool

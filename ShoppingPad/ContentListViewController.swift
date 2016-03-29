@@ -45,7 +45,7 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     // for selection of ContentId ; used in ContentInfoViewCOntrolle
     var mContentIdPass : Int!
     
-    var contentViewModel : ContentListViewModel?
+    var contentViewModel : ContentListViewModel!
     
     override func viewDidLoad()
     {
@@ -64,7 +64,6 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
             
                     // populate content list model
                     self.mContentListViewModel!.populateContentViewModelData()
-                    //self.bind()
             
                     })
         
@@ -99,45 +98,29 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     {
         customCell = tableView.dequeueReusableCellWithIdentifier("cell") as! CustomCell
         
-        //accept multiple line to text field
-        util.multiLineLabel(customCell.mContentLastViewedDate)
-        
         // set value to outlet of CustomCell
         // call getContentViewModel function in ViewModel for respective list
         contentViewModel = (mContentListViewModel?.getContentViewModel(indexPath.row))! as  ContentListViewModel
         
-        //set content's Title label
-        customCell.mContentTitleLabel.text = contentViewModel!.mContentTitle.value
-        
-        // set content's action label
-        customCell.mContentActioLabel.text = contentViewModel!.mActionPerformed.value
-        
-        // set content's last viewed date
-        customCell.mContentLastViewedDate.text = contentViewModel!.mLastViewedDate.value
- 
-        
-        // Uncomment following In ViewModel is All STRING
-        print(String(contentViewModel!.mNumberOfParticipant.value) + " Participants")
-        //set content's participant count Lable
-        customCell.mContentParticipantLabel.text = String(contentViewModel!.mNumberOfParticipant.value) + " Participants"
-        
-        //set content's view count Lable
-        customCell.mContentViewLabel.text = (String(contentViewModel!.mNumberOfViews.value) + " Views ")
         
         // call Util method for round imageview
         util.roundImage(customCell.mContentImageView)
         
-        //let contentImage = util.getImage(contentViewModel!.mContentImage.value)
-        //customCell.mContentImageView.image = contentImage
-
-        self.bind()
+        // call data binding
+        self.bind(customCell, contentViewModel: contentViewModel)
+        
+        
         return customCell
         
     }
    
     //for binding Varible with Outlet
-    func bind()
+    func bind(customCell : CustomCell, contentViewModel : ContentListViewModel!)
     {
+        
+        //accept multiple line to text field
+        util.multiLineLabel(customCell.mContentLastViewedDate)
+        
         //bind.mContentTitleLabel Label with contentViewModel!.mContentTitle
         contentViewModel!.mContentTitle.bindTo(customCell.mContentTitleLabel)
         
@@ -154,7 +137,17 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         contentViewModel!.mNumberOfParticipant.bindTo(customCell.mContentParticipantLabel)
         
         // bind NumberOfViews to ViewsLabel
-        contentViewModel?.mNumberOfViews.bindTo(customCell.mContentViewLabel)
+        contentViewModel!.mNumberOfViews.bindTo(customCell.mContentViewLabel)
+        
+        // bind ImageView
+     
+        
+        //let contentImage = util.getImage(contentViewModel!.mContentImage.value)
+        //customCell.mContentImageView.image = contentImage
+        
+
+        
+        //contentViewModel.mContentImage.bindTo(customCell.mContentImageView)
         
     }
     
@@ -238,10 +231,7 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
             
             let contentInfoViewController : ContentInfoViewController = segue.destinationViewController as! ContentInfoViewController
             
-            //set contentTitle of COntentInfoViewController
-                //contentInfoViewController.mContentTitle = mContentTitlePass!
-            
-             //set contentId of COntentInfoViewController
+            //set contentId of COntentInfoViewController
             contentInfoViewController.mContentId = mContentIdPass
             
             

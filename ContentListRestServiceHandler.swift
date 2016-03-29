@@ -131,6 +131,8 @@ class ContentListRestServiceHandler
                     // Convert NSData to Dictionary where keys are of type String, and values are of any type
                     self.jsonContentView = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
                     
+                    
+                    print("----self.jsonContentView",self.jsonContentView)
                     //pass ContentView To Protocol
                     pContentListListener.updateControllerViewModel(self.jsonContentView)
                     
@@ -150,7 +152,7 @@ class ContentListRestServiceHandler
     
     
   // Function get all participant for content
-func getParticipantDetails(pContentParticipantListener : PControllerListener, content : Int)
+func populateParticipantDetails(pContentParticipantListener : PControllerListener, content : Int)
 {
     // post parameter
     let postParams : [Int] = [content]
@@ -204,6 +206,7 @@ func getParticipantDetails(pContentParticipantListener : PControllerListener, co
             // Convert NSData to Dictionary where keys are of type String, and values are of any type
             self.jsonContentParticipants = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
             
+            print("self.jsonContentParticipants",self.jsonContentParticipants)
             // call back to ContentInfoController
             pContentParticipantListener.updateContentParticipant(self.jsonContentParticipants )
         }
@@ -282,15 +285,10 @@ func getParticipantDetails(pContentParticipantListener : PControllerListener, co
         // call the json from server
         var json : NSMutableArray?
         
-        print("1")
-        
         NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "http://52.90.50.117:3046/api/v1/user_content_view")!, completionHandler: { (data, response, error) ->
             Void in
             
-        print("2")
-          
-            
-            // Check if data was received successfully
+                  // Check if data was received successfully
             if error == nil && data != nil
             {
                 do
@@ -309,9 +307,7 @@ func getParticipantDetails(pContentParticipantListener : PControllerListener, co
                 }
             }
         }).resume()
-        print("3")
         
-    
     }
 
 

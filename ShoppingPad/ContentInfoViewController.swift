@@ -14,6 +14,10 @@
 //
 
 import UIKit
+import ReactiveKit
+import ReactiveUIKit
+import ReactiveFoundation
+
 
 class ContentInfoViewController: UIViewController,UITableViewDataSource, UITableViewDelegate,PContentParticipantViewObserver
 {
@@ -51,7 +55,7 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
     //var mContentInfoViewModelDummy : ContentInfoViewModelDummy!
     
     //create object of ContentInfoViewModel of ViewModel
-    var mContentInfoViewModel : ContentParticipantViewModel?
+    var mContentParticipantViewModel : ContentParticipantViewModel!
 
     
     override func viewDidLoad()
@@ -78,8 +82,7 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
             self.mContentInfoViewModelHandler.populateContentParticipantData(self.mContentId)
             
             // for DB
-            self.mContentInfoViewModelHandler.getContentInfo(self.mContentId)
-            
+                    //self.mContentInfoViewModelHandler.getContentDetail(self.mContentId)
             
         })
         
@@ -94,14 +97,7 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
         // Dispose of any resources that can be recreated.
     }
     
-    // This function will fetch ContentInfoData from LocalDB
-    func getContentInfo(contentId : Int)
-    {
-        // call ViewModelHandler
-        print("IN VIEWCONTROLLER")
-        mContentInfoViewModelHandler.getContentInfo(contentId)
-    }
-    
+      
     // updateContentListViewModelprotocol function
     // define number of row in section
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
@@ -180,42 +176,50 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
             //mContentInfoViewModel = mContentInfoViewModelHandler!.getContentInfo(mContentId)
             
                        
-            //get ContentInfo dummy data fro each cell
-            mContentInfoViewModel =  mContentInfoViewModelHandler!.getContentInfoViewModel(indexPath.row)
+            //get ContentInfo  data for each cell
+            mContentParticipantViewModel =  mContentInfoViewModelHandler!.getContentInfoViewModel(indexPath.row)
             
              // construct cell with identifier participantCell
             customCell = participantTable.dequeueReusableCellWithIdentifier("participantCell") as! CustomCell
             
-            // set value of lable participantNameLabel
-            customCell.participantNameLabel.text = mContentInfoViewModel!.mParticipantName.value
-            
-            // set value of lable participantNameLabel
-            customCell.participantLastActionLabel.text = mContentInfoViewModel!.mParticipantAction.value
-            
-            // set value of lable participantNameLabel
-            customCell.participantLastViewDateLabel.text = mContentInfoViewModel!.mParticipantLastOpenedDate.value
-            
-            customCell.participantViewCountLabel.text = mContentInfoViewModel!.mParticipantViewCount.value
-            
-            // set Lable value
-            self.contentTitleLabel.text = mContentInfoViewModel?.mContentTitle.value
-            
-            // set Imageview
-            // create round profile Image of participant
+
+                        // create round profile Image of participant
             util.roundImage(customCell.participantProfileImageView)
-           
+            
             
             //print("HELLLO",(mContentInfoViewModel!.mContentImage.value))
-            let mParticipnatImage = util.getImage((mContentInfoViewModel!.mParticipantImageView.value))
+            let mParticipnatImage = util.getImage((mContentParticipantViewModel!.mParticipantImageView.value))
             
             
             customCell.participantProfileImageView.image = mParticipnatImage
+            
+            // call data binding
+            
+            self.bind(customCell, contentParticipantViewModel: mContentParticipantViewModel)
            
         }
         
         return customCell
     }
 
+    
+    //this function used for data binding
+    
+    func bind(customCell : CustomCell, contentParticipantViewModel : ContentParticipantViewModel )
+    {
+            // bind participant name
+            contentParticipantViewModel.mParticipantName.bindTo(customCell.participantNameLabel)
+        
+            contentParticipantViewModel.mParticipantAction.bindTo(customCell.participantLastActionLabel)
+        
+        contentParticipantViewModel.mParticipantLastOpenedDate.bindTo(customCell.participantLastViewDateLabel)
+        
+            contentParticipantViewModel.mParticipantViewCount.bindTo(customCell.participantViewCountLabel)
+        
+            // set contentLable
+            contentParticipantViewModel.mContentTitle.bindTo(self.contentTitleLabel)
+        
+    }
 
     // function of  PContentParticipantViewObserver
     

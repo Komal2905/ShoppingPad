@@ -17,6 +17,9 @@
 
 import UIKit
 
+// for cheking Network Connection
+import SystemConfiguration
+
 
 // Structure holding ContentInfo
 struct ContentInfo
@@ -119,7 +122,8 @@ class ContentListController : PControllerListener
             mContentViewModelListener = pContentListInformerToViewModel
             // intialize DB handler
             mContentListDBHandler = ContentListDBHandler()
-    
+            
+            
         }
 
     }
@@ -128,75 +132,68 @@ class ContentListController : PControllerListener
     // called from ContentListViewModelHandler
     func populateContentData()
     {
-        mContentListRestServiceHandler = ContentListRestServiceHandler()
         
-        //get ContentInfo from Rest
-        mContentListRestServiceHandler!.populateContentInfoData(self)
+        // TestingNetwork Connection; if there is connection
+        // then Fetch data from rest
         
-        //get ContentView from Rest
-        mContentListRestServiceHandler!.populateContentViewData(self)
-        
-    }
-    
-
-    // This function will populate COntentInfo in ContentListController
-    func populateContentInfo(JsonContentInfo : NSMutableArray)
-    {
-         print("REST CALLING")
-        
-        // Iterate thorugh Array
-        for contentCount in 0...JsonContentInfo.count-1
+        if (self.isConnectedToNetwork())
         {
-           
-            // define dictionary
-            let contentInfoDictionary = JsonContentInfo[contentCount] as! NSDictionary
+            mContentListRestServiceHandler = ContentListRestServiceHandler()
             
-            //Populate ContentInfoDataModel class  of ContentListModel with Dictionary
-            contentInfoDataModel = ContentInfoDataModel(info: contentInfoDictionary)
+            //get ContentInfo from Rest
+            mContentListRestServiceHandler!.populateContentInfoData(self)
+            
+            //get ContentView from Rest
+            mContentListRestServiceHandler!.populateContentViewData(self)
             
             
-            // Populate Controller's Structure ContentInfo
+        }
             
-            let set = ContentInfo(mcontentLink: contentInfoDataModel.mcontentLink, mContentType: contentInfoDataModel.mContentType, mContentID: contentInfoDataModel.mContentID, mCreatedAt: contentInfoDataModel.mCreatedAt, mDescription: contentInfoDataModel.mDescription, mContentDisplay: contentInfoDataModel.mContentDisplay, mContentImage: contentInfoDataModel.mContentImage, mModifiedAt: contentInfoDataModel.mModifiedAt, mSyncDateTime: contentInfoDataModel.mSyncDateTime, mContentTitle: contentInfoDataModel.mContentTitle, mContentUrl: contentInfoDataModel.mContentUrl, mContentZip: contentInfoDataModel.mContentZip)
-            // append set to ContentInfo's Array
-        
-            mContentInfo.append(set)
+        // If Network connection is not avvailable
+        // Then fetch data from Database
+        else
+        {
+            print("NotConnetcted To internet")
             
-            // pass array for insertion in table ContentInfo
-                mContentListDBHandler!.insertContentInfo(set)
-        
+            // get ContentInfo from DB
+            mContentListDBHandler.getContentInfo(self)
+            
+            // get ContentView from DB
+            mContentListDBHandler.getContentView(self)
+            
         }
     }
     
-
-    // This function will populate COntentView in Controller
     
-    func populateContentView(JsonContentView : NSMutableArray)
+    // this function is called form ContentInfoMovieModelHandler
+    // it fetch data form Rest --- DELETE ONCE TESTED
+    func populateParticipantDetails(contentId : Int)
     {
-        // Iterate thorugh Array
-        for contentCount in 0...JsonContentView.count-1
+        if (self.isConnectedToNetwork())
         {
-          
-            // define dictionary
-            let contentViewDictionary = JsonContentView[contentCount] as! NSDictionary
+            // call Rest service
+            mContentListRestServiceHandler = ContentListRestServiceHandler()
         
-             //Populate ContentViewDataModel class  of Model with Dicionary
-        contentViewDataModel = ContentViewDataModel(view: contentViewDictionary)
+            //populate Participant data from rest using POST
+            mContentListRestServiceHandler.populateParticipantDetails(self,content:contentId)
             
-            // Populate Controller's Structure ContentView
-            let set = ContentView(mContentID: contentViewDataModel.mContentID, mActionPerformed: contentViewDataModel.mActionPerformed, mDisplayProfile: contentViewDataModel.mDisplayProfile, mEmail: contentViewDataModel.mEmail, mFirstName: contentViewDataModel.mFirstName, mLastName: contentViewDataModel.mLastName, mLastViewedDate: contentViewDataModel.mLastViewedDate, mNumberOfViews: contentViewDataModel.mNumberOfViews, mNumberOfParticipant: contentViewDataModel.mNumberOfParticipant, mUserAdminId: contentViewDataModel.mUserAdminId, mUserContentId: contentViewDataModel.mUserContentId, mUserId: contentViewDataModel.mUserId)
-            
-            // append set to ContentView's Array
-            mContentView.append(set)
-            
-            // pass array for insertion in table ContentInfo
-            mContentListDBHandler?.insertContentView(set)
-            
+            // Also poplulate COntentInfo From DB ; This is Testing
+            mContentListDBHandler.getContentDetails(self, contentId: contentId)
         }
+        
+        else
+        {
+            print("Inside Participant : Controller")
+            
+            // get ContentDeatils from Database
+            mContentListDBHandler.getContentDetails(self, contentId: contentId)
+            
+            //get Participant Details
+            mContentListDBHandler.getContentParticipant(self, contentId: contentId)
 
+        }
     }
-    
-    
+
     // Function form PContentListListener Protocol
     // This will be called from rest
     func updateControllerInfoModel(JsonContentInfo : NSMutableArray)
@@ -214,10 +211,11 @@ class ContentListController : PControllerListener
     {
         //Populate ContentView
         self.populateContentView(JsonContentView)
+        
+        // Call back to ViewModelHandler
         mContentViewModelListener!.updateViewModelContentInformer()
         
     }
-    
     
     // protocol function for COntentParticipant
     func updateContentParticipant(JsonContentParticipant : NSMutableArray)
@@ -228,14 +226,70 @@ class ContentListController : PControllerListener
         // call back to ContentInfoViewModelHandler
         mContentViewModelListener!.updateViewModelContentInformer()
     }
+
+
+
+    // This function will populate COntentInfo in ContentListController
+    func populateContentInfo(JsonContentInfo : NSMutableArray)
+    {
+         print("REST CALLING")
+        
+        // Iterate through Array
+        for contentCount in 0...JsonContentInfo.count-1
+        {
+           
+            // define dictionary
+            let contentInfoDictionary = JsonContentInfo[contentCount] as! NSDictionary
+            
+            //Populate ContentInfoDataModel class  of ContentListModel with Dictionary
+            contentInfoDataModel = ContentInfoDataModel(info: contentInfoDictionary)
+            
+            
+            // Populate Controller's Structure ContentInfo
+            
+            let set = ContentInfo(mcontentLink: contentInfoDataModel.mcontentLink, mContentType: contentInfoDataModel.mContentType, mContentID: contentInfoDataModel.mContentID, mCreatedAt: contentInfoDataModel.mCreatedAt, mDescription: contentInfoDataModel.mDescription, mContentDisplay: contentInfoDataModel.mContentDisplay, mContentImage: contentInfoDataModel.mContentImage, mModifiedAt: contentInfoDataModel.mModifiedAt, mSyncDateTime: contentInfoDataModel.mSyncDateTime, mContentTitle: contentInfoDataModel.mContentTitle, mContentUrl: contentInfoDataModel.mContentUrl, mContentZip: contentInfoDataModel.mContentZip)
+            
+            // append set to ContentInfo's Array
+            mContentInfo.append(set)
+            
+            // pass array for insertion in table ContentInfo
+            mContentListDBHandler!.insertContentInfo(set)
+        
+        }
+    }
     
+
+    // This function will populate COntentView in Controller
+    
+    func populateContentView(JsonContentView : NSMutableArray)
+    {
+        // Iterate thorugh Array
+        for contentCount in 0...JsonContentView.count-1
+        {
+          
+            // define dictionary
+            let contentViewDictionary = JsonContentView[contentCount] as! NSDictionary
+        
+             //Populate ContentViewDataModel class  of Model with Dicionary
+            contentViewDataModel = ContentViewDataModel(view: contentViewDictionary)
+            
+            // Populate Controller's Structure ContentView
+            let set = ContentView(mContentID: contentViewDataModel.mContentID, mActionPerformed: contentViewDataModel.mActionPerformed, mDisplayProfile: contentViewDataModel.mDisplayProfile, mEmail: contentViewDataModel.mEmail, mFirstName: contentViewDataModel.mFirstName, mLastName: contentViewDataModel.mLastName, mLastViewedDate: contentViewDataModel.mLastViewedDate, mNumberOfViews: contentViewDataModel.mNumberOfViews, mNumberOfParticipant: contentViewDataModel.mNumberOfParticipant, mUserAdminId: contentViewDataModel.mUserAdminId, mUserContentId: contentViewDataModel.mUserContentId, mUserId: contentViewDataModel.mUserId)
+            
+            // append set to ContentView's Array
+            mContentView.append(set)
+            
+            // pass array for insertion in table ContentInfo
+            mContentListDBHandler?.insertContentView(set)
+            
+        }
+
+    }
     
     // this function in calling Rest Service and populate ContentInfoModel
     // then in popultate Controller
     func populateContentParticipant(JsonContentParticipant : NSMutableArray)
     {
-        
-        
         for pCount in 0...JsonContentParticipant.count-1
         {
             // populate ContentParticipantModel
@@ -252,51 +306,29 @@ class ContentListController : PControllerListener
             mContentParticipant.append(set)
             
             // Insert Into Database
-            
+            mContentListDBHandler.inserContenParticiapnt(set)
         }
         
     }
-    
-    
+
+
     // This method will be called from ContentInfoViewModelHandler
     func getContentParticipantData(userId : Int) ->(contentDetail : [ContentInfo], contentParticiapnt : [ContentParticipant])
     {
         // return Content details and Content participant to ContentInfoViewModelHandler
         // which will set it to ContentViewModel
-        
-        print("mContentInfo  in COntrooler", mContentInfo)
-        
-        print("mContentParticipant  in COntrooler", mContentParticipant)
         return(mContentInfo, mContentParticipant)
     }
 
     
     
-    // This method will be called from ContentInfoViewModel
+    // This method is called from ContentListViewModel
     func getContentData(userId : Int) ->(info : [ContentInfo], views : [ContentView])
     {
-        
         // return Content info and Content View to View Model
         // which will set it to ContentViewModel
         return(mContentInfo, mContentView)
     }
-    
-
-    // This function will fetch ContentInfoData from LocalDB
-    func getContentInfo(contentId : Int)
-    {
-        // call LocalDb
-    
-        contentInfoArray = mContentListDBHandler!.getContentInfo(contentId)
-        
-        // populate ContentInfo Model
-        
-       self.populateContentInfo(contentInfoArray)
-    
-    }
-    
-    
-    
     
     // this function populate COntentInfo data model
     func populateContentInfoDataModel(jsonContentInfo : [AnyObject])
@@ -310,25 +342,38 @@ class ContentListController : PControllerListener
             //Populate ContentInfoDataModel class  of ContentListModel with Dictionary
             contentInfoDataModel = ContentInfoDataModel(info: contentInfoDictionary)
             
-            
         }
     }
-
+    
+ 
     
     
+// function for cheking NetConnection
+func isConnectedToNetwork() -> Bool
+{
+        // for socket address
+        var zeroAddress = sockaddr_in()
     
-    // this function is called form ContentInfoMovieModelHandler
-    // it fetch data form Rest
-    func populateParticipantDetails(contentId : Int)
-    {
-        // all Rest service
-        mContentListRestServiceHandler = ContentListRestServiceHandler()
-        
-        //populate Participant data from rest using POST
-        mContentListRestServiceHandler!.getParticipantDetails(self,content:contentId)
+        zeroAddress.sin_len = UInt8(sizeofValue(zeroAddress))
+    
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+    
+        let defaultRouteReachability = withUnsafePointer(&zeroAddress)
+        {
+            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
+        }
+        var flags = SCNetworkReachabilityFlags()
+    
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags)
+        {
+            return false
+        }
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+    
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+    
+        return (isReachable && !needsConnection)
     }
-    
-    
     
     // return number of content in ContentInfo
     // This method will be called from ViewModel
@@ -338,6 +383,7 @@ class ContentListController : PControllerListener
     }
     
 
+   /*
     // this function will insert ContentInfo array in table named ContentInfo
     func InsertIntoLocalDB()
     {
@@ -364,7 +410,7 @@ class ContentListController : PControllerListener
     }
     
     
-   
+   */
     
     
     // Fetch ContentInfo From Rest // Not in use
@@ -474,5 +520,7 @@ class ContentListController : PControllerListener
     }
     
 }
+
+
 
 
