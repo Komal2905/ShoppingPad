@@ -7,6 +7,7 @@ target 'ShoppingPad' do
 pod 'ReactiveKit', '~> 1.0'
 pod 'ReactiveUIKit', '~> 1.0'
 pod 'ReactiveFoundation', '~> 1.0'
+pod 'Alamofire', '~> 3.0'
 end
 
 target 'ShoppingPadTests' do

@@ -195,6 +195,7 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
             // call data binding
             
             self.bind(customCell, contentParticipantViewModel: mContentParticipantViewModel!)
+            
            
         }
         
@@ -217,6 +218,8 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
         
             // bind  Participant Count
             contentParticipantViewModel.mParticipantViewCount.bindTo(customCell.participantViewCountLabel)
+        
+            
         
             contentParticipantViewModel.mContentTitle.bindTo(self.contentTitleLabel)
 

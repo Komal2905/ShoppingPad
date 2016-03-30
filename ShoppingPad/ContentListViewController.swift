@@ -141,13 +141,11 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         
         // bind ImageView
      
+        let contentImage = util.getImage(contentViewModel!.mContentImage.value)
+        customCell.mContentImageView.image = contentImage
+    
         
-        //let contentImage = util.getImage(contentViewModel!.mContentImage.value)
-        //customCell.mContentImageView.image = contentImage
-        
-
-        
-        //contentViewModel.mContentImage.bindTo(customCell.mContentImageView)
+            //contentViewModel.mContentImage.bindTo(customCell.mContentImageView.value)
         
     }
     

@@ -12,6 +12,11 @@ import Foundation
 import UIKit
 import SystemConfiguration
 
+import ReactiveKit
+import ReactiveUIKit
+import ReactiveFoundation
+import Alamofire
+
 class Util
 {
     
@@ -89,4 +94,28 @@ class Util
         return (isReachable && !needsConnection)
     }
     
+
+    func fetchImage(url: NSURL) -> Operation<UIImage, NSError> {
+        return Operation { observer in
+            
+            // use almofire to deal with server request
+            let request = Alamofire.request(.GET, url).response { request, response, data, error in
+                
+                // if error occurs then abort the operation
+                if let error = error {
+                    observer.failure(error)
+                } else {
+                    // if doesnt occurs error then convert imageData back to image
+                    observer.next(UIImage(data : data!)!)
+                    observer.success()
+                }
+            }
+            
+            // if response is nil then execute this block
+            return BlockDisposable {
+                request.cancel()
+            }
+        }
+    }
+
 }
