@@ -128,6 +128,7 @@
                                             <outlet property="mContentParticipantLabel" destination="dfs-Y8-m72" id="VsJ-rN-JsQ"/>
                                             <outlet property="mContentTitleLabel" destination="A97-7v-aRj" id="9qM-W4-tfv"/>
                                             <outlet property="mContentViewLabel" destination="J1T-zC-chL" id="Zrl-NK-7Fl"/>
+                                            <outlet property="participantShare" destination="6T2-iW-WMb" id="TJc-gN-JHN"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -400,7 +401,7 @@
                                                     <rect key="frame" x="24" y="-2" width="75" height="20"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FXQ-ZW-o9d">
@@ -430,7 +431,7 @@
                                                     <rect key="frame" x="24" y="0.0" width="112" height="20"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -452,7 +453,7 @@
                                                     <rect key="frame" x="25" y="3" width="42" height="20"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -489,6 +490,11 @@
                                 <rect key="frame" x="9" y="244" width="302" height="311"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <activityIndicatorView key="tableFooterView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="9xT-Gj-ryF">
+                                    <rect key="frame" x="0.0" y="67" width="302" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <animations/>
+                                </activityIndicatorView>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="participantCell" rowHeight="39" id="jvT-Uh-NI4" customClass="CustomCell" customModule="ShoppingPad" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="302" height="39"/>
@@ -501,7 +507,7 @@
                                                     <rect key="frame" x="50" y="3" width="138" height="15"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EaS-go-aI2">
@@ -515,7 +521,7 @@
                                                     <rect key="frame" x="78" y="18" width="148" height="15"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="7"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pdq-WZ-uDk">
@@ -543,6 +549,7 @@
                                             <outlet property="participantLastViewDateLabel" destination="IIh-4Q-5kh" id="Hnq-Ih-32K"/>
                                             <outlet property="participantNameLabel" destination="wva-Ri-yts" id="tAZ-mG-t7n"/>
                                             <outlet property="participantProfileImageView" destination="Pdq-WZ-uDk" id="qf1-fB-jNP"/>
+                                            <outlet property="participantShare" destination="cJv-d3-VDK" id="jfk-bB-Fz6"/>
                                             <outlet property="participantViewCountLabel" destination="WSd-SZ-kcl" id="Cuc-zV-ujk"/>
                                         </connections>
                                     </tableViewCell>
@@ -564,6 +571,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="9xT-Gj-ryF" id="ocQ-Pu-ChE"/>
                         <outlet property="contentDetailTableView" destination="fsd-Io-eAj" id="kFf-5t-Fin"/>
                         <outlet property="contentInfoImageView" destination="nTz-bI-50A" id="qjl-nP-4hu"/>
                         <outlet property="contentTitleLabel" destination="oLB-Ii-Qg0" id="ZrE-fS-Anw"/>

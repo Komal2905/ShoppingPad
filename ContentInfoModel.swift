@@ -16,14 +16,13 @@ import Foundation
 
 class ContentParticipantDataModel
 {
-    var mParticipantName : String!
-    var mParticipantLastOpenedDate : String!
-    var mParticipantAction : String!
-    var mParticipantViewCount : Int!
-    var mParticipantImageView : String!
-    var mParticipantId : Int!
-    var mContentID : Int!
-    
+    var mParticipantName = String()
+    var mParticipantLastOpenedDate = String()
+    var mParticipantAction = String()
+    var mParticipantViewCount = Int()
+    var mParticipantImageView = String()
+    var mParticipantId = Int()
+    var mContentID = Int()
     
     // intialize ContentParticipantModel with value of Dictionary
     init(contentParticipant : NSDictionary)

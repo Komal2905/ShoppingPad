@@ -54,6 +54,8 @@ class CustomCell: UITableViewCell {
     
     @IBOutlet weak var participantViewCountLabel: UILabel!
     
+    @IBOutlet weak var participantShare: UIButton!
+    
     override func awakeFromNib()
     {
         super.awakeFromNib()

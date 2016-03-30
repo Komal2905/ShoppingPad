@@ -59,13 +59,13 @@ struct ContentView
 // this structure holds variable for ContentParticipant
 struct ContentParticipant
 {
-    var mParticipantName : String!
-    var mParticipantLastOpenedDate : String!
-    var mParticipantAction : String!
-    var mParticipantViewCount : Int!
-    var mParticipantImageView : String!
-    var mParticipantId : Int!
-    var mContentID : Int!
+    var mParticipantName = String()
+    var mParticipantLastOpenedDate = String()
+    var mParticipantAction = String()
+    var mParticipantViewCount = Int()
+    var mParticipantImageView = String()
+    var mParticipantId = Int()
+    var mContentID = Int()
 }
 
 
@@ -138,6 +138,8 @@ class ContentListController : PControllerListener
         
         if (self.isConnectedToNetwork())
         {
+            print("Connected to internet")
+            
             mContentListRestServiceHandler = ContentListRestServiceHandler()
             
             //get ContentInfo from Rest
@@ -153,7 +155,7 @@ class ContentListController : PControllerListener
         // Then fetch data from Database
         else
         {
-            print("NotConnetcted To internet")
+            print("Not Connetcted To internet")
             
             // get ContentInfo from DB
             mContentListDBHandler.getContentInfo(self)
@@ -183,8 +185,6 @@ class ContentListController : PControllerListener
         
         else
         {
-            print("Inside Participant : Controller")
-            
             // get ContentDeatils from Database
             mContentListDBHandler.getContentDetails(self, contentId: contentId)
             
@@ -220,6 +220,7 @@ class ContentListController : PControllerListener
     // protocol function for COntentParticipant
     func updateContentParticipant(JsonContentParticipant : NSMutableArray)
     {
+      
         // populate ContentParticipant
         self.populateContentParticipant(JsonContentParticipant)
         
@@ -232,8 +233,6 @@ class ContentListController : PControllerListener
     // This function will populate COntentInfo in ContentListController
     func populateContentInfo(JsonContentInfo : NSMutableArray)
     {
-         print("REST CALLING")
-        
         // Iterate through Array
         for contentCount in 0...JsonContentInfo.count-1
         {
@@ -290,24 +289,28 @@ class ContentListController : PControllerListener
     // then in popultate Controller
     func populateContentParticipant(JsonContentParticipant : NSMutableArray)
     {
-        for pCount in 0...JsonContentParticipant.count-1
-        {
-            // populate ContentParticipantModel
+       // check whether json is empty or not
+        
             
-            let contentParticipantDictionary = JsonContentParticipant[pCount] as! NSDictionary
+             for pCount in  JsonContentParticipant//0...JsonContentParticipant.count-1
+             {
+                // populate ContentParticipantModel
             
-            // populate ContentParticipantModel
-            let mContentParticipantModel = ContentParticipantDataModel(contentParticipant: contentParticipantDictionary)
+                //let contentParticipantDictionary = JsonContentParticipant[pCount] as! NSDictionary
             
+                // populate ContentParticipantModel
+                let mContentParticipantModel = ContentParticipantDataModel(contentParticipant: pCount as! NSDictionary)
             
-            // populate COntrollers structure ContentDetails
-            let set = ContentParticipant(mParticipantName: mContentParticipantModel.mParticipantName, mParticipantLastOpenedDate: mContentParticipantModel.mParticipantLastOpenedDate, mParticipantAction: mContentParticipantModel.mParticipantAction, mParticipantViewCount: mContentParticipantModel.mParticipantViewCount, mParticipantImageView: mContentParticipantModel.mParticipantImageView, mParticipantId: mContentParticipantModel.mParticipantId, mContentID: mContentParticipantModel.mContentID)
+           
+                // populate COntrollers structure ContentDetails
+                let set = ContentParticipant(mParticipantName: mContentParticipantModel.mParticipantName, mParticipantLastOpenedDate: mContentParticipantModel.mParticipantLastOpenedDate, mParticipantAction: mContentParticipantModel.mParticipantAction, mParticipantViewCount: mContentParticipantModel.mParticipantViewCount, mParticipantImageView: mContentParticipantModel.mParticipantImageView, mParticipantId: mContentParticipantModel.mParticipantId, mContentID: mContentParticipantModel.mContentID)
             
-            mContentParticipant.append(set)
+                mContentParticipant.append(set)
             
             // Insert Into Database
-            mContentListDBHandler.inserContenParticiapnt(set)
-        }
+                mContentListDBHandler.inserContenParticiapnt(set)
+            }
+            
         
     }
 

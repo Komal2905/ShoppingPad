@@ -116,11 +116,11 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
         // are populate we execute this function twice.
         if (mCheck == false)
         {
-        //Populate  ViewModel
-        self.populateUserContentData()
+            //Populate  ViewModel
+            self.populateUserContentData()
         
-        // callback to ContentListViewController
-        mContentViewObserver?.updateContentListViewModel()
+            // callback to ContentListViewController
+            mContentViewObserver?.updateContentListViewModel()
             
         }
         mCheck = false
@@ -132,8 +132,6 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
     {
         //get Content from Controller
         let mContentData = mContentListController!.getContentData(1)
-        
-        print("mContentData Count",mContentData.info.count)
         
         //get Content Info
         let mContentInfo = mContentData.info
@@ -203,20 +201,6 @@ class ContentListViewModelHandler : PContentListInformerToViewModel
 
     }
     
-    
-    // This function will bind the model with UI
-    func bindModel()
-    {
-        // Reactive
-        let test =  ObservableCollection([cViewModel!])
-        
-        test.observe{ e in
-            print("Aray Collection",e.collection)
-            
-        }
-    
-    }
-
         
     // Populate Dummy content data for ContentListViewModelHandler Structure
         func populateDummyContentData() ->[ContentViewModel]

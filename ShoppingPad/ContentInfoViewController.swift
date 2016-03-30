@@ -36,6 +36,7 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
     // perticular content
     @IBOutlet weak var participantTable: UITableView!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     // use Utility class function for Round Image
     var util = Util()
 
@@ -56,20 +57,19 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
     
     //create object of ContentInfoViewModel of ViewModel
     var mContentParticipantViewModel : ContentParticipantViewModel!
-
     
     override func viewDidLoad()
     {
-         super.viewDidLoad()
+        super.viewDidLoad()
         
+        self.activityIndicator.startAnimating()
         // create ContentImagevIew round shape
         util.roundImage(contentInfoImageView)
-        
-        
-        
+    
         // call constructor of ContentInfoViewModelHandler
         mContentInfoViewModelHandler = ContentInfoViewModelHandler(pContentParticipantViewObserver: self)
 
+        //mContentParticipantViewModel = ContentParticipantViewModel()
         
         // Strat Asyc Thread
         let qualityOfServiceClass = QOS_CLASS_BACKGROUND
@@ -81,13 +81,7 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
             ///call ContentInfoViewModelHandler method and pass ContentId
             self.mContentInfoViewModelHandler.populateContentParticipantData(self.mContentId)
             
-            // for DB
-                    //self.mContentInfoViewModelHandler.getContentDetail(self.mContentId)
-            
-        })
-        
-        
-        
+            })
         
     }
 
@@ -115,7 +109,7 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
         }
         else
         {
-            numberOfrow = mContentInfoViewModelHandler.mContentInfoViewModelArray.count
+            numberOfrow = mContentInfoViewModelHandler.mContentParticipantViewModelArray.count
         }
         return numberOfrow
         
@@ -166,36 +160,41 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
             
             
         }
-        
     
        
         // check for participant details table
         if tableView == participantTable
         {
-            //get Content Info
-            //mContentInfoViewModel = mContentInfoViewModelHandler!.getContentInfo(mContentId)
+            // set contentLabl
             
-                       
             //get ContentInfo  data for each cell
             mContentParticipantViewModel =  mContentInfoViewModelHandler!.getContentInfoViewModel(indexPath.row)
             
              // construct cell with identifier participantCell
             customCell = participantTable.dequeueReusableCellWithIdentifier("participantCell") as! CustomCell
             
-
-                        // create round profile Image of participant
+            // Checking wheteher Participant table Has any value
+             if(self.mContentInfoViewModelHandler.mContentParticipantViewModelArray[0].mParticipantId.value == "")
+             {
+                // hides ImageView and Button
+                customCell.participantProfileImageView.hidden = true
+                customCell.participantShare?.hidden = true
+               
+             }
+            // bind ContentTitle
+                //mContentParticipantViewModel!.mContentTitle.bindTo(self.contentTitleLabel)
+            
+            // create round profile Image of participant
             util.roundImage(customCell.participantProfileImageView)
             
-            
-            //print("HELLLO",(mContentInfoViewModel!.mContentImage.value))
             let mParticipnatImage = util.getImage((mContentParticipantViewModel!.mParticipantImageView.value))
-            
             
             customCell.participantProfileImageView.image = mParticipnatImage
             
+            
             // call data binding
             
-            self.bind(customCell, contentParticipantViewModel: mContentParticipantViewModel)
+            self.bind(customCell, contentParticipantViewModel: mContentParticipantViewModel!)
            
         }
         
@@ -210,14 +209,17 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
             // bind participant name
             contentParticipantViewModel.mParticipantName.bindTo(customCell.participantNameLabel)
         
+            // bind participantAction
             contentParticipantViewModel.mParticipantAction.bindTo(customCell.participantLastActionLabel)
         
-        contentParticipantViewModel.mParticipantLastOpenedDate.bindTo(customCell.participantLastViewDateLabel)
+            // bind participant Last Action
+            contentParticipantViewModel.mParticipantLastOpenedDate.bindTo(customCell.participantLastViewDateLabel)
         
+            // bind  Participant Count
             contentParticipantViewModel.mParticipantViewCount.bindTo(customCell.participantViewCountLabel)
         
-            // set contentLable
             contentParticipantViewModel.mContentTitle.bindTo(self.contentTitleLabel)
+
         
     }
 
@@ -228,9 +230,13 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
         //tranfer to main thred for asychThred
         dispatch_async(dispatch_get_main_queue())
         { [unowned self] in
-                self.contentDetailTableView.reloadData()
-                self.participantTable.reloadData()
+        
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.hidesWhenStopped = true
+            self.participantTable.reloadData()
         }
     }
+    
+    
    
 }

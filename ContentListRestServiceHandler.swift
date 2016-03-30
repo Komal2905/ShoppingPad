@@ -66,12 +66,7 @@ class ContentListRestServiceHandler
             // Populate dummy data for ContentINFO REST
             populateContentDetailsDummy()
         }
-        
-//        else
-//        {
-//           populateContentInfoData()
-//
-//        }
+    
 
     }
     
@@ -80,7 +75,7 @@ class ContentListRestServiceHandler
     func populateContentInfoData(pContentListListener : PControllerListener)
     {
       // define StringURL
-        let urlString = "http://54.86.64.100:3000/api/v4/content/info"
+        let urlString = "http://54.86.64.100:3000/api/v1/content/content-info"
         
         //Convert String to URL
         let url = NSURL(string: urlString)
@@ -115,7 +110,7 @@ class ContentListRestServiceHandler
     func populateContentViewData(pContentListListener : PControllerListener)
     {
         // define StringURL
-        let urlString = "http://54.86.64.100:3000/api/v4/content/View"
+        let urlString = "http://54.86.64.100:3000/api/v1/content/user-content-view"
         
         //Convert String to URL
         let url = NSURL(string: urlString)
@@ -132,7 +127,6 @@ class ContentListRestServiceHandler
                     self.jsonContentView = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
                     
                     
-                    print("----self.jsonContentView",self.jsonContentView)
                     //pass ContentView To Protocol
                     pContentListListener.updateControllerViewModel(self.jsonContentView)
                     
@@ -156,11 +150,9 @@ func populateParticipantDetails(pContentParticipantListener : PControllerListene
 {
     // post parameter
     let postParams : [Int] = [content]
-    
     //url String
-    let postEndpoint: String = "http://54.86.64.100:3000/api/v4/content/\(postParams[0])/participant/"
+    let postEndpoint: String = "http://54.86.64.100:3000/api/v1/content/\(postParams[0])/participant"
     
-    print("postEndpoint",postEndpoint)
     // convert string to NSURL
     let url = NSURL(string: postEndpoint)!
             
@@ -206,7 +198,6 @@ func populateParticipantDetails(pContentParticipantListener : PControllerListene
             // Convert NSData to Dictionary where keys are of type String, and values are of any type
             self.jsonContentParticipants = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
             
-            print("self.jsonContentParticipants",self.jsonContentParticipants)
             // call back to ContentInfoController
             pContentParticipantListener.updateContentParticipant(self.jsonContentParticipants )
         }

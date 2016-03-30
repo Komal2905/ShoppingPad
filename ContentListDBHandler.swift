@@ -59,9 +59,7 @@ class ContentListDBHandler
             // create table ContentInfo
             let createContentInfo = "CREATE TABLE  IF NOT EXISTS ContentInfo (content_id INT NOT NULL, contentLink VARCHAR(100) NULL, contentType VARCHAR(100),created_at VARCHAR(100), decription VARCHAR(100), display_name VARCHAR(100), imagesLink VARCHAR(100), modified_at VARCHAR(100), syncDateTime VARCHAR(100),  title INT, url VARCHAR(50), zip VARCHAR(50), PRIMARY KEY (content_id))"
             
-            
-            
-            
+        
             // create table ContentView
             let createContentView = "CREATE TABLE IF NOT EXISTS ContentView (contentId INT NOT NULL, action VARCHAR(45) NULL, displayProfile VARCHAR(50), email VARCHAR(50), firstName VARCHAR(50), lastName VARCHAR(50), lastViewedDateTime VARCHAR(45), numberOfView INT ,numberofparticipant INT, userAdminId INT, userContentId INT, userId INT, PRIMARY KEY (contentId) )"
             
@@ -74,20 +72,13 @@ class ContentListDBHandler
             {
                 print("Error: \(shoppingPad.lastErrorMessage())")
             }
-            else
-            {
-                print("Table Created")
-            }
+            
             
             if !shoppingPad.executeStatements(createContentView)
             {
                 print("Error: \(shoppingPad.lastErrorMessage())")
             }
             
-            else
-            {
-                print("ContentView Table Created")
-            }
             
             if !shoppingPad.executeStatements(createContentParticipant)
             {
@@ -237,14 +228,9 @@ class ContentListDBHandler
             // seperate value form resultset
             while(contentInfo.next() == true)
             {
-                print("Some data macth in Info")
-                
                 // conver to NsDictionary and add to Array
-                //contentInfoArray.append(contentInfo.resultDictionary())
-                
-                print("ResultDict", contentInfo.resultDictionary())
                 contentInfoArray.addObject(contentInfo.resultDictionary())
-                print("contentInfoArray in DB ", contentInfoArray)
+        
             }
             
             
@@ -281,12 +267,8 @@ class ContentListDBHandler
             // seperate value form resultset
             while(contentView.next() == true)
             {
-                print("Some data macth in VIew")
-                
                 // conver to NsDictionary and add to Array
                 contentViewArray.addObject(contentView.resultDictionary())
-                print("contentViewArray in DB ", contentViewArray)
-                
             }
             
             shoppingPad.close()
@@ -305,8 +287,7 @@ class ContentListDBHandler
     // This function will fetch ContentInfoData from ContentInfo Table for perticular ContenId; CHECKING Offline
     func getContentDetails(pContentListListener : PControllerListener, contentId : Int)
     {
-        
-        print("IN LOCALDB ---")
+        print("Inside Database")
         
         if shoppingPad == nil
         {
@@ -325,8 +306,6 @@ class ContentListDBHandler
             {
             // conver to NsDictionary and add to Array
                 contentInfoArray.addObject(contentInfo.resultDictionary())
-                print("contentINFOArray in DB ", contentInfoArray)
-                
             }
             shoppingPad.close()
         }
@@ -339,10 +318,6 @@ class ContentListDBHandler
         // callback to controller protocol
         pContentListListener.updateControllerInfoModel(self.contentInfoArray)
     }
-
-    
-    
-    
     
     // this function return ContentParticipant for perticular COntentId
     func getContentParticipant(pContentParticipantListener : PControllerListener, contentId : Int)
@@ -358,20 +333,15 @@ class ContentListDBHandler
             // fro select query
             let getParticipant = "SELECT * FROM ContentParticipant where contentId = \(contentId)"
             
-            print("GetParticipantQuery ",getParticipant)
-            
             contentParticipant = shoppingPad.executeQuery(getParticipant, withArgumentsInArray: nil)
             
             while(contentParticipant.next() == true)
             {
-                print("Some Match  In participant ")
-                
                 contentParticipantArray.addObject(contentParticipant.resultDictionary())
             }
             
             shoppingPad.close()
         }
-        
         
          pContentParticipantListener.updateContentParticipant(self.contentParticipantArray )
     }
@@ -409,7 +379,6 @@ class ContentListDBHandler
             }
             shoppingPad.close()
         }
-        print("ISEMPTY", isEmpty)
         return isEmpty
     }
 

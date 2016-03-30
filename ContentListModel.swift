@@ -14,23 +14,22 @@ import UIKit
 // define classs for ContentInfo
 class ContentInfoDataModel
 {
-    var mcontentLink  : String!     // Thumbview Image link of the Content
-    var mContentType : String!
-    var mContentID : Int!          // Content ID
-    var mCreatedAt : String!
-    var mDescription : String!
-    var mContentDisplay : String!    // Title of Content
-    var mContentImage : String!     // Thumbview Image link of the Content
-    var mModifiedAt : String!
-    var mSyncDateTime : String!
-    var mContentTitle : Int!
-    var mContentUrl : String!
-    var mContentZip : String!
+    var mcontentLink  = String()    // Thumbview Image link of the Content
+    var mContentType = String()
+    var mContentID = Int()          // Content ID
+    var mCreatedAt = String()
+    var mDescription = String()
+    var mContentDisplay = String()   // Title of Content
+    var mContentImage = String()     // Thumbview Image link of the Content
+    var mModifiedAt = String()
+    var mSyncDateTime = String()
+    var mContentTitle = Int()
+    var mContentUrl = String()
+    var mContentZip = String()
         
     // constructor
     init(info : NSDictionary)
     {
-        print("INFO IN MODLE", info)
         mcontentLink = info["contentLink"] as! String
         
         mContentType = info["contentType"] as! String
@@ -64,24 +63,22 @@ class ContentInfoDataModel
 
 class ContentViewDataModel
 {
-    var mContentID : Int!           // Content ID
-    var mActionPerformed : String!  // shows which action has been last performed on Content
-    var mDisplayProfile : String!
-    var mEmail : String!
-    var mFirstName : String!
-    var mLastName : String!
+    var mContentID = Int()              // Content ID
+    var mActionPerformed = String()     // shows which action has been last performed on Content
+    var mDisplayProfile = String()      // For display
+    var mEmail = String()               // Store Email
+    var mFirstName = String()
+    var mLastName = String()
     var mLastViewedDate : String!   // last viewed time of Content
-    var mNumberOfViews : Int!       // Total views of content
-    var mNumberOfParticipant : Int! // Total participant of Content
-    var mUserAdminId : Int!
-    var mUserContentId : Int!
-    var mUserId : Int!
+    var mNumberOfViews = Int()        // Total views of content
+    var mNumberOfParticipant = Int()  // Total participant of Content
+    var mUserAdminId = Int()
+    var mUserContentId = Int()
+    var mUserId = Int() 
    
     // intialize with Dictionary
     init(view : NSDictionary)
     {
-        
-        print("View in MODEL",view)
         
         mContentID = view["contentId"] as! Int
         
