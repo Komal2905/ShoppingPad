@@ -20,6 +20,11 @@ import UIKit
 // for cheking Network Connection
 import SystemConfiguration
 
+import ReactiveKit
+import ReactiveUIKit
+import ReactiveFoundation
+
+import Alamofire
 
 // Structure holding ContentInfo
 struct ContentInfo
@@ -72,6 +77,9 @@ struct ContentParticipant
 // this class Implement PContentListListener protocol
 class ContentListController : PControllerListener
 {
+    // utility class
+    var mUtil = Util()
+    
     // for Unit Test
     var mIsUnitTest : Bool = false
     
@@ -251,10 +259,13 @@ class ContentListController : PControllerListener
             // append set to ContentInfo's Array
             mContentInfo.append(set)
             
+           // self.storeImageLocally(mContentInfo[contentCount].mContentImage, index: contentCount)
+            
             // pass array for insertion in table ContentInfo
             mContentListDBHandler!.insertContentInfo(set)
-        
+            
         }
+        
     }
     
 
@@ -292,7 +303,7 @@ class ContentListController : PControllerListener
        // check whether json is empty or not
         
             
-             for pCount in  JsonContentParticipant//0...JsonContentParticipant.count-1
+             for pCount in  JsonContentParticipant
              {
                 // populate ContentParticipantModel
             
@@ -308,7 +319,9 @@ class ContentListController : PControllerListener
                 mContentParticipant.append(set)
             
             // Insert Into Database
-                mContentListDBHandler.inserContenParticiapnt(set)
+                    mContentListDBHandler.inserContenParticiapnt(set)
+                
+         
             }
             
         
@@ -348,12 +361,10 @@ class ContentListController : PControllerListener
         }
     }
     
- 
     
-    
-// function for cheking NetConnection
-func isConnectedToNetwork() -> Bool
-{
+    // function for cheking NetConnection
+    func isConnectedToNetwork() -> Bool
+    {
         // for socket address
         var zeroAddress = sockaddr_in()
     
@@ -363,14 +374,16 @@ func isConnectedToNetwork() -> Bool
     
         let defaultRouteReachability = withUnsafePointer(&zeroAddress)
         {
-            SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
+                SCNetworkReachabilityCreateWithAddress(nil, UnsafePointer($0))
         }
+        
         var flags = SCNetworkReachabilityFlags()
     
         if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags)
         {
             return false
         }
+        
         let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
     
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
@@ -378,13 +391,41 @@ func isConnectedToNetwork() -> Bool
         return (isReachable && !needsConnection)
     }
     
+    
+    
+    // this function save Image In local Storage
+    
+    func storeImageLocally(name : String, index : Int)
+    {
+        
+        let image : UIImage =  mUtil.getImage(name)
+        
+        // define directory path
+        let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory,
+            .UserDomainMask, true)
+        
+        print("DIrpath ",dirPaths)
+        
+        let docsDir = dirPaths[0] as NSString // String
+        
+        let destinationPath =  docsDir.stringByAppendingPathComponent("filename\(index).jpg")
+        
+        //write to path
+        UIImageJPEGRepresentation(image,1.0)!.writeToFile(destinationPath, atomically: true)
+        
+        
+    }
+
+    
     // return number of content in ContentInfo
     // This method will be called from ViewModel
-    func contentViewModelCount() -> Int
-    {
-        return mContentInfo.count
-    }
+func contentViewModelCount() -> Int
+{
+    return mContentInfo.count
+}
     
+    
+
 
    /*
     // this function will insert ContentInfo array in table named ContentInfo

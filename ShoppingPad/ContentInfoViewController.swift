@@ -220,8 +220,28 @@ class ContentInfoViewController: UIViewController,UITableViewDataSource, UITable
             contentParticipantViewModel.mParticipantViewCount.bindTo(customCell.participantViewCountLabel)
         
             
-        
+            //bind contentTitleLabel
             contentParticipantViewModel.mContentTitle.bindTo(self.contentTitleLabel)
+        
+            //bind ContentImageView
+        
+            let contentImageUrl = NSURL(string: contentParticipantViewModel.mContentTitle.value)
+        
+            // check URL null or not
+            if(contentImageUrl != nil)
+            {
+                // call utility function for fetch image
+                let contentImage : ObservableBuffer<UIImage>? = util.fetchImage(contentImageUrl!).shareNext()
+            
+                // check COntentImage Is Null
+                if((contentImage) != nil)
+                {
+                    // bind ImageView
+                
+                    contentImage?.bindTo(self.contentInfoImageView)
+                }
+            }
+           // contentParticipantViewModel.mParticipantImageView.bindTo(self.contentInfoImageView)
 
         
     }

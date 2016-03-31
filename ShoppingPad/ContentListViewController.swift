@@ -45,7 +45,7 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     // for selection of ContentId ; used in ContentInfoViewCOntrolle
     var mContentIdPass : Int!
     
-    var contentViewModel : ContentListViewModel!
+   // var contentViewModel : ContentListViewModel!
     
     override func viewDidLoad()
     {
@@ -96,11 +96,11 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        customCell = tableView.dequeueReusableCellWithIdentifier("cell") as! CustomCell
+        var customCell = tableView.dequeueReusableCellWithIdentifier("cell") as! CustomCell
         
         // set value to outlet of CustomCell
         // call getContentViewModel function in ViewModel for respective list
-        contentViewModel = (mContentListViewModel?.getContentViewModel(indexPath.row))! as  ContentListViewModel
+        var contentViewModel = (mContentListViewModel?.getContentViewModel(indexPath.row))! as  ContentListViewModel
         
         
         // call Util method for round imageview
@@ -128,7 +128,6 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         //bind mContentLastViewedDate Label with contentViewModel!.mLastViewedDate
         contentViewModel!.mLastViewedDate.bindTo(customCell.mContentLastViewedDate)
         
-        
         //bind mContentActioLabel Label with contentViewModel!.mActionPerformed
         contentViewModel!.mActionPerformed.bindTo(customCell.mContentActioLabel)
         
@@ -140,12 +139,42 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         contentViewModel!.mNumberOfViews.bindTo(customCell.mContentViewLabel)
         
         // bind ImageView
-     
-        let contentImage = util.getImage(contentViewModel!.mContentImage.value)
-        customCell.mContentImageView.image = contentImage
-    
+        let contentImageUrl = NSURL(string: contentViewModel.mContentImage.value)
         
-            //contentViewModel.mContentImage.bindTo(customCell.mContentImageView.value)
+        print("contentImageUrl OUTSIDE",contentImageUrl)
+        
+        // check URL null or not
+        if(contentImageUrl != nil)
+        {
+            // call utility function for fetch image
+            let contentImage : ObservableBuffer<UIImage>? = util.fetchImage(contentImageUrl!).shareNext()
+            
+            // check COntentImage Is Null
+            if((contentImage) != nil)
+            {
+                // bind ImageView
+                
+                //contentViewModel.mContentImage.bindTo(contentImage)
+                
+                contentImage?.bindTo(customCell.mContentImageView)
+            }
+            
+            else
+            {
+                print("ContentImage Is null",contentViewModel.mContentID.value)
+            }
+            
+        }
+        else
+        {
+             print("ContentImageURL Is null",contentViewModel.mContentID.value)
+        }
+        
+        //let contentImage = util.getImage(contentViewModel!.mContentImage.value)
+        //customCell.mContentImageView.image = contentImage
+
+        
+        // checking for Local storage
         
     }
     
@@ -166,7 +195,7 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
     }
-
+    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {

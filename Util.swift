@@ -54,17 +54,35 @@ class Util
         // if url exist
         if (url != nil)
         {
+            print("URL is not nil")
             // fetch the imageData from url
-            let data = NSData(contentsOfURL: url!)
+                //let data = NSData(contentsOfURL: url!)
+            
+            Alamofire.request(.GET, url!).response()
+                {
+                (_, _, data, _) in
+                    if(data != nil)
+                    {
+                        convertedImage = UIImage(data: data! )!
+                    }
+                   
+                }
             
             // if image data exist
+            /*
             if (data != nil)
             {
+                print("Data is not nill")
                 // convert imagedata back to an image
                 convertedImage = UIImage(data: data!)!
             }
+            else
+            {
+                print("Data is nill")
+                return convertedImage
+            }*/
         }
-        
+      
         return convertedImage
     }
     
@@ -95,16 +113,23 @@ class Util
     }
     
 
-    func fetchImage(url: NSURL) -> Operation<UIImage, NSError> {
+    // this function uses Almafire Libary for image fetching form URL
+    func fetchImage(url: NSURL) -> Operation<UIImage, NSError>
+    {
         return Operation { observer in
             
             // use almofire to deal with server request
             let request = Alamofire.request(.GET, url).response { request, response, data, error in
                 
                 // if error occurs then abort the operation
-                if let error = error {
+                if let error = error
+                {
+                    observer.next(UIImage(named: "defaultImage.png")!)
+                
                     observer.failure(error)
-                } else {
+                }
+                else
+                {
                     // if doesnt occurs error then convert imageData back to image
                     observer.next(UIImage(data : data!)!)
                     observer.success()
@@ -112,10 +137,43 @@ class Util
             }
             
             // if response is nil then execute this block
-            return BlockDisposable {
+            return BlockDisposable
+            {
                 request.cancel()
             }
         }
     }
+    
+    
+    // this function uses Almafire Libary for image fetching form URL
+    func fetchImage1(url: NSURL) -> UIImage
+    {
+       
+        var convertedImage = UIImage()
+        // use almofire to deal with server request
+        let request = Alamofire.request(.GET, url).response { request, response, data, error in
+                
+            // if error occurs then abort the operation
+            if let error = error
+            {
+                //if URL is Invalied then Return Default Image
+                convertedImage = UIImage(named: "defaultImage.png")!
+                
+            }
+            else
+            {
+                // if doesnt occurs error then convert imageData back to image
+                convertedImage = UIImage(data : data!)!
+                    
+            }
+        }
+        
+        // return Image
+        
+        return convertedImage
+        
+    }
+
+    
 
 }
