@@ -26,6 +26,7 @@ import ReactiveFoundation
 
 import Alamofire
 
+
 // Structure holding ContentInfo
 struct ContentInfo
 {
@@ -259,12 +260,15 @@ class ContentListController : PControllerListener
             // append set to ContentInfo's Array
             mContentInfo.append(set)
             
+            mUtil.downloadImage(mContentInfo[contentCount].mContentImage as NSString)
            // self.storeImageLocally(mContentInfo[contentCount].mContentImage, index: contentCount)
             
             // pass array for insertion in table ContentInfo
             mContentListDBHandler!.insertContentInfo(set)
-            
+           
         }
+        
+        //mUtil.downloadImage(mContentInfo[1].mContentImage as NSString)
         
     }
     

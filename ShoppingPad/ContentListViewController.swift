@@ -143,6 +143,9 @@ class ContentListViewController: UIViewController, UITableViewDataSource, UITabl
         
         print("contentImageUrl OUTSIDE",contentImageUrl)
         
+        
+        
+        
         // check URL null or not
         if(contentImageUrl != nil)
         {

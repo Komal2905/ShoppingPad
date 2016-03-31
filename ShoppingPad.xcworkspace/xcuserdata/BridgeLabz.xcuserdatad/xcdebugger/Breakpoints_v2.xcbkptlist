@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShoppingPad/ContentListViewController.swift"
-            timestampString = "481040885.881065"
+            timestampString = "481117655.599137"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
             landmarkName = "prepareForSegue(_:sender:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ContentListController.swift"
-            timestampString = "481100810.99621"
+            timestampString = "481115472.29599"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "populateParticipantDetails(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,7 +154,7 @@
                   moduleName = "ShoppingPad"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/BridgeLabz/Documents/komal/ShoppingPad/ShoppingPad/ContentInfoViewController.swift"
-                  timestampString = "481110357.708281"
+                  timestampString = "481120537.687581"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "200"
@@ -169,7 +169,7 @@
                   moduleName = "ShoppingPad"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/BridgeLabz/Documents/komal/ShoppingPad/ShoppingPad/ContentInfoViewController.swift"
-                  timestampString = "481110357.708529"
+                  timestampString = "481120537.687974"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "200"
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShoppingPad/ContentListViewController.swift"
-            timestampString = "481041028.100326"
+            timestampString = "481117655.599137"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "bind(_:contentViewModel:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -234,92 +234,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShoppingPad/ContentListViewController.swift"
-            timestampString = "481041030.636532"
+            timestampString = "481117655.599137"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "bind(_:contentViewModel:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Util.swift"
-            timestampString = "481103391.740514"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "fetchImage1(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Util.swift"
-            timestampString = "481103391.740514"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
-            landmarkName = "fetchImage1(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Util.swift"
-            timestampString = "481103391.740514"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "fetchImage1(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Util.swift"
-            timestampString = "481103391.740514"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "fetchImage1(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Util.swift"
-            timestampString = "481103391.740514"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
-            landmarkName = "fetchImage1(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -337,38 +257,6 @@
             endingLineNumber = "122"
             landmarkName = "fetchImage(_:)"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ShoppingPad.Util.(fetchImage (ShoppingPad.Util) -&gt; (__ObjC.NSURL) -&gt; ReactiveKit.Operation&lt;__ObjC.UIImage, __ObjC.NSError&gt;).(closure #1)"
-                  moduleName = "ShoppingPad"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/BridgeLabz/Documents/komal/ShoppingPad/Util.swift"
-                  timestampString = "481110357.724783"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "122"
-                  endingLineNumber = "122"
-                  offsetFromSymbolStart = "42">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ShoppingPad.Util.(fetchImage (ShoppingPad.Util) -&gt; (__ObjC.NSURL) -&gt; ReactiveKit.Operation&lt;__ObjC.UIImage, __ObjC.NSError&gt;).(closure #1).(closure #1)"
-                  moduleName = "ShoppingPad"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/BridgeLabz/Documents/komal/ShoppingPad/Util.swift"
-                  timestampString = "481110357.725027"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "125"
-                  endingLineNumber = "125"
-                  offsetFromSymbolStart = "54">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -378,27 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Util.swift"
-            timestampString = "481103391.740514"
+            timestampString = "481113940.986663"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "fetchImage(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Util.swift"
-            timestampString = "481103391.740514"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "142"
-            endingLineNumber = "142"
+            startingLineNumber = "140"
+            endingLineNumber = "140"
             landmarkName = "fetchImage(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -410,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShoppingPad/ContentListViewController.swift"
-            timestampString = "481109974.476201"
+            timestampString = "481117655.599137"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "bind(_:contentViewModel:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -426,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShoppingPad/ContentListViewController.swift"
-            timestampString = "481109977.644368"
+            timestampString = "481117655.599137"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "bind(_:contentViewModel:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -448,6 +320,70 @@
             startingLineNumber = "127"
             endingLineNumber = "127"
             landmarkName = "fetchImage(_:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ShoppingPad.Util.(fetchImage (ShoppingPad.Util) -&gt; (__ObjC.NSURL) -&gt; ReactiveKit.Operation&lt;__ObjC.UIImage, __ObjC.NSError&gt;).(closure #1)"
+                  moduleName = "ShoppingPad"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/BridgeLabz/Documents/komal/ShoppingPad/Util.swift"
+                  timestampString = "481120537.693145"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "127"
+                  endingLineNumber = "127"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ShoppingPad.Util.(fetchImage (ShoppingPad.Util) -&gt; (__ObjC.NSURL) -&gt; ReactiveKit.Operation&lt;__ObjC.UIImage, __ObjC.NSError&gt;).(closure #1).(closure #1)"
+                  moduleName = "ShoppingPad"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/BridgeLabz/Documents/komal/ShoppingPad/Util.swift"
+                  timestampString = "481120537.693639"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "69">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Util.swift"
+            timestampString = "481120992.441885"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "downloadImage(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Util.swift"
+            timestampString = "481120992.441885"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
+            landmarkName = "downloadImage(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

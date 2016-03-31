@@ -112,7 +112,12 @@ class Util
         return (isReachable && !needsConnection)
     }
     
-
+    
+    // testing Almo
+    
+    var testFetchError : Int = 0
+    var testFetchSuccess : Int = 0
+    
     // this function uses Almafire Libary for image fetching form URL
     func fetchImage(url: NSURL) -> Operation<UIImage, NSError>
     {
@@ -126,12 +131,18 @@ class Util
                 {
                     observer.next(UIImage(named: "defaultImage.png")!)
                 
+                    print("testFetchERRor : ",self.testFetchError)
+                    self.testFetchError = self.testFetchError+1
+                    
                     observer.failure(error)
                 }
                 else
                 {
                     // if doesnt occurs error then convert imageData back to image
                     observer.next(UIImage(data : data!)!)
+                    
+                    print("testFetchSuccess : ",self.testFetchSuccess)
+                    self.testFetchSuccess = self.testFetchSuccess+1
                     observer.success()
                 }
             }
@@ -169,11 +180,41 @@ class Util
         }
         
         // return Image
-        
         return convertedImage
-        
+    
     }
 
     
+    // This function dowload image in local path
+    func downloadImage(urle : NSString)
+    {
+        // Trimm white Space
+        let urlTrim = urle.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        
+        // Convert To NSString
+        let urlStr : NSString = urlTrim.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+       
+        
+        let url = NSURL(string:urlStr as String)
+        
+        print("URL of source1",urlTrim)
+        print("URL of sourcec3", url)
+        
+        // dowload Image To Local Path
+        Alamofire.download(.GET, url!)
+            {
+                temporaryURL, response in
+                // local path
+                let fileManager = NSFileManager.defaultManager()
+                let directoryURL = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
+                let pathComponent = response.suggestedFilename
+                
+                print("directoryURL",directoryURL)
+                return directoryURL.URLByAppendingPathComponent(pathComponent!)
+            }
+        
+        }
 
-}
+    }
+
+
